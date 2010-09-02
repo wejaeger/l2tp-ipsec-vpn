@@ -28,6 +28,8 @@
       <itemPath>src/dialogs/IpSettingsDialog.h</itemPath>
       <itemPath>src/conf/L2tpConfWriter.h</itemPath>
       <itemPath>src/L2tpIPsecVpnApplication.h</itemPath>
+      <itemPath>src/localpeer/LocalPeer.h</itemPath>
+      <itemPath>src/localpeer/LockedFile.h</itemPath>
       <itemPath>src/util/NetworkInterface.h</itemPath>
       <itemPath>src/util/NetworkInterfaceMonitor.h</itemPath>
       <itemPath>src/conf/OpensslConfWriter.h</itemPath>
@@ -90,6 +92,8 @@
       <itemPath>src/dialogs/IpSettingsDialog.ui</itemPath>
       <itemPath>src/conf/L2tpConfWriter.cpp</itemPath>
       <itemPath>src/L2tpIPsecVpnApplication.cpp</itemPath>
+      <itemPath>src/localpeer/LocalPeer.cpp</itemPath>
+      <itemPath>src/localpeer/LockedFile.cpp</itemPath>
       <itemPath>src/util/NetworkInterface.cpp</itemPath>
       <itemPath>src/util/NetworkInterfaceMonitor.cpp</itemPath>
       <itemPath>src/conf/OpensslConfWriter.cpp</itemPath>
@@ -152,14 +156,12 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
-          <Elem>include(../qtsingleapplication/src/qtsingleapplication.pri)</Elem>
         </defs>
       </qt>
       <compileType>
         <ccTool>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../qtsingleapplication/src</pElem>
             <pElem>../L2tpIPsecVpnControlDaemon/src</pElem>
           </incDir>
         </ccTool>
@@ -199,10 +201,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -258,7 +264,6 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
-          <Elem>include(../qtsingleapplication/src/qtsingleapplication.pri)</Elem>
         </defs>
       </qt>
       <compileType>
@@ -269,7 +274,6 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../qtsingleapplication/src</pElem>
             <pElem>../L2tpIPsecVpnControlDaemon/src</pElem>
           </incDir>
         </ccTool>
@@ -315,10 +319,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -373,14 +381,12 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
-          <Elem>include(../qtsingleapplication/src/qtsingleapplication.pri)</Elem>
         </defs>
       </qt>
       <compileType>
         <ccTool>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../qtsingleapplication/src</pElem>
             <pElem>../L2tpIPsecVpnControlDaemon/src</pElem>
           </incDir>
         </ccTool>
@@ -420,10 +426,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
