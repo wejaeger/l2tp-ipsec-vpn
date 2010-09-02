@@ -10,12 +10,13 @@
 #ifndef L2TPIPSECVPNAPPLICATION_H
 #define	L2TPIPSECVPNAPPLICATION_H
 
-#include <qtsingleapplication.h>
+#include <QApplication>
 
 class ConnectionManager;
 class QProcess;
+class LocalPeer;
 
-class L2tpIPsecVpnApplication : public QtSingleApplication
+class L2tpIPsecVpnApplication : public QApplication
 {
    Q_OBJECT
 
@@ -30,6 +31,7 @@ public:
    L2tpIPsecVpnApplication(int& iArgc, char** ppArgv);
    virtual ~L2tpIPsecVpnApplication();
 
+   bool isRunning();
    APPLICATIONMODE mode() const;
    bool sendConnectionAddedMessage(const QString& strConnectionName);
    bool sendConnectionRemovedMessage(const QString& strConnectionName);
@@ -53,6 +55,7 @@ private:
    bool isPasswordCallback() const;
 
    QProcess* const m_pProcess;
+   LocalPeer* const m_pLocalPeer;
 };
 
 #endif	/* L2TPIPSECVPNAPPLICATION_H */

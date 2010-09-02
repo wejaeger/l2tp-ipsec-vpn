@@ -11,6 +11,7 @@
 #include <QLocalSocket>
 #include <QProcess>
 
+#include "localpeer/LocalPeer.h"
 #include "ConnectionManager.h"
 #include "L2tpIPsecVpnApplication.h"
 #include "ConnectionEditor.h"
@@ -21,7 +22,7 @@ static QString const GKSUDO_CMD = "gksudo -D \"" + APPLICATIONNAME + "\" ";
 static QString const CONNECTION_ADDED_MSG_PREFIX = "connectionAdded:";
 static QString const CONNECTION_REMOVED_MSG_PREFIX = "connectionRemoved:";
 
-L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QtSingleApplication(iArgc, ppArgv), m_pProcess(new QProcess)
+L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QApplication(iArgc, ppArgv), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
@@ -31,7 +32,7 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : Qt
    qRegisterMetaType<NetworkInterface>("NetworkInterface");
    qRegisterMetaType<QAbstractSocket::SocketState>("QAbstractSocket::SocketState");
 
-   connect(this, SIGNAL(messageReceived(const QString&)), SLOT(onMessageReceived(const QString&)));
+   connect(m_pLocalPeer, SIGNAL(messageReceived(const QString&)), SLOT(onMessageReceived(const QString&)));
    connect(m_pProcess, SIGNAL(finished(int)), this, SLOT(onConnectionEditorDialogClosed(int)));
 
    if (mode() == CONNECTION_MANAGER)
@@ -40,7 +41,13 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : Qt
 
 L2tpIPsecVpnApplication::~L2tpIPsecVpnApplication()
 {
-   connect(this, SIGNAL(messageReceived(const QString&)), SLOT(onMessageReceived(const QString&)));
+   delete m_pLocalPeer;
+   delete m_pProcess;
+}
+
+bool L2tpIPsecVpnApplication::isRunning()
+{
+   return(m_pLocalPeer->isClient());
 }
 
 L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::mode() const
@@ -50,12 +57,12 @@ L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::mode() const
 
 bool L2tpIPsecVpnApplication::sendConnectionAddedMessage(const QString& strConnectionName)
 {
-   return(sendMessage(CONNECTION_ADDED_MSG_PREFIX + strConnectionName));
+   return(m_pLocalPeer->sendMessage(CONNECTION_ADDED_MSG_PREFIX + strConnectionName, 5000));
 }
 
 bool L2tpIPsecVpnApplication::sendConnectionRemovedMessage(const QString& strConnectionName)
 {
-   return(sendMessage(CONNECTION_REMOVED_MSG_PREFIX + strConnectionName));
+   return(m_pLocalPeer->sendMessage(CONNECTION_REMOVED_MSG_PREFIX + strConnectionName, 5000));
 }
 
 int L2tpIPsecVpnApplication::startConnectionEditorDialog() const
