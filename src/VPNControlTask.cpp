@@ -37,6 +37,8 @@ static const char* const STR_LOG_MATCH_AUTHFAILED = "LCP terminated by peer (Aut
 static const char* const STR_LOG_MATCH_NO_DATA = "No data from BIO_read";
 static const char* const STR_LOG_MATCH_PEERAUTHFAILED = "but I couldn't find any suitable secret (password) for it to use to do so.";
 
+static const int ERR_CONNECTING_TO_CONTROL_DAEMON(99);
+
 QFile VPNControlTask::m_vpnLogPipe(strVpnLogPipeName);
 
 VPNControlTask::VPNControlTask(QObject* pParent) : QThread(pParent), m_pControlClient(new VpnControlDaemonClient), m_Action(Connect), m_iReturnCode(0),
@@ -51,7 +53,7 @@ VPNControlTask::VPNControlTask(QObject* pParent) : QThread(pParent), m_pControlC
 
    m_pVpnLogPipeNotifier = new QSocketNotifier(m_vpnLogPipe.handle(), QSocketNotifier::Read, pParent);
 
-   connect(m_pVpnLogPipeNotifier, SIGNAL(activated(int)), this, SLOT(readyReadVpnLogPipe()));
+   connect(m_pVpnLogPipeNotifier, SIGNAL(activated(int)), SLOT(readyReadVpnLogPipe()));
 }
 
 VPNControlTask::~VPNControlTask()
@@ -145,7 +147,7 @@ bool VPNControlTask::createControlClient()
 
    if (!fConnected)
    {
-      m_iReturnCode = 99;
+      m_iReturnCode = ERR_CONNECTING_TO_CONTROL_DAEMON;
       emitErrorMsg("");
    }
 
@@ -213,7 +215,7 @@ void VPNControlTask::runAndWait(VpnClientConnection::Command iCommand, const QSt
 
    if (!m_pControlClient->start(iCommand, strArguments))
    {
-      m_iReturnCode = 99;
+      m_iReturnCode = ERR_CONNECTING_TO_CONTROL_DAEMON;
       emitErrorMsg("");
    }
    else
@@ -325,32 +327,58 @@ void VPNControlTask::emitErrorMsg(const QString& strErrorContext)
 
    switch (m_iReturnCode)
    {
-      case 90:
+      case VpnClientConnection::CMD_UNKNOWN:
          *m_pErrorStream << "L2tpIPsecVpnControlDaemon did not recognize the command sent";
          break;
 
-      case 91:
+      case VpnClientConnection::ERR_INALID_NO_OF_ARGUMENTS:
          *m_pErrorStream << "L2tpIPsecVpnControlDaemon is complained about the number of arguments in command '" << strErrorContext << "'";
          break;
 
-      case 99:
+      case VpnClientConnection::ERR_COMMAND_FAILED_TO_START:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' failed to start";
+         break;
+
+      case VpnClientConnection::ERR_COMMAND_CRASHED_AFTER_START:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' crashed after starting successfully";
+         break;
+
+      case VpnClientConnection::ERR_COMMAND_TIMEDOUT:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' timed out";
+         break;
+
+      case VpnClientConnection::ERR_COMMAND_FAILED_TO_READ_FROM_PROCESS:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' an error occurred when attempting to read from the process";
+         break;
+
+      case VpnClientConnection::ERR_COMMAND_FAILED_TO_WRITE_TO_PROCESS:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' an error occurred when attempting to write to the process";
+         break;
+
+      case VpnClientConnection::ERR_COMMAND_FAILED_WITH_UNKNOW_ERROR:
+         *m_pErrorStream << "L2tpIPsecVpnControlDaemon: command '" << strErrorContext << "' an unknown error occurred";
+         break;
+
+      case ERR_CONNECTING_TO_CONTROL_DAEMON:
          *m_pErrorStream << "L2tpIPsecVpnControlDaemon is either not started or connection to it failed";
          break;
 
-      case 100:
-         *m_pErrorStream << "The process '" << strErrorContext << "' failed to start";
-         break;
-
-      case 200:
+      case VpnClientConnection::ERR_WRITE_PIPE:
          *m_pErrorStream << "Failed to write command '" << strErrorContext << "' to l2tp-control";
          break;
 
-      case 210:
+      case VpnClientConnection::ERR_OPEN_PIPE:
          *m_pErrorStream << "Failed to open l2tp control file '" << strErrorContext << "'";
          break;
 
-      case 220:
+      case VpnClientConnection::ERR_CREATE_VPN_LOG_PIPE:
+      case VpnClientConnection::ERR_CHMOD_VPN_LOG_PIPE:
+      case VpnClientConnection::ERR_CHOWN_VPN_LOG_PIPE:
          *m_pErrorStream << "Failed to open l2tp ipsec vpn log file '" << strErrorContext << "'";
+         break;
+
+      case VpnClientConnection::ERR_START_SYSLOG_DAEMON:
+         *m_pErrorStream << "Failed to start syslog daemon '" << strErrorContext << "'";
          break;
 
       case 300:
