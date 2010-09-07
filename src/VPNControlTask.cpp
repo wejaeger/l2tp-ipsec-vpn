@@ -37,7 +37,13 @@ static const char* const STR_LOG_MATCH_AUTHFAILED = "LCP terminated by peer (Aut
 static const char* const STR_LOG_MATCH_NO_DATA = "No data from BIO_read";
 static const char* const STR_LOG_MATCH_PEERAUTHFAILED = "but I couldn't find any suitable secret (password) for it to use to do so.";
 
+static const int ERR_INTERRUPTED(98);
 static const int ERR_CONNECTING_TO_CONTROL_DAEMON(99);
+static const int ERR_IPSEC_SA_NOT_ESTABLISHED(300);
+static const int ERR_LOADING_CERTIFICATE(400);
+static const int ERR_AUTHENTICATION_FAILED(404);
+static const int ERR_WRONG_CERTIFICATE(405);
+static const int ERR_NO_SECRET_FOUND(406);
 
 QFile VPNControlTask::m_vpnLogPipe(strVpnLogPipeName);
 
@@ -102,6 +108,8 @@ int VPNControlTask::restartPcscDaemon()
 
    deleteControlClient();
 
+//   qDebug() << "VPNControlTask::restartPcscDaemon() -> finished";
+
    return(m_iReturnCode);
 }
 
@@ -132,6 +140,19 @@ void VPNControlTask::run()
    deleteControlClient();
 
 //   qDebug() << "VPNControlTask::run() -> finished";
+}
+
+/*!
+ * \brief Tries to stop this running thread.
+ *
+ * \param iWaitMiliSeconds wait at most this time.
+ * \retun true if the thread was stopped successfully, false otherwise.
+ */
+bool VPNControlTask::stop(unsigned long iWaitMiliSeconds)
+{
+   m_iReturnCode = ERR_INTERRUPTED;
+   exit(ERR_INTERRUPTED);
+   return(wait(iWaitMiliSeconds));
 }
 
 bool VPNControlTask::createControlClient()
@@ -183,9 +204,9 @@ void VPNControlTask::runConnect()
 
          runAndWait(VpnClientConnection::CMD_IPSEC_UP, m_strConnectionName);
 
-         if (!m_fIPSecConnectionIsUp)
+         if (m_iReturnCode == 0 && !m_fIPSecConnectionIsUp)
          {
-            m_iReturnCode = 300;
+            m_iReturnCode = ERR_IPSEC_SA_NOT_ESTABLISHED;
             emitErrorMsg("IPsec");
          }
 
@@ -239,7 +260,7 @@ qint64 VPNControlTask::readLogLine(char* data, qint64 iMaxSize)
 
       if (::strstr(data, STR_LOG_MATCH_CERTIFICATELOADERROR) != NULL)
       {
-         m_iReturnCode = 400;
+         m_iReturnCode = ERR_LOADING_CERTIFICATE;
          if (RE_LOG_CAP_CERTIFICATEID.indexIn(data) > 0)
             emitErrorMsg(RE_LOG_CAP_CERTIFICATEID.cap(1));
          else
@@ -247,17 +268,17 @@ qint64 VPNControlTask::readLogLine(char* data, qint64 iMaxSize)
       }
       if (::strstr(data, STR_LOG_MATCH_AUTHFAILED) != NULL)
       {
-         m_iReturnCode = 404;
+         m_iReturnCode = ERR_AUTHENTICATION_FAILED;
          emitErrorMsg(connectionName());
       }
       else if (::strstr(data, STR_LOG_MATCH_NO_DATA))
       {
-         m_iReturnCode = 405;
+         m_iReturnCode = ERR_WRONG_CERTIFICATE;
          emitErrorMsg(connectionName());
       }
       else if (::strstr(data, STR_LOG_MATCH_PEERAUTHFAILED))
       {
-         m_iReturnCode = 406;
+         m_iReturnCode = ERR_NO_SECRET_FOUND;
          emitErrorMsg(connectionName());
       }
    }
@@ -381,32 +402,24 @@ void VPNControlTask::emitErrorMsg(const QString& strErrorContext)
          *m_pErrorStream << "Failed to start syslog daemon '" << strErrorContext << "'";
          break;
 
-      case 300:
+      case ERR_IPSEC_SA_NOT_ESTABLISHED:
          *m_pErrorStream << "'" << strErrorContext << "' failed to negotiate or establish security associations";
          break;
 
-      case 310:
-         *m_pErrorStream << "'" << strErrorContext << "' did not start connecting to peer within given time";
-         break;
-
-      case 400:
+      case ERR_LOADING_CERTIFICATE:
          *m_pErrorStream << "Error loading certificate with id '" << strErrorContext << "'";
          break;
 
-      case 404:
+      case ERR_AUTHENTICATION_FAILED:
          *m_pErrorStream << "Authentication failed: closing connection to '" << strErrorContext << "'";
          break;
 
-      case 405:
+      case ERR_WRONG_CERTIFICATE:
          *m_pErrorStream << "Peer did not accept certificate sent from smart card: closing connection to '" << strErrorContext << "'";
          break;
 
-      case 406:
+      case ERR_NO_SECRET_FOUND:
          *m_pErrorStream << "No secret found to authenticate  '" << strErrorContext << "'";
-         break;
-
-      case 500:
-         *m_pErrorStream << "Connection to '" << strErrorContext << "' timed out";
          break;
 
       default:

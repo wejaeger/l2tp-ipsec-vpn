@@ -41,18 +41,20 @@ private slots:
    void iconActivated(QSystemTrayIcon::ActivationReason reason);
    void showMessage();
    void messageClicked();
-   void onCommandOutput(const QString& strOutputLine);
-   void readyReadLog();
-   void onErrorMsg(int iErrorCode);
-   void onTimeout();
-   void onVpnTaskFinished() { m_fIsExecuting = false; }
+   void detectConnectionState();
+   void onVpnTaskOutput(const QString& strOutputLine);
+   void onVpnTaskReadyReadLog();
+   void onVpnTaskErrorMsg(int iErrorCode);
+   void onVpnTaskTimeout();
+   void onVpnTaskFinished();
    void onConnectionAdded(const QString& strName);
    void onConnectionRemoved(const QString& strName);
    void onRouteAdded(NetworkInterface interface, unsigned int iPriority);
    void onRouteDeleted(NetworkInterface interface, unsigned int iPriority);
    void onPtpInterfaceIsUpAnRunning(NetworkInterface interface);
    void onPtpInterfaceIsGoingDown(NetworkInterface interface);
-   void detectConnectionState();
+   void onCheckPtpInterfaceIsUp();
+   void onCheckPtpInterfaceIsDown();
 
 private:
    typedef QList<QAction*> ActionList;
@@ -69,6 +71,7 @@ private:
    void connected(const QString& strConnectionName);
    void disConnected();
    void error(int iErrorCode);
+   QString connectionNameOfUpAndRunningPtpInterface() const;
 
    QAction* action(ActionType type) const;
 

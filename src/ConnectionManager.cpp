@@ -12,7 +12,6 @@
 #include <QMenu>
 #include <QTimer>
 #include <QMessageBox>
-#include <qt4/QtCore/qprocess.h>
 //#include <QDebug>
 
 #include "util/NetworkInterfaceMonitor.h"
@@ -35,22 +34,27 @@
     Creates a new ConnectionManager object.
 */
 
+static const int PTPINTERFACE_CHECK_UP_TIME(20000);
+static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
+static const int VPN_TASK_TIMOUT(40000);
+
+
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
-   m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
+  m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
 {
    connect(&m_Application, SIGNAL(connectionAdded(const QString&)), SLOT(onConnectionAdded(const QString&)));
    connect(&m_Application, SIGNAL(connectionRemoved(const QString&)), SLOT(onConnectionRemoved(const QString&)));
 
-   m_pTimeout->setInterval(40000);
+   m_pTimeout->setInterval(VPN_TASK_TIMOUT);
    m_pTimeout->setSingleShot(true);
-   connect(m_pTimeout, SIGNAL(timeout()), SLOT(onTimeout()));
+   connect(m_pTimeout, SIGNAL(timeout()), SLOT(onVpnTaskTimeout()));
 
    createActions();
 
    m_pVPNControlTask = new VPNControlTask(this);
-   connect(m_pVPNControlTask, SIGNAL(commandOutputReceived(const QString&)), SLOT(onCommandOutput(const QString&)));
-   connect(m_pVPNControlTask, SIGNAL(readyReadLog()), SLOT(readyReadLog()));
-   connect(m_pVPNControlTask, SIGNAL(errorMessageEmited(int)), SLOT(onErrorMsg(int)));
+   connect(m_pVPNControlTask, SIGNAL(commandOutputReceived(const QString&)), SLOT(onVpnTaskOutput(const QString&)));
+   connect(m_pVPNControlTask, SIGNAL(readyReadLog()), SLOT(onVpnTaskReadyReadLog()));
+   connect(m_pVPNControlTask, SIGNAL(errorMessageEmited(int)), SLOT(onVpnTaskErrorMsg(int)));
    connect(m_pVPNControlTask, SIGNAL(finished()), SLOT(onVpnTaskFinished()));
 }
 
@@ -141,9 +145,6 @@ void ConnectionManager::createTrayIcon()
 
 void ConnectionManager::onStatusChanged()
 {
-   if (m_pTimeout->isActive())
-      m_pTimeout->stop();
-
    if (m_pState->isState(ConnectionState::Connected))
    {
       enableAllConnections(false);
@@ -162,7 +163,7 @@ void ConnectionManager::onStatusChanged()
    else if (m_pState->isState(ConnectionState::Error))
    {
       enableAllConnections(true);
-      action(DISC)->setEnabled(true);
+      action(DISC)->setEnabled(false);
    }
    else
    {
@@ -207,6 +208,7 @@ void ConnectionManager::vpnConnect(const QString& strConnectionName)
             m_pVPNControlTask->start();
             m_fIsExecuting = true;
             m_pTimeout->start();
+         QTimer::singleShot(PTPINTERFACE_CHECK_UP_TIME, this, SLOT(onCheckPtpInterfaceIsUp()));
          }
       }
       else
@@ -247,6 +249,7 @@ void ConnectionManager::vpnDisconnect(bool fDontChangeStatus)
       m_pVPNControlTask->start();
       m_fIsExecuting = true;
       m_pTimeout->start();
+      QTimer::singleShot(PTPINTERFACE_CHECK_DOWN_TIME, this, SLOT(onCheckPtpInterfaceIsDown()));
    }
 
 //   qDebug() << "ConnectionManager::vpnDisconnect(bool" << fDontChangeStatus << ") -> finished";
@@ -285,19 +288,36 @@ void ConnectionManager::messageClicked()
    showConnectionInformation();
 }
 
-void ConnectionManager::onCommandOutput(const QString& strOutputLine)
+void ConnectionManager::detectConnectionState()
 {
-//   qDebug() << "ConnectionManager::onCommandOutput(const QString&" << strOutputLine << ")";
+   const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
+   if (!strConnectionName.isNull())
+   {
+      if (NetworkInterface::defaultGateway().size() == 1)
+         connected(strConnectionName);
+      else
+         vpnDisconnect(true);
+   }
+   else
+      onRouteAdded(NetworkInterface::null, 0);
+
+   NetworkInterfaceMonitor::instance()->subscribe(this);
+   NetworkInterfaceMonitor::instance()->start();
+}
+
+void ConnectionManager::onVpnTaskOutput(const QString& strOutputLine)
+{
+//   qDebug() << "ConnectionManager::onVpnTaskOutput(const QString&" << strOutputLine << ")";
 
    if (strOutputLine.trimmed().length() > 0)
       m_pConnectionInformation->appendLogPlainText((strOutputLine + '\n').toAscii().constData());
 
-//   qDebug() << "ConnectionManager::onCommandOutput(const QString&" << strOutputLine << ") -> finished";
+//   qDebug() << "ConnectionManager::onVpnTaskOutput(const QString&" << strOutputLine << ") -> finished";
 }
 
-void ConnectionManager::readyReadLog()
+void ConnectionManager::onVpnTaskReadyReadLog()
 {
-//   qDebug() << "ConnectionManager::readyReadLog()";
+//   qDebug() << "ConnectionManager::onVpnTaskReadyReadLog()";
 
    char acBuf[1024];
 
@@ -310,12 +330,12 @@ void ConnectionManager::readyReadLog()
 
    } while (iRet != -1);
 
-//   qDebug() << "ConnectionManager::readyReadLog() -> finished";
+//   qDebug() << "ConnectionManager::onVpnTaskReadyReadLog() -> finished";
 }
 
-void ConnectionManager::onErrorMsg(int iErrorCode)
+void ConnectionManager::onVpnTaskErrorMsg(int iErrorCode)
 {
-//   qDebug() << "ConnectionManager::onErrorMsg(int" << iErrorCode << ")";
+//   qDebug() << "ConnectionManager::onVpnTaskErrorMsg(int" << iErrorCode << ")";
 
    char acBuf[1024];
 
@@ -326,16 +346,34 @@ void ConnectionManager::onErrorMsg(int iErrorCode)
       error(iErrorCode);
    }
 
-//   qDebug() << "ConnectionManager::onErrorMsg(int" << iErrorCode << ") -> finished";
+//   qDebug() << "ConnectionManager::onVpnTaskErrorMsg(int" << iErrorCode << ") -> finished";
 }
 
-void ConnectionManager::onTimeout()
+void ConnectionManager::onVpnTaskTimeout()
 {
-//   qDebug() << "ConnectionManager::onConnectionTimeout()";
-   if ((m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::Disconnecting)))
-      error(500);
+//   qDebug() << "ConnectionManager::onVpnTaskTimeout()";
 
-//   qDebug() << "ConnectionManager::onConnectionTimeout() -> finised";
+   if (m_fIsExecuting)
+   {
+      m_pConnectionInformation->appendLogColorText(QColor(255, 0, 0), "Last command timed out\n");
+
+      m_fIsExecuting = !m_pVPNControlTask->stop(1000);
+
+      if ((m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::Disconnecting)))
+         error(500);
+   }
+
+//   qDebug() << "ConnectionManager::onVpnTaskTimeout() -> finised";
+}
+
+void ConnectionManager::onVpnTaskFinished()
+{
+//   qDebug() << "ConnectionManager::onVpnTaskFinished()";
+
+   m_pTimeout->stop();
+   m_fIsExecuting = false;
+
+//   qDebug() << "ConnectionManager::onVpnTaskFinished() -> finished";
 }
 
 void ConnectionManager::onConnectionAdded(const QString& strName)
@@ -485,31 +523,28 @@ void ConnectionManager::onPtpInterfaceIsGoingDown(NetworkInterface interface)
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsGoingDown(" << interface.name().c_str() << ") -> finished";
 }
 
-void ConnectionManager::detectConnectionState()
+void ConnectionManager::onCheckPtpInterfaceIsUp()
 {
-   NetworkInterface::InterfaceMap interfaces = NetworkInterface::pointToPointInterfaces();
-
-   NetworkInterface::InterfaceMap::const_iterator itInterfaces = interfaces.begin();
-   bool fFound;
-   for (fFound = false; !fFound && itInterfaces != interfaces.end(); itInterfaces++)
+   if (!m_fIsExecuting && m_pState->isState(ConnectionState::Connecting))
    {
-      const QString strConnectionName(ConnectionManager::connectionName((*itInterfaces).second));
-      if (!strConnectionName.isNull())
-      {
-         if (NetworkInterface::defaultGateway().size() == 1)
-            connected(strConnectionName);
-         else
-            vpnDisconnect(true);
-
-         fFound = true;
-      }
+      const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
+      if (strConnectionName.isNull())
+         disConnected();
+      else
+         connected(strConnectionName);
    }
+}
 
-   if (!fFound)
-      onRouteAdded(NetworkInterface::null, 0);
-
-   NetworkInterfaceMonitor::instance()->subscribe(this);
-   NetworkInterfaceMonitor::instance()->start();
+void ConnectionManager::onCheckPtpInterfaceIsDown()
+{
+   if (!m_fIsExecuting && m_pState->isState(ConnectionState::Disconnecting))
+   {
+      const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
+      if (strConnectionName.isNull())
+         disConnected();
+      else
+         connected(strConnectionName);
+   }
 }
 
 QAction* ConnectionManager::action(ActionType type) const
@@ -559,6 +594,19 @@ void ConnectionManager::error(int iErrorCode)
 
       vpnDisconnect(true);
    }
+}
+
+QString ConnectionManager::connectionNameOfUpAndRunningPtpInterface() const
+{
+   QString strConnectionName;
+
+   NetworkInterface::InterfaceMap interfaces = NetworkInterface::pointToPointInterfaces();
+
+   NetworkInterface::InterfaceMap::const_iterator itInterfaces = interfaces.begin();
+   for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); itInterfaces++)
+      strConnectionName = ConnectionManager::connectionName((*itInterfaces).second);
+
+   return(strConnectionName);
 }
 
 QString ConnectionManager::connectionName(const NetworkInterface& interface)

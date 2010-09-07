@@ -31,6 +31,7 @@ public:
    virtual ~VPNControlTask();
 
    void run();
+   bool stop(unsigned long iWaitMiliSeconds);
 
    void setConnectionName(const QString& strConnectionName);
    const QString& connectionName() const;
