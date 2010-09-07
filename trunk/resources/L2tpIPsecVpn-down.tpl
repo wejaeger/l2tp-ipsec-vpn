@@ -23,8 +23,8 @@ fi
 
 case $PPP_IPPARAM in
 {{#CONN_SECTION}}  "{{IPPARAM}}" ){{#DEFAULT_GATEWAY_SECTION}}
-    /sbin/route del -net 0.0.0.0 gw ${DFLT_GWY} metric 100 dev ${EXT_INTF}{{/DEFAULT_GATEWAY_SECTION}}
-    /sbin/route add -net 0.0.0.0 gw ${DFLT_GWY} metric 0 dev ${EXT_INTF}
+    /sbin/route del -net 0.0.0.0 gw ${DFLT_GWY} metric 100 dev ${EXT_INTF}
+    /sbin/route add -net 0.0.0.0 gw ${DFLT_GWY} metric 0 dev ${EXT_INTF}{{/DEFAULT_GATEWAY_SECTION}}
 	 ;;
 
 {{/CONN_SECTION}}
