@@ -124,7 +124,7 @@ Copyright 2010 Werner Jaeger
 1
 Name=L2TP Ipsec VPN Manager
 Version=1.0
-Exec=/opt/L2tpIPsecVpn/bin/L2tpIPsecVpn connectionEditor
+Exec=gksu /opt/L2tpIPsecVpn/bin/L2tpIPsecVpn connectionEditor
 Comment=Manage and change your L2TP IPsec VPN connection settings
 Icon=/opt/L2tpIPsecVpn/res/logo.png
 Type=Application
