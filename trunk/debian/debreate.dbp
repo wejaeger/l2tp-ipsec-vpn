@@ -1,0 +1,140 @@
+[DEBREATE-1.0]
+<<MODE>>0<</MODE>>
+<<CTRL>>
+Package: L2tpIpSecVpn
+Version: 0.9.1-0
+Section: admin
+Maintainer: Werner Jaeger <werner.jaeger@t-systems.com>
+Priority: optional
+Architecture: i386
+Depends: libqt4-network (>=4.6.2-0), libqtcore4 (>=4.6.2-0), libqtgui4 (>=4.6.2-0), libctemplate-dev (>=0.96), xl2tpd (>=1.2.5), openswan (>=2.6.23), libopensc2 (>=0.11.12-1), libengine-pkcs11-openssl (>=0.1.8-2)
+Description: Control your L2TP IPsec VPN connections
+ This GUI is not a network manager plugin. However, it provides a systray icon in the indicator applet from which a non privileged user can establish and bring down L2TP over IPsec VPN connections.
+ .
+ There is also a 'Edit connections' menu item. In order to bring up the editor dialog, a non privileged user must authenticate as root.
+ .
+ From there the user can add, remove and edit vpn connections.
+ .
+ Editing allows configuring various options for IPsec, L2TP and PPP.
+ .
+ Among others, the user can configure eg. the gateway, the use of either PSK or a certificate for authentication, various L2TP options as redial- timeout and attempts and of course all important PPP options. It also allows you to configure PPP for tunnel splitting because you can add routes as you want. 
+ .
+ When applying your settings, all necessary configuration files are written accordingly (ipsec.conf, xl2tp.conf, options.xl2tpd, opensc.conf up and down scripts ...).
+ .
+ It relies on Openswan and xl2tp packages as the underlying protocol handlers. 
+ .
+ If you apply the PPP EAP TLS patch (e.g. ppp-2.4.5-eaptls-mppe-0.98.patch) you can also use certificates on your local machine or, if OpenSC is installed and configured, even on a smart card to handle PPP authentication.
+ .
+ The GUI automatically detects when network interfaces are going up or down and can (if so configured) automatically establish or close VPN connections.
+
+<</CTRL>>
+<<FILES>>
+1
+/home/wejaeger/DEVELOP/Java/projects/L2tpIPsecVpn/resources/L2tpIPsecVpn.desktop -> L2tpIPsecVpn.desktop -> /etc/xdg/autostart
+/home/wejaeger/DEVELOP/Java/projects/L2tpIPsecVpn/resources/L2tpIPsecVpn* -> L2tpIPsecVpn -> /etc/init.d
+/home/wejaeger/DEVELOP/Java/projects/L2tpIPsecVpn/resources/logo.png -> logo.png -> /opt/L2tpIPsecVpn/res
+/home/wejaeger/DEVELOP/Java/projects/L2tpIPsecVpnControlDaemon/dist/Release/GNU-Linux-x86/L2tpIPsecVpnControlDaemon* -> L2tpIPsecVpnControlDaemon -> /opt/L2tpIPsecVpn/bin
+/home/wejaeger/DEVELOP/Java/projects/L2tpIPsecVpn/dist/Release/GNU-Linux-x86/L2tpIPsecVpn* -> L2tpIPsecVpn -> /opt/L2tpIPsecVpn/bin
+<</FILES>>
+<<SCRIPTS>>
+<<PREINST>>
+1
+#! /bin/bash -e
+
+if [ -f /etc/init.d/L2tpIPsecVpn ]
+then
+   invoke-rc.d L2tpIPsecVpn stop
+fi
+
+rm -f /etc/rc0.d/K99L2tpIPsecVpn
+rm -f /etc/rc1.d/K99L2tpIPsecVpn
+rm -f /etc/rc2.d/S99L2tpIPsecVpn
+rm -f /etc/rc3.d/S99L2tpIPsecVpn
+rm -f /etc/rc4.d/S99L2tpIPsecVpn
+rm -f /etc/rc5.d/S99L2tpIPsecVpn
+rm -f /etc/rc6.d/K99L2tpIPsecVpn
+rm -f /etc/init.d/L2tpIPsecVpn
+
+<</PREINST>>
+<<POSTINST>>
+1
+#! /bin/bash -e
+
+cd /etc/rc0.d
+ln -fs ../init.d/L2tpIPsecVpn K99L2tpIPsecVpn
+
+cd /etc/rc1.d
+ln -fs ../init.d/L2tpIPsecVpn K99L2tpIPsecVpn
+
+cd /etc/rc2.d
+ln -fs ../init.d/L2tpIPsecVpn S99L2tpIPsecVpn
+
+cd /etc/rc3.d
+ln -fs ../init.d/L2tpIPsecVpn S99L2tpIPsecVpn
+
+cd /etc/rc4.d
+ln -fs ../init.d/L2tpIPsecVpn S99L2tpIPsecVpn
+
+cd /etc/rc5.d
+ln -fs ../init.d/L2tpIPsecVpn S99L2tpIPsecVpn
+
+cd /etc/rc6.d
+ln -fs ../init.d/L2tpIPsecVpn K99L2tpIPsecVpn
+
+invoke-rc.d L2tpIPsecVpn start
+
+#/opt/L2tpIPsecVpn/bin/L2tpIPsecVpn &
+
+
+
+<</POSTINST>>
+<<PRERM>>
+1
+#! /bin/bash -e
+
+if [ -f /etc/init.d/L2tpIPsecVpn ] 
+then
+   invoke-rc.d L2tpIPsecVpn stop
+fi
+
+<</PRERM>>
+<<POSTRM>>
+1
+#! /bin/bash -e
+
+rm -f /etc/rc0.d/K99L2tpIPsecVpn
+rm -f /etc/rc1.d/K99L2tpIPsecVpn
+rm -f /etc/rc2.d/S99L2tpIPsecVpn
+rm -f /etc/rc3.d/S99L2tpIPsecVpn
+rm -f /etc/rc4.d/S99L2tpIPsecVpn
+rm -f /etc/rc5.d/S99L2tpIPsecVpn
+rm -f /etc/rc6.d/K99L2tpIPsecVpn
+rm -f /etc/init.d/L2tpIPsecVpn
+
+<</POSTRM>>
+<</SCRIPTS>>
+<<CHANGELOG>>
+<<DEST>>DEFAULT<</DEST>>
+
+<</CHANGELOG>>
+<<COPYRIGHT>>
+Copyright 2010 Werner Jaeger
+<</COPYRIGHT>>
+<<MENU>>
+1
+Name=L2TP Ipsec VPN Manager
+Version=1.0
+Exec=/opt/L2tpIPsecVpn/bin/L2tpIPsecVpn connectionEditor
+Comment=Manage and change your L2TP IPsec VPN connection settings
+Icon=/opt/L2tpIPsecVpn/res/logo.png
+Type=Application
+Terminal=false
+StartupNotify=false
+Encoding=UTF-8
+Categories=Settings;
+<</MENU>>
+<<BUILD>>
+0
+1
+0
+<</BUILD>>
