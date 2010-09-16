@@ -2,8 +2,8 @@
 
 ### BEGIN INIT INFO
 # Provides:          L2tpIPsecVpnControlDaemon
-# Required-Start:    $network $syslog
-# Required-Stop:     $network $syslog
+# Required-Start:    $remote_fs $network $syslog
+# Required-Stop:     $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Daemon used to start/stop L2TP over IPsec VPN connections by non privileged users
@@ -13,7 +13,7 @@
 NAME=L2tpIPsecVpnControlDaemon
 DESC=L2tpIPsecVpnControlDaemon
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/opt/L2tpIPsecVpn/bin/$NAME
+DAEMON=/usr/bin/$NAME
 
 test -x $DAEMON || exit 0
 
