@@ -3,7 +3,7 @@
 TEMPLATE = app
 DESTDIR = dist/Debug/GNU-Linux-x86
 TARGET = L2tpIPsecVpn
-VERSION = 1.0.0
+VERSION = 0.9.1
 CONFIG -= debug_and_release app_bundle lib_bundle
 CONFIG += debug 
 QT = core gui network
@@ -19,7 +19,7 @@ UI_DIR = src/generated
 QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
-INCLUDEPATH += src ../L2tpIPsecVpnControlDaemon/src 
+INCLUDEPATH += src 
 LIBS += 
 LIBS+=-lopensc
 
