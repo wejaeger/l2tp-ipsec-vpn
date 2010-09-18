@@ -1,0 +1,39 @@
+This work was packaged for Debian by:
+
+    Werner Jaeger <werner.jaeger@t-systems.com> on Fri, 17 Sep 2010 19:34:06 +0200
+
+Upstream Author(s):
+
+    Werner Jaeger <werner.jaeger@t-systems.com>
+
+Copyright:
+
+    Copyright (C) 2010 Werner Jaeger
+
+License:
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or
+    (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+    On Debian GNU/Linux systems, the complete text of the GNU General
+    Public License can be found in the `/usr/share/common-licenses/GPL-3' file.
+    
+
+The Debian packaging is:
+
+    Copyright (C) 2010 Werner Jaeger <werner.jaeger@t-systems.com>
+
+    and is licensed under the GPL version 3, 
+    see `/usr/share/common-licenses/GPL-3'.
+

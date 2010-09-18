@@ -1,0 +1,5 @@
+l2tp-ipsec-vpn (0.9.1) maverick; urgency=low
+
+  * Initial release
+
+ -- Werner Jaeger <werner.jaeger@t-systems.com>  Fri, 17 Sep 2010 19:34:06 +0200
