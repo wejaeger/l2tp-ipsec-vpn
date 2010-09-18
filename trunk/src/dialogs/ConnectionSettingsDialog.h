@@ -48,6 +48,7 @@ private slots:
    void onEapProperties() const;
    void onPeerAuthentication() const;
    void onIpSettings() const;
+   void onAdvancedSettings() const;
    void onUseIPsecCertificateRadioButtonToggled(bool fEnable);
    void onUseEapRadioButtonToggled(bool fEnabled);
    void onPrivateKey();

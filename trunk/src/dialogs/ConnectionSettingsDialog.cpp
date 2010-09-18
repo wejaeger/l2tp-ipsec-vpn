@@ -33,6 +33,7 @@
 #include "PeerAuthenticationDialog.h"
 #include "IpSettingsDialog.h"
 #include "EapSettingsDialog.h"
+#include "AdvancedSettingsDialog.h"
 #include "ConnectionSettingsDialog.h"
 
 static const char* const RSASIG = "rsasig";
@@ -55,6 +56,7 @@ ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionN
    connect(m_Widget.m_pPppPropertiesButton, SIGNAL(clicked()), this, SLOT(onEapProperties()));
    connect(m_Widget.m_pPppPeerAuthenticationButton, SIGNAL(clicked()), this, SLOT(onPeerAuthentication()));
    connect(m_Widget.m_pPppIpSettingsButton, SIGNAL(clicked()), this, SLOT(onIpSettings()));
+   connect(m_Widget.m_pPppAdvancedButton, SIGNAL(clicked()), this, SLOT(onAdvancedSettings()));
    connect(m_Widget.m_pPppUseEAPRadioButton, SIGNAL(toggled(bool)), this, SLOT(onUseEapRadioButtonToggled(bool)));
 
    readSettings();
@@ -110,6 +112,12 @@ void ConnectionSettingsDialog::onIpSettings() const
 {
    IpSettingsDialog ipsecSettings(m_strConnectionName);
    ipsecSettings.exec();
+}
+
+void ConnectionSettingsDialog::onAdvancedSettings() const
+{
+   AdvancedSettingsDialog advancedSettings(m_strConnectionName);
+   advancedSettings.exec();
 }
 
 void ConnectionSettingsDialog::onUseIPsecCertificateRadioButtonToggled(bool fEnable)
