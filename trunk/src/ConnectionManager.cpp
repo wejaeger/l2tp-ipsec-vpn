@@ -53,6 +53,7 @@ static const int PTPINTERFACE_CHECK_UP_TIME(20000);
 static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
 static const int VPN_TASK_TIMOUT(40000);
 
+static const char* const strAbout("<p><center><small>Copyright &copy; 2010 Werner Jaeger</small></center></p><p><center><a href='https://launchpad.net/~werner-jaeger/+archive/ppa-werner-vpn'>Website</a></center></p>");
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
   m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
@@ -133,11 +134,13 @@ void ConnectionManager::createActions()
    m_pActions->insert(DISC, new QAction(tr("&Disconnect"), this));
    m_pActions->insert(EDIT, new QAction(tr("&Edit Connections ..."), this));
    m_pActions->insert(INFO, new QAction(tr("Connection &Information"), this));
+   m_pActions->insert(ABOUT, new QAction(tr("&About"), this));
    m_pActions->insert(QUIT, new QAction(tr("&Quit"), this));
 
    connect(action(DISC), SIGNAL(triggered()), SLOT(vpnDisconnect()));
    connect(action(EDIT), SIGNAL(triggered()), SLOT(editConnections()));
    connect(action(INFO), SIGNAL(triggered()), SLOT(showConnectionInformation()));
+   connect(action(ABOUT), SIGNAL(triggered()), SLOT(about()));
    connect(action(QUIT), SIGNAL(triggered()), &m_Application, SLOT(quit()));
 }
 
@@ -148,6 +151,8 @@ void ConnectionManager::createTrayIcon()
    m_pTrayIconMenu->addSeparator();
    m_pTrayIconMenu->addAction(action(EDIT));
    m_pTrayIconMenu->addAction(action(INFO));
+   m_pTrayIconMenu->addSeparator();
+   m_pTrayIconMenu->addAction(action(ABOUT));
    m_pTrayIconMenu->addSeparator();
    m_pTrayIconMenu->addAction(action(QUIT));
 
@@ -278,6 +283,20 @@ void ConnectionManager::editConnections() const
 void ConnectionManager::showConnectionInformation() const
 {
    m_pConnectionInformation->exec();
+}
+
+void ConnectionManager::about() const
+{
+   QIcon logo;
+   logo.addFile(QString::fromUtf8(":/images/logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+   QMessageBox about;
+   about.setWindowIcon(logo);
+   about.setWindowTitle(tr("About %1").arg(L2tpIPsecVpnApplication::applicationName()));
+   about.setText("<big><b>" + L2tpIPsecVpnApplication::applicationName() + " " + L2tpIPsecVpnApplication::applicationVersion() + "</b></big>");
+   about.setInformativeText("<p><center>" + tr("Notification area applet for managing your L2tp over IPsec virtual private network connections.") + "</center></p>" + strAbout);
+   about.setStandardButtons(QMessageBox::Close);
+   about.exec();
 }
 
 void ConnectionManager::iconActivated(QSystemTrayIcon::ActivationReason reason)
