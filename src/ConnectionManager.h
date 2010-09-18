@@ -53,6 +53,7 @@ private slots:
    void vpnDisconnect(bool fDontChangeStatus = false);
    void editConnections() const;
    void showConnectionInformation() const;
+   void about() const;
    void iconActivated(QSystemTrayIcon::ActivationReason reason);
    void showMessage();
    void messageClicked();
@@ -73,7 +74,7 @@ private slots:
 
 private:
    typedef QList<QAction*> ActionList;
-   typedef enum { DISC, EDIT, INFO, QUIT } ActionType;
+   typedef enum { DISC, EDIT, INFO, ABOUT, QUIT } ActionType;
 
    ConnectionManager(const ConnectionManager& orig);
    ConnectionManager& operator=(const ConnectionManager& orig);

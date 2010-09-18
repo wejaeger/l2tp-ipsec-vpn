@@ -6,6 +6,7 @@
       <file alias="connectEstablished.png">connectEstablished.png</file>
       <file alias="connectNo.png">connectNo.png</file>
       <file alias="search.png">search.png</file>
+      <file alias="logo.png">logo.png</file>
    </qresource>
    <qresource prefix="/templates">
       <file alias="ipsec.conf.tpl">ipsec.conf.tpl</file>
