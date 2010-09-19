@@ -75,6 +75,10 @@ static const QString REFUSEMSCHAPV2 = "refuseMsChapV2";
 static const QString REFUSEEAP = "refuseEap";
 static const QString REFUSEPAP = "refusePap";
 static const QString REMOTENAME = "remoteName";
+static const QString NODSDCOMP = "nobsdcomp";
+static const QString NODEFLATE = "nodeflate";
+static const QString NOVJ = "novj";
+static const QString LCPECHOINTERVAL = "lcpEchoInterval";
 static const QString USESMARTCARD = "useSmartCard";
 static const QString CERTIFICATEPATH = "certificatePath";
 static const QString PRIVATEKEYPATH = "privateKeyPath";
@@ -324,7 +328,7 @@ bool ConnectionSettings::setValue(int iValue, const QString& strPath) const
    return(fRet);
 }
 
-int ConnectionSettings::getIntValue(const QString& strPath) const
+int ConnectionSettings::getIntValue(const QString& strPath, int iDefault) const
 {
    int iRet = 0;
 
@@ -332,7 +336,7 @@ int ConnectionSettings::getIntValue(const QString& strPath) const
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      iRet = qSettings()->value(strPath, "").toInt(NULL);
+      iRet = qSettings()->value(strPath, iDefault).toInt(NULL);
       qSettings()->endArray();
    }
 
@@ -634,6 +638,46 @@ bool PppSettings::setRemoteName(const QString& strRemoteName) const
 QString PppSettings::remoteName() const
 {
    return(getStringValue(PPP + '/' + REMOTENAME));
+}
+
+bool PppSettings::setNoBSDCompression(bool fSet) const
+{
+   return(setValue(fSet, PPP + '/' + NODSDCOMP));
+}
+
+bool PppSettings::noBSDCompression() const
+{
+   return(getBoolValue(PPP + '/' + NODSDCOMP));
+}
+
+bool PppSettings::setNoDeflate(bool fSet) const
+{
+   return(setValue(fSet, PPP + '/' + NODEFLATE));
+}
+
+bool PppSettings::noDeflate() const
+{
+   return(getBoolValue(PPP + '/' + NODEFLATE));
+}
+
+bool PppSettings::setNoVj(bool fSet) const
+{
+   return(setValue(fSet, PPP + '/' + NOVJ));
+}
+
+bool PppSettings::noVj() const
+{
+   return(getBoolValue(PPP + '/' + NOVJ));
+}
+
+bool PppSettings::setLcpEchoInterval(int iInterval) const
+{
+   return(setValue(iInterval, PPP + '/' + LCPECHOINTERVAL));
+}
+
+int PppSettings::lcpEchoInterval() const
+{
+   return(getIntValue(PPP + '/' + LCPECHOINTERVAL, -1));
 }
 
 /********** EAP ************/

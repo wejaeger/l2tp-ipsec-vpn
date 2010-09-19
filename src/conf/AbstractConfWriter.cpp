@@ -34,7 +34,7 @@ static const char* const FILENAME = "FILENAME";
 static const char* const CREATIONDATE = "CREATIONDATE";
 static const char* const APPNAME = "APPNAME";
 static const char* const APPVERSION = "APPVERSION";
-static const char* const APPPFILEATH = "APPPFILEATH";
+static const char* const APPPFILEPATH = "APPPFILEPATH";
 
 AbstractConfWriter::AbstractConfWriter(const QString& strTemplateKey, const QString& strWriteTo, FileType type) :
    m_strTemplateKey(strTemplateKey), m_strWriteTo(strWriteTo), m_Type(type),
@@ -89,7 +89,7 @@ void AbstractConfWriter::save()
    dictionary()->SetValue(CREATIONDATE, QDateTime::currentDateTime().toString().toAscii().constData());
    dictionary()->SetValue(APPNAME, QCoreApplication::instance()->applicationName().toAscii().constData());
    dictionary()->SetValue(APPVERSION, QCoreApplication::instance()->applicationVersion().toAscii().constData());
-   dictionary()->SetValue(APPPFILEATH, QCoreApplication::instance()->applicationFilePath().toAscii().constData());
+   dictionary()->SetValue(APPPFILEPATH, QCoreApplication::instance()->applicationFilePath().toAscii().constData());
 
    std::string strOut;
    ctemplate::Template* const pTpl = ctemplate::Template::GetTemplate(templateKey().toAscii().constData(), ctemplate::DO_NOT_STRIP);

@@ -35,12 +35,20 @@ static const char* const REFUSECHAPLINE = "refuse-chap";
 static const char* const REFUSEMSCHAPLINE = "refuse-mschap";
 static const char* const REFUSEMSCHAPV2LINE = "refuse-mschap-v2";
 static const char* const USEPEERDNSLINE = "usepeerdns";
+static const char* const NOBSDCOMPLINE = "nobsdcomp";
+static const char* const NODEFLATELINE = "nodeflate";
+static const char* const NOVJLINE = "novj";
+static const char* const LCPECHOINTERVALLINE = "lcp-echo-interval ";
 
 
 static const char* const IPPARAM = "IPPARAM";
 static const char* const REMOTENAME = "REMOTENAME";
 static const char* const NAME = "NAME";
 static const char* const USEPEERDNS = "USEPEERDNS";
+static const char* const NOBSDCOMP = "NOBSDCOMP";
+static const char* const NODEFLATE = "NODEFLATE";
+static const char* const NOVJ = "NOVJ";
+static const char* const LCPECHOINTERVAL = "LCPECHOINTERVAL";
 static const char* const REFUSEPROTOCOL = "REFUSEPROTOCOL";
 static const char* const CERT = "CERT";
 static const char* const CA = "CA";
@@ -65,6 +73,18 @@ void PPPConfWriter::fill()
 
    if (pppSettings.ipSettings().usePeerDns())
       dictionary()->SetValue(USEPEERDNS, USEPEERDNSLINE);
+
+   if (pppSettings.noBSDCompression())
+       dictionary()->SetValue(NOBSDCOMP, NOBSDCOMPLINE);
+
+   if (pppSettings.noDeflate())
+       dictionary()->SetValue(NODEFLATE, NODEFLATELINE);
+
+   if (pppSettings.noVj())
+       dictionary()->SetValue(NOVJ, NOVJLINE);
+
+   if (pppSettings.lcpEchoInterval() != -1)
+       dictionary()->SetValue(LCPECHOINTERVAL, QString(LCPECHOINTERVALLINE + QString::number(pppSettings.lcpEchoInterval())).toAscii().constData());
 
    const bool fRefuseEap = pppSettings.refuseEap();
    if (fRefuseEap) addRefuseEntry(REFUSEEAPLINE);

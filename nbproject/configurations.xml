@@ -6,6 +6,7 @@
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>src/conf/AbstractConfWriter.h</itemPath>
+      <itemPath>src/dialogs/AdvancedSettingsDialog.h</itemPath>
       <itemPath>src/util/CertificateInfo.h</itemPath>
       <itemPath>src/conf/ConfWriter.h</itemPath>
       <itemPath>src/ConnectionEditor.h</itemPath>
@@ -66,6 +67,8 @@
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>src/conf/AbstractConfWriter.cpp</itemPath>
+      <itemPath>src/dialogs/AdvancedSettingsDialog.cpp</itemPath>
+      <itemPath>src/dialogs/AdvancedSettingsDialog.ui</itemPath>
       <itemPath>src/util/CertificateInfo.cpp</itemPath>
       <itemPath>src/conf/ConfWriter.cpp</itemPath>
       <itemPath>src/ConnectionEditor.cpp</itemPath>
@@ -172,10 +175,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -232,10 +237,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -276,10 +283,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>

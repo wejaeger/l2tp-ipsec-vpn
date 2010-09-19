@@ -67,7 +67,7 @@ protected:
    bool setSecret(const QString& strValue, const QString& strPath) const;
    QString getSecret(const QString& strPath) const;
    bool setValue(int iValue, const QString& strPath) const;
-   int getIntValue(const QString& strPath) const;
+   int getIntValue(const QString& strPath, int iDefault = 0) const;
    bool setValue(bool fValue, const QString& strPath) const;
    bool getBoolValue(const QString& strPath, bool fDefault = false) const;
    bool setRouteProperty(const QString& strValue, int iRow, const QString strPropertyName) const;
@@ -170,6 +170,16 @@ public:
 
    bool setRemoteName(const QString& strRemoteName) const;
    QString remoteName() const;
+
+   // advanced settings
+   bool setNoBSDCompression(bool fSet) const;
+   bool noBSDCompression() const;
+   bool setNoDeflate(bool fSet) const;
+   bool noDeflate() const;
+   bool setNoVj(bool fSet) const;
+   bool noVj() const;
+   bool setLcpEchoInterval(int iInterval) const;
+   int lcpEchoInterval() const;
 
 private:
    explicit PppSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
