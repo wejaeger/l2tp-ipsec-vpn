@@ -8,32 +8,40 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-plugin passprompt.so
-promptprog "{{APPPFILEATH}}"
-
-ipparam {{IPPARAM}}
-ipcp-accept-local
-ipcp-accept-remote
-
-{{#PEFUSE_SECTION}}{{REFUSEPROTOCOL}}
-{{/PEFUSE_SECTION}}
-crtscts
-idle 72000
-lock
-mtu 1492
-mru 1492
-
-remotename "{{REMOTENAME}}"
-name "{{NAME}}"
-
-ktune
-noproxyarp
-{{USEPEERDNS}}
-
 #debug
 #dump
 #record /var/log/pppd
 
+plugin passprompt.so
+ipcp-accept-local
+ipcp-accept-remote
+idle 72000
+ktune
+noproxyarp
+asyncmap 0
+noauth
+crtscts
+lock
+hide-password
+modem
+noipx
+
+ipparam {{IPPARAM}}
+
+promptprog "{{APPPFILEPATH}}"
+
+{{#PEFUSE_SECTION}}{{REFUSEPROTOCOL}}
+{{/PEFUSE_SECTION}}
+
+remotename "{{REMOTENAME}}"
+name "{{NAME}}"
+
 cert "{{CERT}}"
 ca "{{CA}}"
 key "{{KEY}}"
+
+{{USEPEERDNS}}
+{{NOBSDCOMP}}
+{{NODEFLATE}}
+{{NOVJ}}
+{{LCPECHOINTERVAL}}

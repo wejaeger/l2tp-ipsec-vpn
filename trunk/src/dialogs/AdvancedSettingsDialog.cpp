@@ -22,6 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "settings/ConnectionSettings.h"
 #include "AdvancedSettingsDialog.h"
 
 AdvancedSettingsDialog::AdvancedSettingsDialog(const QString& strConnectionName, QWidget* pParent) : QDialog(pParent), m_strConnectionName(strConnectionName)
@@ -45,12 +46,22 @@ void AdvancedSettingsDialog::accept()
 
 void AdvancedSettingsDialog::readSettings() const
 {
+   const PppSettings pppSettings(ConnectionSettings().pppSettings(m_strConnectionName));
 
+   m_Widget.m_pAllowBSDCompressionCheckBox->setChecked(!pppSettings.noBSDCompression());
+   m_Widget.m_pAllowDeflateCompressionCheckBox->setChecked(!pppSettings.noDeflate());
+   m_Widget.m_pUseTCPHeaderCompressionCheckBox->setChecked(!pppSettings.noVj());
+   m_Widget.m_pSendEchoCheckBox->setChecked(pppSettings.lcpEchoInterval() != 0);
 }
 
 bool AdvancedSettingsDialog::writeSettings() const
 {
-   bool fRet = false;
+   const PppSettings pppSettings(ConnectionSettings().pppSettings(m_strConnectionName));
+
+   bool fRet = pppSettings.setNoBSDCompression(!m_Widget.m_pAllowBSDCompressionCheckBox->isChecked());
+   if (fRet) fRet = pppSettings.setNoDeflate(!m_Widget.m_pAllowDeflateCompressionCheckBox->isChecked());
+   if (fRet) fRet = pppSettings.setNoVj(!m_Widget.m_pUseTCPHeaderCompressionCheckBox->isChecked());
+   if (fRet) fRet = pppSettings.setLcpEchoInterval(m_Widget.m_pSendEchoCheckBox->isChecked() ? -1 : 0);
 
    return(fRet);
 }

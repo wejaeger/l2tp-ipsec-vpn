@@ -34,7 +34,7 @@ Description: Control your L2TP IPsec VPN connections
  It relies on Openswan and xl2tp packages as the underlying protocol
  handlers.
  .
- You can also use certificates on your local machine or, if OpenSC is 
+ You can also use certificates on your local machine or, if e.g. OpenSC is 
  installed and configured, even on a smart card to handle PPP
  authentication.
  .
