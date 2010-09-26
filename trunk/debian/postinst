@@ -23,7 +23,7 @@ case "$1" in
 echo ' [Desktop Entry]
 Name=L2TP Ipsec VPN Manager
 Version=0.9.1
-Exec=/usr/bin/L2tpIPsecVpn
+Exec=L2tpIPsecVpn
 Comment=Control your L2TP IPsec VPN connections
 Icon=/usr/share/L2tpIPsecVpn/logo.png
 Type=Application
@@ -34,7 +34,7 @@ Encoding=UTF-8' > /etc/xdg/autostart/L2tpIPsecVpn.desktop
 echo ' [Desktop Entry]
 Name=L2TP Ipsec VPN Manager
 Version=0.9.1
-Exec=gksudo /usr/bin/L2tpIPsecVpn connectionEditor
+Exec=gksudo L2tpIPsecVpn connectionEditor
 Comment=Manage and change your L2TP IPsec VPN connection settings
 Icon=/usr/share/L2tpIPsecVpn/logo.png
 Type=Application
