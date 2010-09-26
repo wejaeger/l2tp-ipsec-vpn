@@ -1,0 +1,4 @@
+# http://wiki.debian.org/debian/watch/
+version=3
+http://launchpad.net/~werner-jaeger/+archive/ppa-werner-vpn/+sourcepub/1301365/+listing-archive-extra (?:.*/)?l2tp-ipsec-vpn_(\d.*)\.orig\.tar\.gz
+

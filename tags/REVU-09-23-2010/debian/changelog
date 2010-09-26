@@ -1,0 +1,5 @@
+l2tp-ipsec-vpn (0.9.2-0ubuntu1) maverick; urgency=low
+
+  * Initial release (LP: #643433)
+
+ -- Werner Jaeger <werner.jaeger@t-systems.com>  Mon, 20 Sep 2010 14:46:57 +0200

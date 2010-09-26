@@ -1,0 +1,46 @@
+/*
+ * $Id$
+ *
+ * File:   SmartCardInsertWaitTask.cpp
+ * Author: Werner Jaeger
+ *
+ * Created on July 16, 2010, 7:08 PM
+ *
+ * Copyright 2010 Werner Jaeger.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "SmartCardInsertWaitTask.h"
+#include <opensc/opensc.h>
+
+SmartCardInsertWaitTask::SmartCardInsertWaitTask(sc_reader_t* pReader, int iSlot) : m_pReader(pReader),  m_iSlot(iSlot), m_iRet(0), m_fStop(false)
+{
+}
+
+SmartCardInsertWaitTask::~SmartCardInsertWaitTask()
+{
+}
+
+void SmartCardInsertWaitTask::run()
+{
+   m_fStop = false;
+
+   do
+   {
+      m_iRet = ::sc_detect_card_presence(m_pReader, m_iSlot);
+      msleep(100);
+   }
+   while (m_iRet == 0 && !m_fStop);
+}
