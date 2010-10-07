@@ -11,7 +11,7 @@ Package: l2tp-ipsec-vpn
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ppp-2.4.5-eaptls-mppe (>=0.98), l2tp-ipsec-vpn-daemon (>= 0.9.2), xl2tpd (>=1.2.5), openswan (>=2.6.23), libengine-pkcs11-openssl (>=0.1.8-2)
 Description: Control your L2TP IPsec VPN connections
- This GUI is not a network manager plugin. However, it provides a systray
+ This GUI is not a network manager plugin. However, it provides a system tray
  icon in the notification area from which a non privileged user can establish
  and bring down L2TP over IPsec VPN connections.
  .

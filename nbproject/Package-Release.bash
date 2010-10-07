@@ -13,7 +13,7 @@ NBTMPDIR=build/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
 OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/L2tpIPsecVpn
 OUTPUT_BASENAME=L2tpIPsecVpn
-PACKAGE_TOP_DIR=l2tp-ipsec-vpn-0.9.1/
+PACKAGE_TOP_DIR=l2tp-ipsec-vpn-0.9.2/
 
 # Functions
 function checkReturnCode
@@ -58,15 +58,15 @@ mkdir -p ${NBTMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory "${NBTMPDIR}/l2tp-ipsec-vpn-0.9.1/bin"
+makeDirectory "${NBTMPDIR}/l2tp-ipsec-vpn-0.9.2/bin"
 copyFileToTmpDir "${OUTPUT_PATH}" "${NBTMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/l2tp-ipsec-vpn-0.9.1.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/l2tp-ipsec-vpn-0.9.2.tar
 cd ${NBTMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/l2tp-ipsec-vpn-0.9.1.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/l2tp-ipsec-vpn-0.9.2.tar *
 checkReturnCode
 
 # Cleanup

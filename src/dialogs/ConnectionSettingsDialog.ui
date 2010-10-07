@@ -103,7 +103,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&amp;Gateway:</string>
+            <string>&amp;Remote Server:</string>
            </property>
            <property name="textFormat">
             <enum>Qt::AutoText</enum>
@@ -143,7 +143,7 @@ p, li { white-space: pre-wrap; }
          <item row="1" column="0">
           <widget class="QLabel" name="m_pIPsecIdentityLabel">
            <property name="text">
-            <string>&amp;Identity:</string>
+            <string>Server &amp;Identity:</string>
            </property>
            <property name="buddy">
             <cstring>m_pIPsecIdentityEdit</cstring>
@@ -162,10 +162,10 @@ p, li { white-space: pre-wrap; }
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="toolTip">
-            <string>How the remote access server should be identified
-in the main mode peer authentication process.
+            <string>Leave empty if you don't want to check peers's identity,
+otherwise enter the peer's identity 
 
-Mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
+This is mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
            </property>
           </widget>
          </item>
@@ -174,7 +174,7 @@ Mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
        <item row="1" column="0">
         <widget class="QRadioButton" name="m_pIPsecUsePreSharedKeyRadioButton">
          <property name="text">
-          <string>Use pre-shared key for authentication</string>
+          <string>Use &amp;pre-shared key for authentication</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -194,7 +194,7 @@ Mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
        <item row="3" column="0">
         <widget class="QRadioButton" name="m_pIPsecUseCertificateRadioButton">
          <property name="text">
-          <string>Use Certificate for authentication</string>
+          <string>Use &amp;Certificate for authentication</string>
          </property>
         </widget>
        </item>
@@ -229,7 +229,7 @@ Mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
           <item row="0" column="0">
            <widget class="QLabel" name="m_pIPsecPrivateKeyLabel">
             <property name="text">
-             <string>Private key:</string>
+             <string>Private &amp;key:</string>
             </property>
             <property name="buddy">
              <cstring>m_pIPsecPrivateKeyFileEdit</cstring>
@@ -525,6 +525,11 @@ Mostly a distingushed name like 'CN=cisco-fcs-ber'.</string>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="m_pPppPwdEdit">
+            <property name="toolTip">
+             <string>Enter your password.
+
+If left empty you'll be ask each time you try to establish a connection.</string>
+            </property>
             <property name="echoMode">
              <enum>QLineEdit::Password</enum>
             </property>
