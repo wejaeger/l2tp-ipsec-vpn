@@ -33,7 +33,7 @@ install: build
 	dh_prep
 	dh_installdirs
 
-	# Install the package into debian/l2tp-ipsec-vpn-daemon
+	# Install the package into debian/l2tp-ipsec-vpn
 	make -f nbproject/qt-Release.mk INSTALL_ROOT=$(CURDIR)/debian/l2tp-ipsec-vpn install
 
 # Build architecture-independent files here.
@@ -44,7 +44,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs
+	dh_installchangelogs changelog
 	dh_installdocs
 	dh_installexamples
 	dh_installman

@@ -31,6 +31,7 @@
 
 #include "util/NetworkInterfaceMonitor.h"
 #include "util/SmartCardState.h"
+#include "util/SecretsChecker.h"
 #include "dialogs/ConnectionEditorDialog.h"
 #include "dialogs/ConnectionInformationDialog.h"
 #include "settings/ConnectionSettings.h"
@@ -204,35 +205,41 @@ void ConnectionManager::vpnConnect(const QString& strConnectionName)
 
    if (!m_fIsExecuting)
    {
-      const bool fUseSmartCard = ConnectionSettings().pppSettings(strConnectionName).eapSettings().useSmartCard();
+      const SecretsChecker secrets(strConnectionName);
 
-      m_pConnectionInformation->clearLog();
-
-      SmartCardState sc;
-
-      if (fUseSmartCard && sc.readersAvailable() <= 0)
-         m_pVPNControlTask->restartPcscDaemon();
-
-      if (!fUseSmartCard || sc.readersAvailable() > 0)
+      if (secrets.check())
       {
-         if (!fUseSmartCard || sc.waitForCardPresent() > 0)
+         const PppSettings pppSettings(ConnectionSettings().pppSettings(strConnectionName));
+         const bool fUseSmartCard = !pppSettings.refuseEap() && pppSettings.eapSettings().useSmartCard();
+
+         m_pConnectionInformation->clearLog();
+
+         SmartCardState sc;
+
+         if (fUseSmartCard && sc.readersAvailable() <= 0)
+            m_pVPNControlTask->restartPcscDaemon();
+
+         if (!fUseSmartCard || sc.readersAvailable() > 0)
          {
-            const QString strGateway(ConnectionSettings().gateway(strConnectionName));
+            if (!fUseSmartCard || sc.waitForCardPresent() > 0)
+            {
+               const QString strGateway(ConnectionSettings().gateway(strConnectionName));
 
-            delete m_pState;
-            m_pState = new Connecting(strGateway);
-            onStatusChanged();
+               delete m_pState;
+               m_pState = new Connecting(strGateway);
+               onStatusChanged();
 
-            m_pVPNControlTask->setConnectionName(strConnectionName);
-            m_pVPNControlTask->setAction(VPNControlTask::Connect);
-            m_pVPNControlTask->start();
-            m_fIsExecuting = true;
-            m_pTimeout->start();
-         QTimer::singleShot(PTPINTERFACE_CHECK_UP_TIME, this, SLOT(onCheckPtpInterfaceIsUp()));
+               m_pVPNControlTask->setConnectionName(strConnectionName);
+               m_pVPNControlTask->setAction(VPNControlTask::Connect);
+               m_pVPNControlTask->start();
+               m_fIsExecuting = true;
+               m_pTimeout->start();
+               QTimer::singleShot(PTPINTERFACE_CHECK_UP_TIME, this, SLOT(onCheckPtpInterfaceIsUp()));
+            }
          }
+         else
+            QMessageBox::critical(NULL, qApp->applicationName(), QObject::tr("No smart card reader found."));
       }
-      else
-         QMessageBox::critical(NULL, qApp->applicationName(), QObject::tr("No smart card reader found."));
    }
 
 //   qDebug() << "ConnectionManager::vpnConnect(const QString&" << strConnectionName << ") -> finished";
@@ -282,7 +289,13 @@ void ConnectionManager::editConnections() const
 
 void ConnectionManager::showConnectionInformation() const
 {
-   m_pConnectionInformation->exec();
+   m_pConnectionInformation->show();
+
+   if (!m_pConnectionInformation->isActiveWindow())
+   {
+      m_pConnectionInformation->activateWindow();
+      m_pConnectionInformation->raise();
+   }
 }
 
 void ConnectionManager::about() const

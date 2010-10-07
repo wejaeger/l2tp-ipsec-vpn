@@ -39,6 +39,8 @@ static const char* const PASSPHRASE = "PASSPHRASE";
 static const char* const PSKKEYTYPE = "PSK";
 static const char* const RSAKEYTYPE = "RSA";
 
+static const QString ANY("%any");
+
 IPsecSecretsConfWriter::IPsecSecretsConfWriter(const QString& strTemplateKey, const QString& strWriteTo) : AbstractConfWriter(strTemplateKey, strWriteTo, AbstractConfWriter::SECRET)
 {
 }
@@ -65,9 +67,19 @@ void IPsecSecretsConfWriter::fill()
          if (!strGateway.isEmpty())
          {
             if (strGateway.at(0).isNumber())
-               pConnection->SetValue(INDICES, strGateway.toAscii().constData());
+            {
+               if (ipsecSetting.authBy() == AUTHBYRSASIG)
+                  pConnection->SetValue(INDICES, strGateway.toAscii().constData());
+               else
+                  pConnection->SetValue(INDICES, QString(ANY + " " + strGateway).toAscii().constData());
+            }
             else
-               pConnection->SetValue(INDICES, QString("@" + strGateway).toAscii().constData());
+            {
+               if (ipsecSetting.authBy() == AUTHBYRSASIG)
+                  pConnection->SetValue(INDICES, QString("@" + strGateway).toAscii().constData());
+               else
+                  pConnection->SetValue(INDICES, QString(ANY + " @" + strGateway).toAscii().constData());
+            }
          }
 
          if (ipsecSetting.authBy() == AUTHBYRSASIG)

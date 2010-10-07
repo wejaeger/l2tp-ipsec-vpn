@@ -37,12 +37,12 @@ static QString const GKSUDO_CMD = "gksudo -D \"" + APPLICATIONNAME + "\" ";
 static QString const CONNECTION_ADDED_MSG_PREFIX = "connectionAdded:";
 static QString const CONNECTION_REMOVED_MSG_PREFIX = "connectionRemoved:";
 
-L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QApplication(iArgc, ppArgv), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
+L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QApplication(iArgc, ppArgv, iArgc != 4), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
    setApplicationName(APPLICATIONNAME);
-   setApplicationVersion("0.9.2");
+   setApplicationVersion("0.9.3");
    setObjectName("L2tpIPsecVpn");
    qRegisterMetaType<NetworkInterface>("NetworkInterface");
    qRegisterMetaType<QAbstractSocket::SocketState>("QAbstractSocket::SocketState");

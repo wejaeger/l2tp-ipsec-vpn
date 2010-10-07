@@ -23,12 +23,12 @@
  */
 
 #include <QObject>
-#include <QInputDialog>
 
 #include <stdlib.h>
+// #include <syslog.h>
 
-#include "settings/Preferences.h"
 #include "settings/ConnectionSettings.h"
+#include "util/SecretsChecker.h"
 #include "L2tpIPsecVpnApplication.h"
 #include "PasswordCallback.h"
 
@@ -42,41 +42,11 @@ PasswordCallback::~PasswordCallback()
 
 int PasswordCallback::exec() const
 {
-   int iRet = 1;
+//   ::syslog(LOG_DEBUG|LOG_AUTH, "%s", "Executing password callback");
 
-   const ConnectionSettings settings;
-   const int iConnections = settings.connections();
+   int iRet(1);
 
-   QString strPassword;
-
-   if (iConnections > 0)
-   {
-      for (int i = 0; strPassword.isNull() && i < iConnections; i++)
-      {
-         const QString strConnectionName(settings.connection(i));
-         const PppSettings pppSettings(settings.pppSettings(strConnectionName));
-         const PppEapSettings eapSettings(pppSettings.eapSettings());
-         if (eapSettings.privateKeyPath() == m_Application.argv()[1])
-         {
-            strPassword = eapSettings.privateKeyPassword();
-            if (strPassword.isEmpty())
-            {
-               if (eapSettings.privateKeyPath().startsWith(OpenSSLSettings().engineId()))
-                  strPassword = promptPwd(m_Application.applicationName(), QObject::tr("Please enter your PIN:"));
-               else
-                  strPassword = promptPwd(m_Application.applicationName(), QObject::tr("Please enter your passphrase:"));
-            }
-         }
-         else if (pppSettings.userName() ==m_Application.argv()[1])
-         {
-            strPassword = pppSettings.password();
-            if (strPassword.isEmpty())
-               strPassword = promptPwd(m_Application.applicationName(), QObject::tr("Please enter your password:"));
-         }
-      }
-   }
-   else
-      strPassword = promptPwd(m_Application.applicationName(), QObject::tr("Please enter your passphrase:"));
+   const QString strPassword(SecretsChecker::getSecret(m_Application.argv()[1]));
 
    if (!strPassword.isNull())
    {
@@ -86,19 +56,12 @@ int PasswordCallback::exec() const
       {
          const int iWritten = ::write(iPwdFileDescriptor, strPassword.toAscii().constData(), iPwdLength);
          if (iWritten == iPwdLength)
+         {
+//            ::syslog(LOG_DEBUG|LOG_AUTH, "%s", "Password found");
             iRet = 0;
+         }
       }
    }
 
    return(iRet);
 }
-
-QString PasswordCallback::promptPwd(const QString& strTitle, const QString& strLabel)
-{
-   bool fOk;
-
-   const QString strPassword = QInputDialog::getText(NULL, strTitle, strLabel, QLineEdit::Password, "", &fOk);
-
-   return(fOk ? strPassword : QString());
-}
-

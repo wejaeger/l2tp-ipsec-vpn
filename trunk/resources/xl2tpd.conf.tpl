@@ -19,8 +19,6 @@ debug tunnel = no
 {{#LAC_SECTION}}
 [lac {{NAME}}]
 lns = {{GATEWAY}}
-require authentication = no
-ppp debug = no
 pppoptfile = {{PPPOPTFILE}}
 length bit = {{LENGTHBIT}}
 redial = {{REDIAL}}

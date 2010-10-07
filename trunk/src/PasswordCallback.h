@@ -39,8 +39,6 @@ private:
    PasswordCallback(const PasswordCallback& orig);
    PasswordCallback& operator=(const PasswordCallback& orig);
 
-   static QString promptPwd(const QString& strTitle, const QString& strLabel);
-
    L2tpIPsecVpnApplication& m_Application;
 };
 

@@ -48,6 +48,7 @@ static const QRegExp RE_LOG_CAP_CERTIFICATEID("\\'(\\d\\:\\d{1,3})\\'");
 static const char* const STR_LOG_MATCH_IPSECSAESTABLISHED = "IPsec SA established";
 
 static const char* const STR_LOG_MATCH_CERTIFICATELOADERROR = "Error loading certificate";
+static const char* const STR_LOG_MATCH_AUTHFAILURE = "Authentication failure";
 static const char* const STR_LOG_MATCH_AUTHFAILED = "LCP terminated by peer (Authentication failed)";
 static const char* const STR_LOG_MATCH_NO_DATA = "No data from BIO_read";
 static const char* const STR_LOG_MATCH_PEERAUTHFAILED = "but I couldn't find any suitable secret (password) for it to use to do so.";
@@ -281,7 +282,7 @@ qint64 VPNControlTask::readLogLine(char* data, qint64 iMaxSize)
          else
             emitErrorMsg("unknown");
       }
-      if (::strstr(data, STR_LOG_MATCH_AUTHFAILED) != NULL)
+      if (::strstr(data, STR_LOG_MATCH_AUTHFAILED) != NULL || ::strstr(data, STR_LOG_MATCH_AUTHFAILURE) != NULL)
       {
          m_iReturnCode = ERR_AUTHENTICATION_FAILED;
          emitErrorMsg(connectionName());
