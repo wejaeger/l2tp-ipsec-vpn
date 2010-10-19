@@ -34,6 +34,7 @@ static const char* const DEFAULT_GATEWAY_SECTION = "DEFAULT_GATEWAY_SECTION";
 
 static const char* const OBJECTNAME = "OBJECTNAME";
 static const char* const GETIPSECINFOLIB = "GETIPSECINFOLIB";
+static const char* const GATEWAY = "GATEWAY";
 static const char* const IPPARAM = "IPPARAM";
 
 PppDownScriptWriter::PppDownScriptWriter(const QString& strTemplateKey, const QString& strWriteTo) : AbstractConfWriter(strTemplateKey, strWriteTo)
@@ -58,6 +59,7 @@ void PppDownScriptWriter::fill()
          ctemplate::TemplateDictionary* const pConnection = dictionary()->AddSectionDictionary(CONN_SECTION);
 
          pConnection->SetValue(IPPARAM, (QCoreApplication::instance()->objectName() + "-" + strName).toAscii().constData());
+         pConnection->SetValue(GATEWAY, settings.ipsecSettings(strName).gateway().toAscii().constData());
 
          if (ipSetting.useDefaultGateway())
             pConnection->AddSectionDictionary(DEFAULT_GATEWAY_SECTION);

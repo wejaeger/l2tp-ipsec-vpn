@@ -31,6 +31,7 @@ class QRegExp;
 
 const QRegExp& ipv4ValidationRE();
 const QRegExp& ipValidationRE();
+const QRegExp& gatewayValidationRE();
 const QRegExp& hostNameValidationRE();
 const QRegExp& hostNameListValidationRE();
 

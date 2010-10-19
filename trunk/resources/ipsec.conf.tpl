@@ -21,11 +21,7 @@ config setup
 	protostack=netkey
 
 conn %default
-	esp=3des-sha1
-	ikelifetime=8h
-	ike=3des-sha1-modp1024
 	keyingtries=3
-	keylife=24h
 	pfs=no
 	rekey=yes
 	type=transport

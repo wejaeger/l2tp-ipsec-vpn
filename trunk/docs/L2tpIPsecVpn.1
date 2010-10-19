@@ -4,7 +4,7 @@
 
 .SH SYNOPSIS
 .B L2tpIPsecVpn
-[\fIOPTION\fR]...
+[\fIoptions\fR]
 .SH DESCRIPTION
 This GUI is not a network manager plugin. However, it provides a systray
 icon in the indicator applet from which a non privileged user can establish
@@ -40,7 +40,11 @@ connections.
 
 .TP
 \fBconnectionEditor\fR
-Starts the connection editor.
+Starts the connection editor dialog.
+
+.TP
+\fBconnectionEditor applySettings\fR
+Write configuration files according to the connection settings
 
 .SH AUTHORS
 Werner Jaeger

@@ -48,7 +48,7 @@ ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionN
    m_Widget.m_pIPsecCertificateListView->setModel(m_pCertificateListModel);
    m_Widget.m_pConnectionNameEdit->setText(strConnectionName);
 
-   m_Widget.m_pIPsecGatewayEdit->setValidator(new QRegExpValidator(::ipValidationRE(), this));
+   m_Widget.m_pIPsecGatewayEdit->setValidator(new QRegExpValidator(::gatewayValidationRE(), this));
    m_Widget.m_pTabWidget->setCurrentIndex(0);
 
    connect(m_Widget.m_pIPsecUseCertificateRadioButton, SIGNAL(toggled(bool)), this, SLOT(onUseIPsecCertificateRadioButtonToggled(bool)));
