@@ -41,11 +41,13 @@ signals:
    void connectionAdded(const QString& strName);
    void connectionRemoved(const QString& strName);
 
+public slots:
+   bool applySettings(bool fInteractive = true) const;
+
 private slots:
    void addConnection();
    void editConnection();
    void removeConnection();
-   void applySettings() const;
 
 private:
    ConnectionEditorDialog(const ConnectionEditorDialog& orig);

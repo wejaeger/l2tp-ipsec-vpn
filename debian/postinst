@@ -43,6 +43,8 @@ StartupNotify=false
 Encoding=UTF-8
 Categories=GNOME;GTK;Settings;X-SuSE-ControlCenter-System;X-GNOME-NetworkSettings;
 OnlyShowIn=GNOME;Xfce;' > /usr/share/applications/L2TP-Ipsec-VPN-Manager.desktop
+
+    L2tpIPsecVpn connectionEditor applySettings
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

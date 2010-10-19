@@ -26,6 +26,8 @@
 #include "L2tpIPsecVpnApplication.h"
 #include "ConnectionEditor.h"
 
+static const char* const APPLY_SETTINGS = "applySettings";
+
 ConnectionEditor::ConnectionEditor(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_Application(application), m_pConnectionEditorDialog(new ConnectionEditorDialog)
 {
    connect(m_pConnectionEditorDialog, SIGNAL(connectionAdded(const QString&)), this, SLOT(onConnectionAdded(const QString&)));
@@ -39,7 +41,14 @@ ConnectionEditor::~ConnectionEditor()
 
 int ConnectionEditor::exec()
 {
-   return(m_pConnectionEditorDialog->exec() == QDialog::Accepted ? 0 : 1);
+   int iRet(0);
+
+   if (m_Application.arguments().count() == 3 && m_Application.arguments()[2] == APPLY_SETTINGS)
+      iRet = (m_pConnectionEditorDialog->applySettings(false) ? 0 : 1);
+   else
+      iRet = (m_pConnectionEditorDialog->exec() == QDialog::Accepted ? 0 : 1);
+
+   return(iRet);
 }
 
 void ConnectionEditor::onConnectionAdded(const QString& strName)

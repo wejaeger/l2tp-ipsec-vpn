@@ -19,11 +19,10 @@ fi
 
 . {{GETIPSECINFOLIB}}
 
-# direct tunnelled packets to the tunnel server
-/sbin/route add -host ${PPP_REMOTE} gw ${DFLT_GWY} dev ${EXT_INTF}
-
 case $PPP_IPPARAM in
-{{#CONN_SECTION}}  "{{IPPARAM}}" ){{#ROUTE_SECTION}}
+{{#CONN_SECTION}}  "{{IPPARAM}}" )
+    # direct tunneled packets to the tunnel server
+    /sbin/route add -host {{GATEWAY}} gw ${DFLT_GWY} dev ${EXT_INTF}{{#ROUTE_SECTION}}
     /sbin/route add -net {{IPADDRESS}} netmask {{IPNETMASK}} dev ${PPP_IFACE}{{/ROUTE_SECTION}}{{#DEFAULT_GATEWAY_SECTION}}
     /sbin/route add -net 0.0.0.0 dev ${PPP_IFACE}
     /sbin/route add -net 0.0.0.0 gw ${DFLT_GWY} metric 100 dev ${EXT_INTF}

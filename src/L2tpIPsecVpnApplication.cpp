@@ -42,7 +42,7 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QA
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
    setApplicationName(APPLICATIONNAME);
-   setApplicationVersion("0.9.3");
+   setApplicationVersion("0.9.4");
    setObjectName("L2tpIPsecVpn");
    qRegisterMetaType<NetworkInterface>("NetworkInterface");
    qRegisterMetaType<QAbstractSocket::SocketState>("QAbstractSocket::SocketState");
@@ -102,7 +102,7 @@ void L2tpIPsecVpnApplication::onConnectionEditorDialogClosed(int iExitCode)
 
 bool L2tpIPsecVpnApplication::isConnectionEditor() const
 {
-   return(arguments().count() == 2 && arguments()[1] == CONNECTIONEDITOR_CMD_SWITCH);
+   return(arguments().count() >= 2 && arguments()[1] == CONNECTIONEDITOR_CMD_SWITCH);
 }
 
 bool L2tpIPsecVpnApplication::isPasswordCallback() const

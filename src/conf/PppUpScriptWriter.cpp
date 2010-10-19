@@ -35,6 +35,7 @@ static const char* const DEFAULT_GATEWAY_SECTION = "DEFAULT_GATEWAY_SECTION";
 
 static const char* const OBJECTNAME = "OBJECTNAME";
 static const char* const GETIPSECINFOLIB = "GETIPSECINFOLIB";
+static const char* const GATEWAY = "GATEWAY";
 static const char* const IPPARAM = "IPPARAM";
 static const char* const IPADDRESS = "IPADDRESS";
 static const char* const IPNETMASK = "IPNETMASK";
@@ -59,6 +60,7 @@ void PppUpScriptWriter::fill()
       if (!strName.isEmpty())
       {
          pConnection->SetValue(IPPARAM, (QCoreApplication::instance()->objectName() + "-" + strName).toAscii().constData());
+         pConnection->SetValue(GATEWAY, settings.ipsecSettings(strName).gateway().toAscii().constData());
 
          const PppIpSettings ipSetting(settings.pppSettings(strName).ipSettings());
 

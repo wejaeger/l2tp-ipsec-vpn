@@ -58,6 +58,48 @@ ConnectionEditorDialog::~ConnectionEditorDialog()
    delete m_pConnectionsModel;
 }
 
+bool ConnectionEditorDialog::applySettings(bool fInteractive) const
+{
+   const ConnectionSettings settings;
+   const int iConnections = settings.connections();
+
+    bool fRet(true);
+
+   if (iConnections > 0)
+   {
+      if (m_pConnectionsModel->isWriteable())
+      {
+         if (!fInteractive || QMessageBox::question(NULL, tr("Confirm applying changes"), tr("You need to reconnect for your changes to take effect!\n\nAre you sure you want to apply your changes?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+         {
+            fRet = ConfWriter::write(ConfWriter::IPsec);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::IPsecSECRET);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::L2TP);
+
+            for (int i = 0; fRet && i < iConnections; i++)
+            {
+               const QString strConnectionName(settings.connection(i));
+
+               fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
+               if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+            }
+
+            if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::OPENSSL);
+            if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
+         }
+      }
+      else if (fInteractive)
+         QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
+   }
+
+   if (fInteractive)
+      m_Widget.m_pConnections->setFocus();
+
+    return(fRet);
+}
+
 void ConnectionEditorDialog::addConnection()
 {
    if (m_pConnectionsModel->isWriteable())
@@ -151,40 +193,6 @@ void ConnectionEditorDialog::removeConnection()
    }
    else
       QMessageBox::critical(this, tr("Delete Connection"), tr("You do not have the permission to remmove a connection"));
-
-   m_Widget.m_pConnections->setFocus();
-}
-
-void ConnectionEditorDialog::applySettings() const
-{
-   if (m_pConnectionsModel->isWriteable())
-   {
-      if (QMessageBox::question(NULL, tr("Confirm applying changes"), tr("You need to reconnect for your changes to take effect!\n\nAre you sure you want to apply your changes?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
-      {
-         const ConnectionSettings settings;
-
-         bool fRet = ConfWriter::write(ConfWriter::IPsec);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::IPsecSECRET);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::L2TP);
-
-         const int iConnections = settings.connections();
-         for (int i = 0; fRet && i < iConnections; i++)
-         {
-            const QString strConnectionName(settings.connection(i));
-
-            fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, QCoreApplication::instance()->objectName() + "-" +strConnectionName);
-         }
-
-         if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::OPENSSL);
-         if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
-      }
-   }
-   else
-      QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
 
    m_Widget.m_pConnections->setFocus();
 }

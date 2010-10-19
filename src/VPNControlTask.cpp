@@ -205,13 +205,27 @@ void VPNControlTask::runConnect()
 {
 //   qDebug() << "VPNControlTask::runConnect()";
 
-   if (!plutoPid.exists())
-      runAndWait(VpnClientConnection::CMD_START_IPSECD);
+   if (plutoPid.exists())
+   {
+      runAndWait(VpnClientConnection::CMD_STOP_IPSECD);
+
+      while (plutoPid.exists())
+         ::sleep(1);
+   }
+
+   if (xl2tpdPid.exists())
+   {
+      runAndWait(VpnClientConnection::CMD_STOP_L2TPD);
+
+      while (xl2tpdPid.exists())
+         ::sleep(1);
+   }
+
+   runAndWait(VpnClientConnection::CMD_START_IPSECD);
 
    if (m_iReturnCode == 0)
    {
-      if (!xl2tpdPid.exists())
-         runAndWait(VpnClientConnection::CMD_START_L2TPD);
+      runAndWait(VpnClientConnection::CMD_START_L2TPD);
 
       if (m_iReturnCode == 0)
       {
