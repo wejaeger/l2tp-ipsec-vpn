@@ -19,6 +19,10 @@ fi
 
 . {{GETIPSECINFOLIB}}
 
+if test -f /var/run/L2tpIPsecVpn/${PPP_REMOTE} ; then
+	rm -f /var/run/L2tpIPsecVpn/${PPP_REMOTE}
+fi
+
 case $PPP_IPPARAM in
 {{#CONN_SECTION}}  "{{IPPARAM}}" )
     /sbin/route del -host {{GATEWAY}} gw ${DFLT_GWY} ${EXT_INTF}{{#DEFAULT_GATEWAY_SECTION}}

@@ -54,6 +54,7 @@ static const int PTPINTERFACE_CHECK_UP_TIME(30000);
 static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
 static const int VPN_TASK_TIMOUT(40000);
 
+static const QString strRuntimePath("/var/run/L2tpIPsecVpn/");
 static const char* const strAbout("<p><center><small>Copyright &copy; 2010 Werner Jaeger</small></center></p><p><center><a href='https://launchpad.net/~werner-jaeger/+archive/ppa-werner-vpn'>Website</a></center></p>");
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
@@ -548,7 +549,7 @@ void ConnectionManager::onPtpInterfaceIsUpAnRunning(NetworkInterface interface)
 
    if (m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected))
    {
-      const QString strConnectionName(ConnectionManager::connectionName(interface));
+      const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())
          connected(strConnectionName);
    }
@@ -656,7 +657,7 @@ QString ConnectionManager::connectionNameOfUpAndRunningPtpInterface() const
    return(strConnectionName);
 }
 
-QString ConnectionManager::connectionName(const NetworkInterface& interface)
+QString ConnectionManager::connectionName(const NetworkInterface& interface, int iRetry)
 {
    QString strConnectionName;
 
@@ -664,10 +665,25 @@ QString ConnectionManager::connectionName(const NetworkInterface& interface)
    NetworkInterface::AddressEntries::const_iterator addressIterator(addressEntries.begin());
    for (bool fFound = false; !fFound && addressIterator != addressEntries.end(); addressIterator++)
    {
-      strConnectionName = ConnectionSettings().name((*addressIterator).broadcast());
-      if (!strConnectionName.isNull())
-         fFound = true;
+      QFile connectionNameMap(strRuntimePath + (*addressIterator).broadcast().toString());
+
+      for (int i = 0; !fFound && i < iRetry; i++)
+      {
+         if (connectionNameMap.exists())
+         {
+            if (connectionNameMap.open(QFile::ReadOnly))
+            {
+               strConnectionName = connectionNameMap.readLine();
+               if (!strConnectionName.isEmpty())
+                  fFound = true;
+
+               connectionNameMap.close();
+            }
+         }
+         else
+            ::sleep(1);
+      }
    }
 
-   return(strConnectionName);
+   return(strConnectionName.trimmed());
 }
