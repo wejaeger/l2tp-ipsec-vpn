@@ -19,6 +19,13 @@ fi
 
 . {{GETIPSECINFOLIB}}
 
+if test ! -d /var/run/L2tpIPsecVpn ; then
+	 mkdir /var/run/L2tpIPsecVpn
+fi
+
+# remember remote PPP address for given connection name
+echo "${PPP_IPPARAM}" | cut -d'-' -f2 > /var/run/L2tpIPsecVpn/${PPP_REMOTE}
+
 case $PPP_IPPARAM in
 {{#CONN_SECTION}}  "{{IPPARAM}}" )
     # direct tunneled packets to the tunnel server

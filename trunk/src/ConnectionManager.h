@@ -91,7 +91,7 @@ private:
 
    QAction* action(ActionType type) const;
 
-   static QString connectionName(const NetworkInterface& interface);
+   static QString connectionName(const NetworkInterface& interface, int iRetry = 0);
 
    ConnectionInformationDialog* const m_pConnectionInformation;
    QTimer* const m_pTimeout;

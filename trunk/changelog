@@ -1,3 +1,7 @@
+0.9.5
+ - Fixed bug successful connection not recognized by client if ip address of
+   ipsec gateway and ip address of remote PPP are different
+
 0.9.4
  - Less restrictive IPsec default configuration
    removed esp=3des-sha1, ikelifetime=8h, ike=3des-sha1-modp1024, keylife=24h
