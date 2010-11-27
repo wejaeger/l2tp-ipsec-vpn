@@ -37,7 +37,7 @@ static const char* const GETIPSECINFOLIB = "GETIPSECINFOLIB";
 static const char* const GATEWAY = "GATEWAY";
 static const char* const IPPARAM = "IPPARAM";
 
-PppDownScriptWriter::PppDownScriptWriter(const QString& strTemplateKey, const QString& strWriteTo) : AbstractConfWriter(strTemplateKey, strWriteTo)
+PppDownScriptWriter::PppDownScriptWriter(const QString& strTemplateKey, const QString& strWriteTo) : AbstractConfWriter(strTemplateKey, strWriteTo, AbstractConfWriter::EXECUTABLE)
 {
 }
 

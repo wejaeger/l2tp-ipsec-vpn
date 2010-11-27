@@ -37,7 +37,7 @@
 #include "VPNControlTask.h"
 #include "ConnectionManager.h"
 
-static const QFile plutoPid("/var/run/pluto/pluto.pid");
+static const QFile ipsecInfo("/var/run/pluto/ipsec.info");
 static const QFile xl2tpdPid("/var/run/xl2tpd.pid");
 
 static const char* const strVpnLogPipeName("/var/log/l2tpipsecvpn.pipe");
@@ -205,11 +205,11 @@ void VPNControlTask::runConnect()
 {
 //   qDebug() << "VPNControlTask::runConnect()";
 
-   if (plutoPid.exists())
+   if (ipsecInfo.exists())
    {
       runAndWait(VpnClientConnection::CMD_STOP_IPSECD);
 
-      while (plutoPid.exists())
+      while (ipsecInfo.exists())
          ::sleep(1);
    }
 

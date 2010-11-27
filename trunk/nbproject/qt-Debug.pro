@@ -3,7 +3,7 @@
 TEMPLATE = app
 DESTDIR = dist/Debug/GNU-Linux-x86
 TARGET = L2tpIPsecVpn
-VERSION = 0.9.5
+VERSION = 0.9.6
 CONFIG -= debug_and_release app_bundle lib_bundle
 CONFIG += debug 
 QT = core gui network
