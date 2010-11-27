@@ -1,3 +1,9 @@
+0.9.6
+ - Fixed missing execute rights for L2tpIPsecVpn-down script
+ - Now using /var/run/pluto/ipsec.info instead of /var/run/pluto/pluto.pid for
+   testing if ipsec service is started
+ - Fixed delayed display of disconnected status
+
 0.9.5
  - Fixed bug successful connection not recognized by client if ip address of
    ipsec gateway and ip address of remote PPP are different
