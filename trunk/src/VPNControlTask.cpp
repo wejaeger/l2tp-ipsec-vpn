@@ -214,12 +214,7 @@ void VPNControlTask::runConnect()
    }
 
    if (xl2tpdPid.exists())
-   {
       runAndWait(VpnClientConnection::CMD_STOP_L2TPD);
-
-      while (xl2tpdPid.exists())
-         ::sleep(1);
-   }
 
    runAndWait(VpnClientConnection::CMD_START_IPSECD);
 
@@ -230,18 +225,21 @@ void VPNControlTask::runConnect()
       if (m_iReturnCode == 0)
       {
          // avoid need --listen before --initiate error
-         ::sleep(2);
-
-         runAndWait(VpnClientConnection::CMD_IPSEC_UP, m_strConnectionName);
-
-         if (m_iReturnCode == 0 && !m_fIPSecConnectionIsUp)
-         {
-            m_iReturnCode = ERR_IPSEC_SA_NOT_ESTABLISHED;
-            emitErrorMsg("IPsec");
-         }
+         runAndWait(VpnClientConnection::CMD_IPSEC_READY);
 
          if (m_iReturnCode == 0)
-            runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+         {
+            runAndWait(VpnClientConnection::CMD_IPSEC_UP, m_strConnectionName);
+
+            if (m_iReturnCode == 0 && !m_fIPSecConnectionIsUp)
+            {
+               m_iReturnCode = ERR_IPSEC_SA_NOT_ESTABLISHED;
+               emitErrorMsg("IPsec");
+            }
+
+            if (m_iReturnCode == 0)
+               runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+         }
       }
    }
 //   qDebug() << "VPNControlTask::runConnect() -> finished";

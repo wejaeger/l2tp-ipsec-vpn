@@ -1,3 +1,8 @@
+0.9.7
+ - When connecting, now calling 'ipsec auto --ready' before calling 'ipsec auto --up' to
+   avoid occasional need --listen before --initiate error
+
+
 0.9.6
  - Fixed missing execute rights for L2tpIPsecVpn-down script
  - Now using /var/run/pluto/ipsec.info instead of /var/run/pluto/pluto.pid for
