@@ -1,0 +1,35 @@
+0.9.7
+ - When connecting, now calling 'ipsec auto --ready' before calling 'ipsec auto --up' to
+   avoid occasional need --listen before --initiate error
+
+
+0.9.6
+ - Fixed missing execute rights for L2tpIPsecVpn-down script
+ - Now using /var/run/pluto/ipsec.info instead of /var/run/pluto/pluto.pid for
+   testing if ipsec service is started
+ - Fixed delayed display of disconnected status
+
+0.9.5
+ - Fixed bug successful connection not recognized by client if ip address of
+   ipsec gateway and ip address of remote PPP are different
+
+0.9.4
+ - Less restrictive IPsec default configuration
+   removed esp=3des-sha1, ikelifetime=8h, ike=3des-sha1-modp1024, keylife=24h
+ - Increased PPP interface is up check time from 20 to 30 seconds
+ - Ensuring a clean starting state before every connection attempt
+ - A domain name is now allowed as Remote Server (IPsec peer)
+ - Fixed looping packets bug, in cases where ip addresses of remote IPsec
+   server and PPP server are different
+
+0.9.3
+ - Fixed broken password callback in Maverick series
+ - Fixed asking to insert smart card for non EAP authentications
+ - Fixed read only edit field for private key passphrase
+   in connection editor (PPP tab, EAP properties)
+ - Fixed missing host's ID when writing ipsec PSK secrets
+ - Connection Information dialog is now modeless
+ - Enabled password callback for CHAP authentication
+
+0.9.2
+ - Start of l2tp-ipsec-vpn project.
