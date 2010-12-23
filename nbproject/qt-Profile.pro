@@ -24,3 +24,5 @@ LIBS +=
 LIBS+=-lopensc
 
 LIBS+=-lctemplate
+LIBS+=-lcrypto
+LIBS+=-lltdl

@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Werner Jaeger <werner.jaeger@t-systems.com>
-Build-Depends: debhelper (>= 7.0.50), libqt4-dev (>= 4.6.2), qt4-qmake (>= 4.6.2), libctemplate-dev (>=0.96), libopensc2-dev (>= 0.11.12), libltdl-dev (>= 2.2.6)
+Build-Depends: debhelper (>= 7.0.50), libqt4-dev (>= 4.6.2), qt4-qmake (>= 4.6.2), libctemplate-dev (>=0.96), libopensc2-dev (>= 0.11.12), libltdl-dev (>= 2.2.6) 
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/~werner-jaeger
 

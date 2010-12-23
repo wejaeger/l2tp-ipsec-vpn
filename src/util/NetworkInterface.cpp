@@ -33,7 +33,7 @@
 
 #include "NetworkInterface.h"
 
-const NetworkInterface NetworkInterface::null(NetworkInterface::NetworkInterface("", 0, 0));
+const NetworkInterface NetworkInterface::null(NetworkInterface("", 0, 0));
 
 NetworkInterface::NetworkInterface(const NetworkInterface& orig) : m_strName(orig.m_strName), m_iIndex(orig.m_iIndex), m_Flags(orig.m_Flags), m_AddressEntries(orig.m_AddressEntries), m_RouteEntries(orig.m_RouteEntries)
 {

@@ -24,6 +24,8 @@ LIBS +=
 LIBS+=-lopensc
 
 LIBS+=-lctemplate
+LIBS+=-lcrypto
+LIBS+=-lltdl
 target.path = /usr/bin
 INSTALLS += target
 data.path = /usr/share/L2tpIPsecVpn

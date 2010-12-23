@@ -163,6 +163,8 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
+          <Elem>LIBS+=-lcrypto</Elem>
+          <Elem>LIBS+=-lltdl</Elem>
         </defs>
       </qt>
       <compileType>
@@ -186,10 +188,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -226,6 +232,8 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
+          <Elem>LIBS+=-lcrypto</Elem>
+          <Elem>LIBS+=-lltdl</Elem>
           <Elem>target.path = /usr/bin</Elem>
           <Elem>INSTALLS += target</Elem>
           <Elem>data.path = /usr/share/L2tpIPsecVpn</Elem>
@@ -264,10 +272,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -303,6 +315,8 @@
           <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
+          <Elem>LIBS+=-lcrypto</Elem>
+          <Elem>LIBS+=-lltdl</Elem>
         </defs>
       </qt>
       <compileType>
@@ -326,10 +340,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
