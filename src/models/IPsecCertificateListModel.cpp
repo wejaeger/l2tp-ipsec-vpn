@@ -56,7 +56,12 @@ QVariant IPsecCertificateListModel::data(const QModelIndex& index, int iRole) co
             break;
 
          case Qt::ToolTipRole:
-            ret = "CN=" + CertificateInfo(m_pCertificateDirectory->path() + "/" + value(index.row())).cn();
+            {
+               const CertificateInfo ci(m_pCertificateDirectory->path() + "/" + value(index.row()));
+               const QString strCN(ci.cn());
+               const QString strSN(ci.serialNumber());
+               ret =  (strSN.isEmpty() ? "" : "SN=" + strSN + ", ") + "CN=" + strCN;
+            }
             break;
 
          case Qt::CheckStateRole:
