@@ -49,10 +49,10 @@
       <itemPath>src/util/SecretsChecker.h</itemPath>
       <itemPath>src/settings/Settings.h</itemPath>
       <itemPath>src/pkcs11/SmartCardInfo.h</itemPath>
-      <itemPath>src/util/SmartCardInsertWaitTask.h</itemPath>
+      <itemPath>src/pkcs11/SmartCardInsertWaitTask.h</itemPath>
       <itemPath>src/models/SmartCardObjectListModel.h</itemPath>
       <itemPath>src/dialogs/SmartCardObjectsDialog.h</itemPath>
-      <itemPath>src/util/SmartCardState.h</itemPath>
+      <itemPath>src/pkcs11/SmartCardState.h</itemPath>
       <itemPath>src/VPNControlTask.h</itemPath>
       <itemPath>src/util/VpnControlDaemonClient.h</itemPath>
     </logicalFolder>
@@ -118,10 +118,10 @@
       <itemPath>src/util/SecretsChecker.cpp</itemPath>
       <itemPath>src/settings/Settings.cpp</itemPath>
       <itemPath>src/pkcs11/SmartCardInfo.cpp</itemPath>
-      <itemPath>src/util/SmartCardInsertWaitTask.cpp</itemPath>
+      <itemPath>src/pkcs11/SmartCardInsertWaitTask.cpp</itemPath>
       <itemPath>src/dialogs/SmartCardObjectsDialog.cpp</itemPath>
       <itemPath>src/dialogs/SmartCardObjectsDialog.ui</itemPath>
-      <itemPath>src/util/SmartCardState.cpp</itemPath>
+      <itemPath>src/pkcs11/SmartCardState.cpp</itemPath>
       <itemPath>src/models/SmartCardTokenListModel.cpp</itemPath>
       <itemPath>src/VPNControlTask.cpp</itemPath>
       <itemPath>src/util/VpnControlDaemonClient.cpp</itemPath>
@@ -154,13 +154,12 @@
       </toolsSet>
       <qt>
         <target>L2tpIPsecVpn</target>
-        <version>0.9.7</version>
+        <version>0.9.8</version>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
         <rccDir>src/generated</rccDir>
         <uiDir>src/generated</uiDir>
         <defs>
-          <Elem>LIBS+=-lopensc</Elem>
           <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
           <Elem>LIBS+=-lcrypto</Elem>
@@ -190,10 +189,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -274,10 +277,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -342,10 +349,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

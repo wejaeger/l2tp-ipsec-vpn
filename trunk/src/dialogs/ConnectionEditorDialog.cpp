@@ -27,7 +27,6 @@
 
 #include "models/ConnectionsModel.h"
 #include "settings/ConnectionSettings.h"
-#include "util/SmartCardState.h"
 #include "conf/ConfWriter.h"
 #include "ConnectionSettingsDialog.h"
 #include "ConnectionEditorDialog.h"

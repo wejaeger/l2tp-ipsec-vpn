@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=l2tp-ipsec-vpn-0.9.7
+PROJECTNAME=l2tp-ipsec-vpn-0.9.8
 
 # Active Configuration
 DEFAULTCONF=Debug

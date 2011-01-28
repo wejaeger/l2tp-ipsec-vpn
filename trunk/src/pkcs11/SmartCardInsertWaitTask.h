@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * File:   SmartCardInsertWaitTask.cpp
+ * File:   SmartCardInsertWaitTask.h
  * Author: Werner Jaeger
  *
  * Created on July 16, 2010, 7:08 PM
@@ -22,25 +22,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "SmartCardInsertWaitTask.h"
-#include <opensc/opensc.h>
+#ifndef SMARTCARDINSERTWAITTASK_H
+#define	SMARTCARDINSERTWAITTASK_H
 
-SmartCardInsertWaitTask::SmartCardInsertWaitTask(sc_reader_t* pReader, int iSlot) : m_pReader(pReader),  m_iSlot(iSlot), m_iRet(0), m_fStop(false)
+#include <QThread>
+
+class Pkcs11;
+
+class SmartCardInsertWaitTask : public QThread
 {
-}
+public:
+   SmartCardInsertWaitTask(const Pkcs11& pkcs11);
+   virtual ~SmartCardInsertWaitTask();
 
-SmartCardInsertWaitTask::~SmartCardInsertWaitTask()
-{
-}
+   void run();
+   void stop() { m_fStop = true;  wait(); }
 
-void SmartCardInsertWaitTask::run()
-{
-   m_fStop = false;
+   int result() const { return(m_iRet); }
 
-   do
-   {
-      m_iRet = ::sc_detect_card_presence(m_pReader, m_iSlot);
-      msleep(100);
-   }
-   while (m_iRet == 0 && !m_fStop);
-}
+private:
+   SmartCardInsertWaitTask(const SmartCardInsertWaitTask& orig);
+   SmartCardInsertWaitTask& operator=(const SmartCardInsertWaitTask& orig);
+
+   const Pkcs11& m_pkcs11;
+
+   int m_iRet;
+   volatile bool m_fStop;
+};
+
+#endif	/* SMARTCARDINSERTWAITTASK_H */
+

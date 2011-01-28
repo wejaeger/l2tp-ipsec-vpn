@@ -61,6 +61,18 @@ void Pkcs11::startSession(unsigned long ulSlot, bool fRW)
    m_ulSlotId = ulSlot;
 }
 
+unsigned long Pkcs11::slotsAvailable() const
+{
+   unsigned long ulNumSlots(0L);
+
+   const CK_RV rv = m_p11->C_GetSlotList(CK_FALSE, NULL_PTR, &ulNumSlots);
+
+   if (rv != CKR_OK)
+      pk11error("C_GetSlotList", rv);
+
+   return(ulNumSlots);
+}
+
 QList<unsigned long> Pkcs11::slotList() const
 {
    CK_RV rv;
@@ -171,7 +183,7 @@ bool Pkcs11::needsLogin(bool fAsSecurityOfficer) const
 
 void Pkcs11::login(const unsigned char* pcPin, unsigned long ulPinlen, bool fAsSecurityOfficer) const
 {
-   const unsigned long ulUser = fAsSecurityOfficer ? CKU_SO : CKU_USER;
+   const unsigned long ulUser(fAsSecurityOfficer ? CKU_SO : CKU_USER);
 
    const CK_RV rv = m_p11->C_Login(m_ulSessionHandle, ulUser, const_cast<unsigned char*>(pcPin), ulPinlen);
    if (rv != CKR_OK && rv != CKR_USER_ALREADY_LOGGED_IN)
@@ -180,14 +192,14 @@ void Pkcs11::login(const unsigned char* pcPin, unsigned long ulPinlen, bool fAsS
 
 void Pkcs11::setPin(const unsigned char* pcOldPin, unsigned long ulOldPinLen, const unsigned char* pcPin, unsigned long ulPinLen) const
 {
-   const CK_RV rv = m_p11->C_SetPIN(m_ulSessionHandle, const_cast<unsigned char*>(pcOldPin), ulOldPinLen, const_cast<unsigned char*>(pcPin), ulPinLen);
+   const CK_RV rv(m_p11->C_SetPIN(m_ulSessionHandle, const_cast<unsigned char*>(pcOldPin), ulOldPinLen, const_cast<unsigned char*>(pcPin), ulPinLen));
    if (rv != CKR_OK)
       pk11error("C_SetPIN", rv);
 }
 
 void Pkcs11::initPin(const unsigned char* pcPin, unsigned long ulPinLen) const
 {
-   const CK_RV rv = m_p11->C_InitPIN(m_ulSessionHandle, const_cast<unsigned char*>(pcPin), ulPinLen);
+   const CK_RV rv(m_p11->C_InitPIN(m_ulSessionHandle, const_cast<unsigned char*>(pcPin), ulPinLen));
    if (rv != CKR_OK)
       pk11error("C_InitPIN", rv);
 }
@@ -196,7 +208,7 @@ QStringList Pkcs11::tokenInfo(CK_SLOT_ID ulSlotId) const
 {
    CK_TOKEN_INFO tokenInfo;
 
-   const CK_RV rv = m_p11->C_GetTokenInfo(ulSlotId, &tokenInfo);
+   const CK_RV rv(m_p11->C_GetTokenInfo(ulSlotId, &tokenInfo));
    if (rv != CKR_OK)
       pk11error("C_GetTokenInfo", rv);
 
@@ -216,7 +228,7 @@ QStringList Pkcs11::tokenInfo() const
 bool Pkcs11::protectedAuthenticationPath(CK_SLOT_ID ulSlotId) const
 {
    CK_TOKEN_INFO tokenInfo;
-   const CK_RV rv = m_p11->C_GetTokenInfo(ulSlotId, &tokenInfo);
+   const CK_RV rv(m_p11->C_GetTokenInfo(ulSlotId, &tokenInfo));
 
    if (rv != CKR_OK)
       pk11error("C_GetTokenInfo", rv);
@@ -244,7 +256,7 @@ CK_OBJECT_HANDLE Pkcs11::createObject(const Pkcs11Attlist& attrs) const
    CK_ATTRIBUTE *pAttributes;
    CK_OBJECT_HANDLE ulObjectHandle;
 
-   const unsigned long ulNum = attrs.get(&pAttributes);
+   const unsigned long ulNum(attrs.get(&pAttributes));
    const CK_RV rv = m_p11->C_CreateObject(m_ulSessionHandle, pAttributes, ulNum, &ulObjectHandle);
    if (rv != CKR_OK)
       pk11error("C_CreateObject", rv);
@@ -257,7 +269,7 @@ QList<CK_OBJECT_HANDLE> Pkcs11::objectList(const Pkcs11Attlist& atts) const
    QList<CK_OBJECT_HANDLE> objectHandleList;
 
    CK_ATTRIBUTE* pAttribute;
-   const unsigned long ulNoOfAttributes = atts.get(&pAttribute);
+   const unsigned long ulNoOfAttributes(atts.get(&pAttribute));
    CK_RV rv = m_p11->C_FindObjectsInit(m_ulSessionHandle, pAttribute, ulNoOfAttributes);
 
    if (rv != CKR_OK)

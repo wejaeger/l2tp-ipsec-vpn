@@ -1,7 +1,10 @@
+0.9.8
+ - no longer depends on OpenSC, any PKCS11 library can be used and is dynamically loaded
+ - increased retry attempts to detect a system tray from 10 to 30
+
 0.9.7
  - When connecting, now calling 'ipsec auto --ready' before calling 'ipsec auto --up' to
    avoid occasional need --listen before --initiate error
-
 
 0.9.6
  - Fixed missing execute rights for L2tpIPsecVpn-down script
