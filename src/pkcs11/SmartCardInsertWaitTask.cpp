@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * File:   SmartCardInsertWaitTask.h
+ * File:   SmartCardInsertWaitTask.cpp
  * Author: Werner Jaeger
  *
  * Created on July 16, 2010, 7:08 PM
@@ -22,34 +22,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SMARTCARDINSERTWAITTASK_H
-#define	SMARTCARDINSERTWAITTASK_H
+#include "SmartCardInsertWaitTask.h"
+#include "pkcs11/Pkcs11.h"
 
-#include <QThread>
-
-struct sc_reader;
-
-class SmartCardInsertWaitTask : public QThread
+SmartCardInsertWaitTask::SmartCardInsertWaitTask(const Pkcs11& pkcs11) : m_pkcs11(pkcs11), m_iRet(0), m_fStop(false)
 {
-public:
-   SmartCardInsertWaitTask(struct sc_reader* pReader, int  iSlot);
-   virtual ~SmartCardInsertWaitTask();
+}
 
-   void run();
-   void stop() { m_fStop = true;  wait(); }
+SmartCardInsertWaitTask::~SmartCardInsertWaitTask()
+{
+}
 
-   int result() const { return(m_iRet); }
+void SmartCardInsertWaitTask::run()
+{
+   m_fStop = false;
 
-private:
-   SmartCardInsertWaitTask(const SmartCardInsertWaitTask& orig);
-   SmartCardInsertWaitTask& operator=(const SmartCardInsertWaitTask& orig);
-
-   struct sc_reader* const m_pReader;
-   int const m_iSlot;
-
-   int m_iRet;
-   volatile bool m_fStop;
-};
-
-#endif	/* SMARTCARDINSERTWAITTASK_H */
-
+   if (Pkcs11::loaded())
+   {
+      do
+      {
+         m_iRet = m_pkcs11.slotList().count();
+         msleep(100);
+      }
+      while (m_iRet == 0 && !m_fStop);
+   }
+}

@@ -29,8 +29,8 @@
 #include <QMessageBox>
 //#include <QDebug>
 
+#include "pkcs11/SmartCardState.h"
 #include "util/NetworkInterfaceMonitor.h"
-#include "util/SmartCardState.h"
 #include "util/SecretsChecker.h"
 #include "dialogs/ConnectionEditorDialog.h"
 #include "dialogs/ConnectionInformationDialog.h"
@@ -100,8 +100,8 @@ int ConnectionManager::exec()
 {
    int iRet(1);
 
-   // at startup it might last few seconds until a try is available, lets try a view times before giving up
-   for (int i = 0; iRet != 0 && i < 10; i++)
+   // at startup it might last few seconds until a tray is available, lets try a view times before giving up
+   for (int i = 0; iRet != 0 && i < 30; i++)
    {
       if (QSystemTrayIcon::isSystemTrayAvailable())
          iRet = 0;

@@ -40,6 +40,7 @@ public:
    QStringList tokenInfo(CK_SLOT_ID ulSlotId) const;
    QStringList tokenInfo() const;
 
+   unsigned long slotsAvailable() const;
    bool protectedAuthenticationPath(CK_SLOT_ID ulSlotId) const;
    bool protectedAuthenticationPath() const;
 

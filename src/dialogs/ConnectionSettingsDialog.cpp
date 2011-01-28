@@ -28,7 +28,6 @@
 #include "settings/ConnectionSettings.h"
 #include "models/ConnectionsModel.h"
 #include "models/IPsecCertificateListModel.h"
-#include "util/SmartCardState.h"
 #include "util/GlobalFunctions.h"
 #include "PeerAuthenticationDialog.h"
 #include "IpSettingsDialog.h"
