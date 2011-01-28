@@ -24,9 +24,8 @@
 
 #include <QStringList>
 
-#include <iostream>
 #include <openssl/bn.h>
-#include <openssl/x509.h>
+#include <openssl/crypto.h>
 
 #include "util/CertificateInfo.h"
 #include "util/ErrorEx.h"
@@ -87,12 +86,13 @@ void SmartCardInfo::loadToken(const Pkcs11& p11, CK_OBJECT_HANDLE ulObjectHandle
    Pkcs11AttrData x509ValueAttribute(CKA_VALUE);
    p11.loadAttribute(x509ValueAttribute, ulObjectHandle);
    const unsigned char* pcValue;
-   unsigned long ulLen = x509ValueAttribute.getValue(&pcValue);
+
+   const unsigned long ulLen(x509ValueAttribute.getValue(&pcValue));
 
    if (m_pCertificateInfo)
       delete m_pCertificateInfo;
 
-   m_pCertificateInfo = new CertificateInfo(::d2i_X509(NULL, &pcValue, ulLen));
+   m_pCertificateInfo = new CertificateInfo(QByteArray::fromRawData(reinterpret_cast<const char*>(pcValue), ulLen));
 }
 
 QString SmartCardInfo::BNOneLine(const BIGNUM* pBigNumber)
@@ -106,7 +106,3 @@ QString SmartCardInfo::BNOneLine(const BIGNUM* pBigNumber)
    }
    return(strRet);
 }
-
-
-
-

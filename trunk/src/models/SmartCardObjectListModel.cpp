@@ -62,10 +62,8 @@ QVariant SmartCardObjectListModel::data(const QModelIndex& index, int iRole) con
             {
                const QString strEmail = m_pSmartCardObjects->at(index.row())->certificateInfo().email();
                const QString strCN = m_pSmartCardObjects->at(index.row())->certificateInfo().cn();
-               if (!strEmail.isEmpty())
-                  ret = "User=" + strEmail;
-               else if (!strCN.isEmpty())
-                  ret = "CN=" + strCN;
+               const QString strSN = m_pSmartCardObjects->at(index.row())->certificateInfo().serialNumber();
+               ret = (strSN.isEmpty() ? "" : "SN=" + strSN + ", ") + (strEmail.isEmpty() ? (strCN.isEmpty() ? "" : "CN=" + strCN) : "User=" + strEmail);
             }
             break;
 

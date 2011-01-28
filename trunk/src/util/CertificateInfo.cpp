@@ -23,23 +23,25 @@
  */
 
 #include <QString>
+#include <QFile>
 #include <QFileInfo>
-#include <openssl/pem.h>
-#include <openssl/x509v3.h>
+#include <QMultiMap>
+#include <QSslCertificate>
+
 #include "CertificateInfo.h"
 
-CertificateInfo::CertificateInfo(const QString& strFilePath) : m_strFilePath(strFilePath), m_pX509(readCert(strFilePath))
+CertificateInfo::CertificateInfo(const QString& strFilePath) : m_strFilePath(strFilePath), m_pQSslCertificate(readCert(strFilePath))
 {
 }
 
-CertificateInfo::CertificateInfo(X509* pX509) : m_strFilePath(""), m_pX509(pX509)
+CertificateInfo::CertificateInfo(const QByteArray& data) : m_strFilePath(""), m_pQSslCertificate(new QSslCertificate(data, QSsl::Der))
 {
 }
 
 CertificateInfo::~CertificateInfo()
 {
-   if (m_pX509)
-      ::X509_free(m_pX509);
+   if (m_pQSslCertificate)
+      delete m_pQSslCertificate;
 }
 
 QString CertificateInfo::path() const
@@ -59,122 +61,59 @@ QString CertificateInfo::filePath() const
 
 bool CertificateInfo::isReadable() const
 {
-   return(m_pX509);
+   return(m_pQSslCertificate && !m_pQSslCertificate->isNull());
 }
 
-QString CertificateInfo::name() const
+QString CertificateInfo::serialNumber() const
 {
    QString strRet;
 
    if (isReadable())
-      strRet = m_pX509->name;
+      strRet = m_pQSslCertificate->serialNumber();
 
    return(strRet);
 }
 
 QString CertificateInfo::cn() const
 {
-   return(subjectFieldByNid(NID_commonName));
+   QString strRet;
+
+   if (isReadable())
+      strRet = m_pQSslCertificate->subjectInfo(QSslCertificate::CommonName);
+
+   return(strRet);
 }
 
 QString CertificateInfo::email() const
 {
-   return(subjectFieldByNid(NID_pkcs9_emailAddress));
+   return(alternateSubjectName(QSsl::EmailEntry));
 }
 
-QString CertificateInfo::subjectAlternativeName() const
+ QString CertificateInfo::alternateSubjectName(const QSsl::AlternateNameEntryType type) const
 {
    QString strRet;
 
    if (isReadable())
    {
-      GENERAL_NAMES* const psANs = static_cast<GENERAL_NAMES*>(::X509_get_ext_d2i(m_pX509, NID_subject_alt_name, NULL, NULL));
-      if (psANs)
-      {
-         const int iNumAN = ::sk_GENERAL_NAME_num(psANs);
-         for(int i = 0; i < iNumAN; ++i)
-         {
-            GENERAL_NAME* const psAN = sk_GENERAL_NAME_value(psANs, i);
+      const QMultiMap<QSsl::AlternateNameEntryType, QString> alternateSubjectNames(m_pQSslCertificate->alternateSubjectNames());
 
-            // we only care about DNS entries
-            if (GEN_DNS == psAN->type)
-            {
-               unsigned char* pUtf;
-               const int iLen = ::ASN1_STRING_to_UTF8(&pUtf, psAN->d.dNSName);
-               strRet = QString::fromUtf8(reinterpret_cast<const char*>(pUtf), iLen);
-               ::OPENSSL_free(pUtf);
-            }
-         }
-      }
+      const QMultiMap<QSsl::AlternateNameEntryType, QString>::iterator it(alternateSubjectNames.constFind(type));
+
+      if (it != alternateSubjectNames.end())
+         strRet = it.value();
    }
 
    return(strRet);
 }
 
-QString CertificateInfo::text() const
+QSslCertificate* CertificateInfo::readCert(const QString& strFilePath)
 {
-   QString strRet;
+   QFile file(strFilePath);
+   file.open(QFile::ReadOnly);
 
-   if (isReadable())
-   {
-      BIO* const pMemBio = ::BIO_new(BIO_s_mem());
-      if (pMemBio)
-      {
-         ::X509_print(pMemBio, m_pX509);
+   QSslCertificate* pQSslCertificate(new QSslCertificate(&file));
 
-         char* pcText;
-         const long lSize = BIO_get_mem_data(pMemBio, &pcText);
-         strRet = QString::fromAscii(pcText, lSize);
-         ::BIO_free(pMemBio);
-      }
-   }
+   file.close();
 
-   return(strRet);
+   return(pQSslCertificate);
 }
-
- QString CertificateInfo::subjectFieldByNid(int iNid) const
- {
-   QString strRet;
-
-   if (isReadable())
-   {
-      X509_NAME* const pSubject = ::X509_get_subject_name(m_pX509);
-      if (pSubject)
-      {
-         const int iPos = ::X509_NAME_get_index_by_NID(pSubject, iNid, -1);
-         if (iPos >= 0)
-         {
-            //::X509_NAME_get_index_by_NID(pSubject, NID_commonName, iPos) >=0 // Multiple common names;
-            X509_NAME_ENTRY* const pEntry = ::X509_NAME_get_entry(pSubject, iPos);
-            if (pEntry != NULL)
-            {
-               ASN1_STRING* const pEntryStr = ::X509_NAME_ENTRY_get_data(pEntry);
-               if (pEntryStr != NULL)
-               {
-                  unsigned char* pUtf;
-                  const int iLen = ::ASN1_STRING_to_UTF8(&pUtf, pEntryStr);
-                  strRet = QString::fromUtf8(reinterpret_cast<const char*>(pUtf), iLen);
-                  ::OPENSSL_free(pUtf);
-               }
-            }
-         }
-      }
-   }
-
-   return(strRet);
- }
-
-X509* CertificateInfo::readCert(const QString& strFilePath)
-{
-   X509* pX509 = NULL;
-
-   FILE* const pFile = ::fopen(strFilePath.toAscii().constData(), "r");
-   if (pFile != NULL)
-   {
-      pX509 = ::PEM_read_X509(pFile, NULL, NULL, NULL);
-      ::fclose(pFile);
-   }
-
-   return(pX509);
-}
-
