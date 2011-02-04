@@ -44,6 +44,7 @@
       <itemPath>src/models/PppRoutesModel.h</itemPath>
       <itemPath>src/conf/PppUpScriptWriter.h</itemPath>
       <itemPath>src/settings/Preferences.h</itemPath>
+      <itemPath>src/dialogs/PreferencesEditorDialog.h</itemPath>
       <itemPath>src/conf/RSysLogConfWriter.h</itemPath>
       <itemPath>src/dialogs/RouteSettingsDialog.h</itemPath>
       <itemPath>src/util/SecretsChecker.h</itemPath>
@@ -61,7 +62,6 @@
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>resources/L2tpIPsecVpn.qrc</itemPath>
-      <itemPath>src/models/SmartCardObjectListModel.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -112,6 +112,8 @@
       <itemPath>src/models/PppRoutesModel.cpp</itemPath>
       <itemPath>src/conf/PppUpScriptWriter.cpp</itemPath>
       <itemPath>src/settings/Preferences.cpp</itemPath>
+      <itemPath>src/dialogs/PreferencesEditorDialog.cpp</itemPath>
+      <itemPath>src/dialogs/PreferencesEditorDialog.ui</itemPath>
       <itemPath>src/conf/RSysLogConfWriter.cpp</itemPath>
       <itemPath>src/dialogs/RouteSettingsDialog.cpp</itemPath>
       <itemPath>src/dialogs/RouteSettingsDialog.ui</itemPath>
@@ -119,6 +121,7 @@
       <itemPath>src/settings/Settings.cpp</itemPath>
       <itemPath>src/pkcs11/SmartCardInfo.cpp</itemPath>
       <itemPath>src/pkcs11/SmartCardInsertWaitTask.cpp</itemPath>
+      <itemPath>src/models/SmartCardObjectListModel.cpp</itemPath>
       <itemPath>src/dialogs/SmartCardObjectsDialog.cpp</itemPath>
       <itemPath>src/dialogs/SmartCardObjectsDialog.ui</itemPath>
       <itemPath>src/pkcs11/SmartCardState.cpp</itemPath>
@@ -191,10 +194,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -279,10 +284,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -351,10 +358,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
