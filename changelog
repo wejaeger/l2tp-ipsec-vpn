@@ -3,6 +3,7 @@
  - increased retry attempts to detect a system tray from 10 to 30
  - use QT's QSslCertificate class instead of OpenSSL library calls
  - show also certificate serial number in tool tips of certificate selection dialogs
+ - added preferences menu and dialog
 
 0.9.7
  - When connecting, now calling 'ipsec auto --ready' before calling 'ipsec auto --up' to
