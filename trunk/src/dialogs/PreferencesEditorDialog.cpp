@@ -29,9 +29,22 @@
 #include "util/ErrorEx.h"
 #include "PreferencesEditorDialog.h"
 
+static const QString ENGINEIDPATTERN("[a-zA-Z0-9]{0,20}");
+static const QRegExp REENGINID("^" + ENGINEIDPATTERN + "$");
+
+#if defined(_WIN32) || defined(USE_CYGWIN)
+static const QString DEFLIBPATH("/WINDOWS/system32");
+static const QString LIBFILTER(QObject::tr("Dynamic library files (*.dll)"));
+#else
+static const QString DEFLIBPATH("/usr/lib");
+static const QString LIBFILTER(QObject::tr("Shared library files (*.so)"));
+#endif
+
 PreferencesEditorDialog::PreferencesEditorDialog(QWidget* pParent) : QDialog(pParent)
 {
    m_Widget.setupUi(this);
+
+   m_Widget.m_pEngineIDLineEdit->setValidator(new QRegExpValidator(REENGINID, this));
 
    connect(m_Widget.m_pEnginePathPushButton, SIGNAL(clicked()), this, SLOT(onEnginePath()));
    connect(m_Widget.m_pPkcs11PathPushButton, SIGNAL(clicked()), this, SLOT(onPkcs11Path()));
@@ -47,7 +60,7 @@ void PreferencesEditorDialog::onEnginePath()
 {
    const OpenSSLSettings settings(Preferences().openSSLSettings());
 
-   const QString strEnginePath(QFileDialog::getOpenFileName(this, tr("Choose path of engine library ..."), settings.enginePath(), tr("library files (*.so)")));
+   const QString strEnginePath(QFileDialog::getOpenFileName(this, tr("Choose path of engine library ..."), settings.enginePath().isEmpty() ? DEFLIBPATH : settings.enginePath(), LIBFILTER));
 
    if (!strEnginePath.isNull())
       m_Widget.m_pEnginePathLineEdit->setText(strEnginePath);
@@ -57,7 +70,7 @@ void PreferencesEditorDialog::onPkcs11Path()
 {
    const OpenSSLSettings settings(Preferences().openSSLSettings());
 
-   const QString strPkcs11Path(QFileDialog::getOpenFileName(this, tr("Choose path of PKCS11 library ..."), settings.pkcs11Path(), tr("library files (*.so)")));
+   const QString strPkcs11Path(QFileDialog::getOpenFileName(this, tr("Choose path of PKCS11 library ..."), settings.pkcs11Path().isEmpty() ? DEFLIBPATH : settings.pkcs11Path(), LIBFILTER));
 
    if (!strPkcs11Path.isNull())
       m_Widget.m_pPkcs11PathLineEdit->setText(strPkcs11Path);
@@ -68,24 +81,39 @@ void PreferencesEditorDialog::accept()
    const QString strPkcs11Lib(m_Widget.m_pPkcs11PathLineEdit->text());
    const QString strCurrentPkcs11Lib(Preferences().openSSLSettings().pkcs11Path());
 
-   try
+   if (!m_Widget.m_pEngineIDLineEdit->text().isEmpty())
    {
-      if (strPkcs11Lib != strCurrentPkcs11Lib)
-         Pkcs11::loadLibrary(strPkcs11Lib, false);
-
-      writeSettings();
-      QDialog::accept();
-   }
-   catch (ErrorEx error)
-   {
-      QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
-
-      if (!Pkcs11::loaded())
+      if (!m_Widget.m_pEnginePathLineEdit->text().isEmpty())
       {
-         if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
-            QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));
+         if (!strCurrentPkcs11Lib.isEmpty())
+         {
+            try
+            {
+               if (strPkcs11Lib != strCurrentPkcs11Lib)
+                  Pkcs11::loadLibrary(strPkcs11Lib, false);
+
+               writeSettings();
+               QDialog::accept();
+            }
+            catch (ErrorEx error)
+            {
+               QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
+
+               if (!Pkcs11::loaded())
+               {
+                  if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
+                     QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));
+               }
+            }
+         }
+         else
+            QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("%1 must not be empty.").arg(m_Widget.m_pPkcs11PathLabel->text()));
       }
-  }
+      else
+         QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("%1 must not be empty.").arg(m_Widget.m_pEnginPathLabel->text()));
+   }
+   else
+      QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("%1 must not be empty.").arg(m_Widget.m_pEngineIdLabel->text()));
 }
 
 void PreferencesEditorDialog::readSettings() const
