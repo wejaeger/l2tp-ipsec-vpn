@@ -142,7 +142,7 @@ QString SmartCardObjectListModel::idValue(int i) const
    QString strRet;
 
    if (i < m_pSmartCardObjects->count())
-      strRet = OpenSSLSettings().engineId() + ":" + m_pSmartCardObjects->at(i)->slotId() + ":" + m_pSmartCardObjects->at(i)->objectId();
+      strRet = Preferences().openSSLSettings().engineId() + ":" + m_pSmartCardObjects->at(i)->slotId() + ":" + m_pSmartCardObjects->at(i)->objectId();
 
    return(strRet);
 }

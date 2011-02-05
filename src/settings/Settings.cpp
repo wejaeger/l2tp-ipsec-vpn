@@ -22,17 +22,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QSettings>
 #include <QStringList>
+#include <QCoreApplication>
 
 #include "Settings.h"
 
-Settings::Settings()
+Settings::Settings() : m_Settings(configureQSettings())
 {
 }
 
 Settings::~Settings()
 {
+}
+
+bool Settings::isWriteable() const
+{
+   return(qSettings()->isWritable());
 }
 
 /**
@@ -43,22 +48,22 @@ Settings::~Settings()
  * row. We also have to take care to adapt the array indices after the deleted
  * row and to write finally the new size entry.
  */
-bool Settings::removeArrayItem(QSettings* pSettings, const QString& strArrayName, int iIndex)
+bool Settings::removeArrayItem(const QString& strArrayName, int iIndex) const
 {
    bool fRet = false;
 
-   pSettings->beginReadArray(strArrayName);
-   const QStringList keys(pSettings->allKeys());
+   qSettings()->beginReadArray(strArrayName);
+   const QStringList keys(qSettings()->allKeys());
    QStringList values;
 
    if (iIndex < keys.size())
    {
       for (int i = 0; i < keys.size(); i++)
-         values.insert(i, pSettings->value(keys.at(i)).toString());
-      pSettings->endArray();
+         values.insert(i, qSettings()->value(keys.at(i)).toString());
+      qSettings()->endArray();
 
-      pSettings->beginGroup(strArrayName);
-      pSettings->remove("");
+      qSettings()->beginGroup(strArrayName);
+      qSettings()->remove("");
 
       const QChar cIndex2Remove(iIndex + 1 + 48);
       QChar cIndex2Write;
@@ -71,15 +76,20 @@ bool Settings::removeArrayItem(QSettings* pSettings, const QString& strArrayName
             if (cIndex2Read != cIndex2Remove)
             {
                cIndex2Write = cIndex2Read > cIndex2Remove ? QChar(cIndex2Read.digitValue() - 1 + 48) : QChar(cIndex2Read.digitValue() + 48);
-               pSettings->setValue(cIndex2Write + strKey.mid(1), values.at(i));
+               qSettings()->setValue(cIndex2Write + strKey.mid(1), values.at(i));
             }
          }
       }
-      pSettings->setValue("size", QString(cIndex2Write));
-      pSettings->endGroup();
+      qSettings()->setValue("size", QString(cIndex2Write));
+      qSettings()->endGroup();
       fRet = true;
    }
 
    return(fRet);
+}
+
+QSettings* Settings::configureQSettings()
+{
+   return(new QSettings(QSettings::SystemScope, QCoreApplication::organizationName(), QCoreApplication::applicationName()));
 }
 

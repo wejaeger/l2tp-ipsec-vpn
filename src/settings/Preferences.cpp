@@ -39,7 +39,7 @@ static const char* const DefaultEngineId = "pkcs11";
 static const QString OPENSSL = "OpenSSL";
 
 static const QString ENGINEPATH = OPENSSL + '/' + "enginePath";
-static const QString MODULEPATH = OPENSSL + '/' + "modulePath";
+static const QString PKCS11PATH = OPENSSL + '/' + "pkcs11Path";
 static const QString ENGINEID = OPENSSL + '/' + "engineId";
 
 Preferences::Preferences()
@@ -55,7 +55,7 @@ OpenSSLSettings Preferences::openSSLSettings() const
    return(OpenSSLSettings());
 }
 
-bool OpenSSLSettings::setEnginePath(QString& strEnginePath) const
+bool OpenSSLSettings::setEnginePath(const QString& strEnginePath) const
 {
    QSettings().setValue(ENGINEPATH, strEnginePath);
 
@@ -64,29 +64,29 @@ bool OpenSSLSettings::setEnginePath(QString& strEnginePath) const
 
 QString OpenSSLSettings::enginePath() const
 {
-   return(QSettings().value(ENGINEPATH, EngineDefaultLibrary).toString());
+   return(qSettings()->value(ENGINEPATH, EngineDefaultLibrary).toString());
 }
 
-bool OpenSSLSettings::setModulePath(const QString& strModulePath) const
+bool OpenSSLSettings::setPkcs11Path(const QString& strModulePath) const
 {
-   QSettings().setValue(MODULEPATH, strModulePath);
+   qSettings()->setValue(PKCS11PATH, strModulePath);
 
    return(true);
 }
 
-QString OpenSSLSettings::modulePath() const
+QString OpenSSLSettings::pkcs11Path() const
 {
-   return(QSettings().value(MODULEPATH, PKCS11DefaultLibrary).toString());
+   return(qSettings()->value(PKCS11PATH, PKCS11DefaultLibrary).toString());
 }
 
-bool OpenSSLSettings::setEngineId(QString& strEngineId) const
+bool OpenSSLSettings::setEngineId(const QString& strEngineId) const
 {
-   QSettings().setValue(ENGINEID, strEngineId);
+   qSettings()->setValue(ENGINEID, strEngineId);
 
    return(true);
 }
 
 QString OpenSSLSettings::engineId() const
 {
-   return(QSettings().value(ENGINEID, DefaultEngineId).toString());
+   return(qSettings()->value(ENGINEID, DefaultEngineId).toString());
 }

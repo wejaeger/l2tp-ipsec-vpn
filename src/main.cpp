@@ -47,7 +47,7 @@ int main(int iArgc, char* pcArgv[])
       Q_INIT_RESOURCE(L2tpIPsecVpn);
 
       if (!Pkcs11::loaded())
-         iRet = Pkcs11::loadLibrary(OpenSSLSettings().modulePath(), false) ? 0 : 2;
+         iRet = Pkcs11::loadLibrary(Preferences().openSSLSettings().pkcs11Path(), false) ? 0 : 2;
 
       if (iRet == 0)
       {
@@ -80,7 +80,7 @@ int main(int iArgc, char* pcArgv[])
          }
       }
       else
-         QMessageBox::critical(NULL, app.applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(OpenSSLSettings().modulePath()));
+         QMessageBox::critical(NULL, app.applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(Preferences().openSSLSettings().pkcs11Path()));
    }
 
    return(iRet);

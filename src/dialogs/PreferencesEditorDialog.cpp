@@ -20,13 +20,67 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QFileDialog>
+
+#include "settings/Preferences.h"
 #include "PreferencesEditorDialog.h"
 
 PreferencesEditorDialog::PreferencesEditorDialog(QWidget* pParent) : QDialog(pParent)
 {
    m_Widget.setupUi(this);
+
+   connect(m_Widget.m_pEnginePathPushButton, SIGNAL(clicked()), this, SLOT(onEnginePath()));
+   connect(m_Widget.m_pPkcs11PathPushButton, SIGNAL(clicked()), this, SLOT(onPkcs11Path()));
+
+   readSettings();
 }
 
 PreferencesEditorDialog::~PreferencesEditorDialog()
 {
+}
+
+void PreferencesEditorDialog::onEnginePath()
+{
+   const OpenSSLSettings settings(Preferences().openSSLSettings());
+
+   const QString strEnginePath(QFileDialog::getOpenFileName(this, tr("Choose path of engine library ..."), settings.enginePath(), tr("library files (*.so)")));
+
+   if (!strEnginePath.isNull())
+      m_Widget.m_pEnginePathLineEdit->setText(strEnginePath);
+}
+
+void PreferencesEditorDialog::onPkcs11Path()
+{
+   const OpenSSLSettings settings(Preferences().openSSLSettings());
+
+   const QString strPkcs11Path(QFileDialog::getOpenFileName(this, tr("Choose path of PKCS11 library ..."), settings.pkcs11Path(), tr("library files (*.so)")));
+
+   if (!strPkcs11Path.isNull())
+      m_Widget.m_pPkcs11PathLineEdit->setText(strPkcs11Path);
+}
+
+void PreferencesEditorDialog::accept()
+{
+   writeSettings();
+   QDialog::accept();
+}
+
+void PreferencesEditorDialog::readSettings() const
+{
+   const OpenSSLSettings settings(Preferences().openSSLSettings());
+
+   m_Widget.m_pEngineIDLineEdit->setText(settings.engineId());
+   m_Widget.m_pEnginePathLineEdit->setText(settings.enginePath());
+   m_Widget.m_pPkcs11PathLineEdit->setText(settings.pkcs11Path());
+}
+
+bool PreferencesEditorDialog::writeSettings() const
+{
+   const OpenSSLSettings settings(Preferences().openSSLSettings());
+
+   bool fRet(settings.setEngineId(m_Widget.m_pEngineIDLineEdit->text()));
+   if (fRet) fRet = settings.setEnginePath(m_Widget.m_pEnginePathLineEdit->text());
+   if (fRet) fRet = settings.setPkcs11Path(m_Widget.m_pPkcs11PathLineEdit->text());
+
+   return(fRet);
 }

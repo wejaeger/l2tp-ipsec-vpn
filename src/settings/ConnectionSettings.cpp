@@ -93,48 +93,42 @@ static const QString ALTERNATEDNSSERVERADDRESS = "alternateDnsServerAddress";
 static const QString SEARCHDOMAINS = "searchDomains";
 static const QString USEDEFAULTGATEWAY = "useDefaultGateway";
 
-ConnectionSettings::ConnectionSettings() : m_pSettings(configureQSettings()), m_iConnectionNo(-1)
+ConnectionSettings::ConnectionSettings() : m_iConnectionNo(-1)
 {
 }
 
-ConnectionSettings::ConnectionSettings(int iConnectionNo) : m_pSettings(configureQSettings()), m_iConnectionNo(iConnectionNo)
+ConnectionSettings::ConnectionSettings(int iConnectionNo) : m_iConnectionNo(iConnectionNo)
 {
 }
 
-ConnectionSettings::ConnectionSettings(const ConnectionSettings& orig) : Settings(), m_pSettings(configureQSettings()), m_iConnectionNo(orig.connectionNo())
+ConnectionSettings::ConnectionSettings(const ConnectionSettings& orig) : Settings(), m_iConnectionNo(orig.connectionNo())
 {
 }
 
 ConnectionSettings::~ConnectionSettings()
 {
-   delete m_pSettings;
-}
-
-bool ConnectionSettings::isWriteable() const
-{
-   return(m_pSettings->isWritable());
 }
 
 int ConnectionSettings::connections() const
 {
-   const int iSize = m_pSettings->beginReadArray(CONNECTIONS);
-   m_pSettings->endArray();
+   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
+   qSettings()->endArray();
 
    return(iSize);
 }
 
 ConnectionSettings::Result ConnectionSettings::addConnection(const QString& strName) const
 {
-   const Result result(m_pSettings->isWritable() ? validateName(strName): ReadOnly);
+   const Result result(qSettings()->isWritable() ? validateName(strName): ReadOnly);
 
    if (result == Ok)
    {
       const int iSize = connections();
 
-      m_pSettings->beginWriteArray(CONNECTIONS);
-      m_pSettings->setArrayIndex(iSize);
-      m_pSettings->setValue(NAME, strName);
-      m_pSettings->endArray();
+      qSettings()->beginWriteArray(CONNECTIONS);
+      qSettings()->setArrayIndex(iSize);
+      qSettings()->setValue(NAME, strName);
+      qSettings()->endArray();
    }
 
    return(result);
@@ -142,7 +136,7 @@ ConnectionSettings::Result ConnectionSettings::addConnection(const QString& strN
 
 bool ConnectionSettings::removeConnection(int iConnectionNo) const
 {
-   bool fRet = iConnectionNo < connections() && m_pSettings->isWritable();
+   bool fRet = iConnectionNo < connections() && qSettings()->isWritable();
 
    if (fRet)
    {
@@ -154,7 +148,7 @@ bool ConnectionSettings::removeConnection(int iConnectionNo) const
       if (pppDnsFile.exists())
          pppDnsFile.remove();
 
-      fRet = ConnectionSettings::removeArrayItem(m_pSettings, CONNECTIONS, iConnectionNo);
+      fRet = ConnectionSettings::removeArrayItem(CONNECTIONS, iConnectionNo);
    }
 
    return(fRet);
@@ -204,13 +198,13 @@ QString ConnectionSettings::connection(int iConnectionNo) const
 {
    QString strRet;
 
-   const int iSize = m_pSettings->beginReadArray(CONNECTIONS);
+   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
    if (iConnectionNo < iSize)
    {
-      m_pSettings->setArrayIndex(iConnectionNo);
-      strRet = m_pSettings->value(NAME).toString();
+      qSettings()->setArrayIndex(iConnectionNo);
+      strRet = qSettings()->value(NAME).toString();
    }
-   m_pSettings->endArray();
+   qSettings()->endArray();
 
    return(strRet);
 }
@@ -219,14 +213,14 @@ int ConnectionSettings::connection(const QString& strName) const
 {
    int iRet;
    bool fFound = false;
-   const int iSize = m_pSettings->beginReadArray(CONNECTIONS);
+   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
    for (iRet = 0; !fFound && iRet < iSize; iRet++)
    {
-      m_pSettings->setArrayIndex(iRet);
-      if (m_pSettings->value(NAME, "") == strName)
+      qSettings()->setArrayIndex(iRet);
+      if (qSettings()->value(NAME, "") == strName)
          fFound = true;
    }
-   m_pSettings->endArray();
+   qSettings()->endArray();
 
    return(fFound ? iRet - 1 : -1);
 }
@@ -242,11 +236,6 @@ ConnectionSettings::Result ConnectionSettings::validateName(const QString& strNa
    }
 
    return(result);
-}
-
-QSettings* ConnectionSettings::configureQSettings()
-{
-   return(new QSettings(QSettings::SystemScope, QCoreApplication::organizationName(), QCoreApplication::applicationName()));
 }
 
 /*********** helpers ***************/
@@ -865,7 +854,7 @@ bool PppIpSettings::removeRoute(int iRow) const
       qSettings()->setArrayIndex(connectionNo());
       qSettings()->beginGroup(IP);
 
-      fRemoved = ConnectionSettings::removeArrayItem(qSettings(), ROUTES, iRow);
+      fRemoved = ConnectionSettings::removeArrayItem(ROUTES, iRow);
 
       qSettings()->endGroup();
       qSettings()->endArray();
