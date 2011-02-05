@@ -36,11 +36,12 @@ static const char* const PKCS11DefaultLibrary = "/usr/lib/opensc-pkcs11.so";
 
 static const char* const DefaultEngineId = "pkcs11";
 
+static const QString PREFERENCES = "preferences";
 static const QString OPENSSL = "OpenSSL";
 
-static const QString ENGINEPATH = OPENSSL + '/' + "enginePath";
-static const QString PKCS11PATH = OPENSSL + '/' + "pkcs11Path";
-static const QString ENGINEID = OPENSSL + '/' + "engineId";
+static const QString ENGINEPATH = PREFERENCES + '/' + OPENSSL + '/' + "enginePath";
+static const QString PKCS11PATH = PREFERENCES + '/' + OPENSSL + '/' + "pkcs11Path";
+static const QString ENGINEID = PREFERENCES + '/' + OPENSSL + '/' + "engineId";
 
 Preferences::Preferences()
 {
@@ -57,7 +58,7 @@ OpenSSLSettings Preferences::openSSLSettings() const
 
 bool OpenSSLSettings::setEnginePath(const QString& strEnginePath) const
 {
-   QSettings().setValue(ENGINEPATH, strEnginePath);
+   qSettings()->setValue(ENGINEPATH, strEnginePath);
 
    return(true);
 }
