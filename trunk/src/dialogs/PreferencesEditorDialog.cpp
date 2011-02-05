@@ -85,7 +85,7 @@ void PreferencesEditorDialog::accept()
    {
       if (!m_Widget.m_pEnginePathLineEdit->text().isEmpty())
       {
-         if (!strCurrentPkcs11Lib.isEmpty())
+         if (!strPkcs11Lib.isEmpty())
          {
             try
             {
@@ -99,7 +99,7 @@ void PreferencesEditorDialog::accept()
             {
                QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
 
-               if (!Pkcs11::loaded())
+               if (!strCurrentPkcs11Lib.isEmpty() && !Pkcs11::loaded())
                {
                   if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
                      QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));

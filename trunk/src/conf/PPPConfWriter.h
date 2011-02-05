@@ -41,6 +41,7 @@ private:
    PPPConfWriter& operator=(const PPPConfWriter& orig);
 
    void addRefuseEntry(const QString& strRefuse) const;
+   void addCertEntry(const QString& strCertEntry) const;
 };
 
 #endif	/* PPPCONFWRITER_H */

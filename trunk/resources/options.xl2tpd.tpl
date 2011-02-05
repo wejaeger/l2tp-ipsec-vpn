@@ -30,16 +30,13 @@ ipparam {{IPPARAM}}
 
 promptprog "{{APPPFILEPATH}}"
 
-{{#PEFUSE_SECTION}}{{REFUSEPROTOCOL}}
-{{/PEFUSE_SECTION}}
-
+{{#REFUSE_SECTION}}{{REFUSEPROTOCOL}}
+{{/REFUSE_SECTION}}
 remotename "{{REMOTENAME}}"
 name "{{NAME}}"
 
-cert "{{CERT}}"
-ca "{{CA}}"
-key "{{KEY}}"
-
+{{#CERT_SECTION}}{{CERTENTRY}}
+{{/CERT_SECTION}}
 {{USEPEERDNS}}
 {{NOBSDCOMP}}
 {{NODEFLATE}}
