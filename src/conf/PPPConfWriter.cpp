@@ -27,7 +27,8 @@
 #include "settings/ConnectionSettings.h"
 #include "PPPConfWriter.h"
 
-static const char* const REFUSE_SECTION = "PEFUSE_SECTION";
+static const char* const REFUSE_SECTION = "REFUSE_SECTION";
+static const char* const CERT_SECTION = "CERT_SECTION";
 
 static const char* const REFUSEEAPLINE = "refuse-eap";
 static const char* const REFUSEPAPLINE = "refuse-pap";
@@ -39,6 +40,9 @@ static const char* const NOBSDCOMPLINE = "nobsdcomp";
 static const char* const NODEFLATELINE = "nodeflate";
 static const char* const NOVJLINE = "novj";
 static const char* const LCPECHOINTERVALLINE = "lcp-echo-interval ";
+static const QString CERTLINE = "cert ";
+static const QString CALINE = "ca ";
+static const QString KEYLINE = "key ";
 
 
 static const char* const IPPARAM = "IPPARAM";
@@ -50,9 +54,7 @@ static const char* const NODEFLATE = "NODEFLATE";
 static const char* const NOVJ = "NOVJ";
 static const char* const LCPECHOINTERVAL = "LCPECHOINTERVAL";
 static const char* const REFUSEPROTOCOL = "REFUSEPROTOCOL";
-static const char* const CERT = "CERT";
-static const char* const CA = "CA";
-static const char* const KEY = "KEY";
+static const char* const CERTENTRY = "CERTENTRY";
 
 PPPConfWriter::PPPConfWriter(const QString& strTemplateKey, const QString& strWriteTo) : AbstractConfWriter(strTemplateKey, strWriteTo)
 {
@@ -94,12 +96,17 @@ void PPPConfWriter::fill()
    if (!fRefuseEap || pppSettings.refuseMsChapV2()) addRefuseEntry(REFUSEMSCHAPV2LINE);
 
    const PppEapSettings eapSettings = pppSettings.eapSettings();
-   dictionary()->SetValue(CERT, eapSettings.certificatePath().toAscii().constData());
-   dictionary()->SetValue(CA, eapSettings.caCertificatePath().toAscii().constData());
-   dictionary()->SetValue(KEY, eapSettings.privateKeyPath().toAscii().constData());
+   if (!eapSettings.certificatePath().isEmpty()) addCertEntry((CERTLINE + eapSettings.certificatePath()).toAscii().constData());
+   if (!eapSettings.caCertificatePath().isEmpty()) addCertEntry((CALINE + eapSettings.caCertificatePath()).toAscii().constData());
+   if (!eapSettings.privateKeyPath().isEmpty()) addCertEntry((KEYLINE + eapSettings.privateKeyPath()).toAscii().constData());
 }
 
 void PPPConfWriter::addRefuseEntry(const QString& strRefuse) const
 {
    dictionary()->AddSectionDictionary(REFUSE_SECTION)->SetValue(REFUSEPROTOCOL, strRefuse.toAscii().constData());
+}
+
+void PPPConfWriter::addCertEntry(const QString& strCertEntry) const
+{
+   dictionary()->AddSectionDictionary(CERT_SECTION)->SetValue(CERTENTRY, strCertEntry.toAscii().constData());
 }
