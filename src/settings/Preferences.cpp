@@ -23,6 +23,7 @@
  */
 
 #include <QSettings>
+#include <QFile>
 
 #include "Preferences.h"
 
@@ -36,7 +37,7 @@ static const char* const PKCS11DefaultLibrary = "/usr/lib/opensc-pkcs11.so";
 
 static const char* const DefaultEngineId = "pkcs11";
 
-static const QString PREFERENCES = "preferences";
+static const QString PREFERENCES = "Preferences";
 static const QString OPENSSL = "OpenSSL";
 
 static const QString ENGINEPATH = PREFERENCES + '/' + OPENSSL + '/' + "enginePath";
@@ -65,7 +66,7 @@ bool OpenSSLSettings::setEnginePath(const QString& strEnginePath) const
 
 QString OpenSSLSettings::enginePath() const
 {
-   return(qSettings()->value(ENGINEPATH, EngineDefaultLibrary).toString());
+   return(qSettings()->value(ENGINEPATH, QFile(EngineDefaultLibrary).exists() ? EngineDefaultLibrary : "").toString());
 }
 
 bool OpenSSLSettings::setPkcs11Path(const QString& strModulePath) const
@@ -77,7 +78,7 @@ bool OpenSSLSettings::setPkcs11Path(const QString& strModulePath) const
 
 QString OpenSSLSettings::pkcs11Path() const
 {
-   return(qSettings()->value(PKCS11PATH, PKCS11DefaultLibrary).toString());
+   return(qSettings()->value(PKCS11PATH, QFile(PKCS11DefaultLibrary).exists() ? PKCS11DefaultLibrary : "").toString());
 }
 
 bool OpenSSLSettings::setEngineId(const QString& strEngineId) const

@@ -27,6 +27,7 @@
 
 #include "models/ConnectionsModel.h"
 #include "settings/ConnectionSettings.h"
+#include "settings/Preferences.h"
 #include "conf/ConfWriter.h"
 #include "ConnectionSettingsDialog.h"
 #include "ConnectionEditorDialog.h"
@@ -62,7 +63,8 @@ ConnectionEditorDialog::~ConnectionEditorDialog()
 bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 {
    const ConnectionSettings settings;
-   const int iConnections = settings.connections();
+   const OpenSSLSettings openSSLSettings(Preferences().openSSLSettings());
+   const int iConnections(settings.connections());
 
     bool fRet(true);
 
@@ -87,8 +89,9 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
             if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);
             if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
             if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::OPENSSL);
             if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
+            if (fRet && !openSSLSettings.enginePath().isEmpty() && !openSSLSettings.pkcs11Path().isEmpty() && !openSSLSettings.engineId().isEmpty())
+               fRet = ConfWriter::write(ConfWriter::OPENSSL);
          }
       }
       else if (fInteractive)
