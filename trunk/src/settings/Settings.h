@@ -25,21 +25,28 @@
 #ifndef SETTINGS_H
 #define	SETTINGS_H
 
-#include <QString>
-
-class QSettings;
+#include <QSharedPointer>
+#include <QSettings>
 
 class Settings
 {
+public:
+   bool isWriteable() const;
+
 protected:
    Settings();
    virtual ~Settings();
 
-   static bool removeArrayItem(QSettings* pSettings, const QString& strArrayName, int iIndex);
+   QSettings* qSettings() const { return(m_Settings.data()); }
+
+   bool removeArrayItem(const QString& strArrayName, int iIndex) const;
 
 private:
-   Settings(const Settings& orig);
    Settings& operator=(const Settings& orig);
+
+   static QSettings* configureQSettings();
+
+   QSharedPointer<QSettings> const m_Settings;
 };
 
 #endif	/* SETTINGS_H */

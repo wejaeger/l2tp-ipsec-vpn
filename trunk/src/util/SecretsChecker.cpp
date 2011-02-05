@@ -76,7 +76,7 @@ bool SecretsChecker::check() const
       const PppEapSettings eapSettings(pppSettings.eapSettings());
       if (eapSettings.privateKeyPassword().isEmpty())
       {
-         if (eapSettings.privateKeyPath().startsWith(OpenSSLSettings().engineId()))
+         if (eapSettings.privateKeyPath().startsWith(Preferences().openSSLSettings().engineId()))
             fOk = promptAndStoreSecret(QCoreApplication::applicationName(), QObject::tr("Please enter your PIN:"), pppSettings);
          else
             fOk = promptAndStoreSecret(QCoreApplication::applicationName(), QObject::tr("Please enter your passphrase:"), pppSettings);

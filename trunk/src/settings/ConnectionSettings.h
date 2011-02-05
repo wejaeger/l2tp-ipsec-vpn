@@ -43,7 +43,6 @@ public:
    ConnectionSettings();
    virtual ~ConnectionSettings();
 
-   bool isWriteable() const;
    int connections() const;
    QString connection(int iConnectionNo) const;
    Result addConnection(const QString& strName) const;
@@ -60,7 +59,6 @@ protected:
    explicit ConnectionSettings(int iConnectionNo);
    ConnectionSettings(const ConnectionSettings& orig);
 
-   QSettings* qSettings() const { return(m_pSettings); }
    int connectionNo() const { return(m_iConnectionNo); }
    bool setValue(const QString& strValue, const QString& strPath) const;
    QString getStringValue(const QString& strPath) const;
@@ -80,9 +78,6 @@ private:
    bool containsConnection(const QString& strName) const;
    Result validateName(const QString& strName) const;
 
-   static QSettings* configureQSettings();
-
-   QSettings* const m_pSettings;
    const int m_iConnectionNo;
 };
 
@@ -96,6 +91,7 @@ public:
 
 private:
    explicit CommonSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
+   CommonSettings& operator=(const CommonSettings& orig);
 
    friend class ConnectionSettings;
 };
@@ -122,6 +118,7 @@ public:
 
 private:
    explicit IPSecSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
+   IPSecSettings& operator=(const IPSecSettings& orig);
 
    friend class ConnectionSettings;
 };
@@ -142,6 +139,7 @@ public:
 
 private:
    explicit L2tpSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
+   L2tpSettings& operator=(const L2tpSettings& orig);
 
    friend class ConnectionSettings;
 };
@@ -183,6 +181,7 @@ public:
 
 private:
    explicit PppSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
+   PppSettings& operator=(const PppSettings& orig);
 
    friend class PppEapSettings;
    friend class PppIpSettings;
@@ -207,6 +206,7 @@ public:
 
 private:
    explicit PppEapSettings(int iConnectionNo) : PppSettings(iConnectionNo) {}
+   PppEapSettings& operator=(const PppEapSettings& orig);
 
    friend class PppSettings;
 };
@@ -239,6 +239,7 @@ public:
 
 private:
    explicit PppIpSettings(int iConnectionNo) : PppSettings(iConnectionNo) {}
+   PppIpSettings& operator=(const PppIpSettings& orig);
 
    friend class PppSettings;
 };

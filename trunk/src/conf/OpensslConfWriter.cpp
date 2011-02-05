@@ -36,9 +36,9 @@ OpensslConfWriter::OpensslConfWriter(const QString& strTemplateKey, const QStrin
 
 void OpensslConfWriter::fill()
 {
-   const OpenSSLSettings opensslSettings;
+   const OpenSSLSettings opensslSettings(Preferences().openSSLSettings());
 
    dictionary()->SetValue(ENGINEID, opensslSettings.engineId().toAscii().constData());
    dictionary()->SetValue(DYNAMICPATH, opensslSettings.enginePath().toAscii().constData());
-   dictionary()->SetValue(MODULEPATH, opensslSettings.modulePath().toAscii().constData());
+   dictionary()->SetValue(MODULEPATH, opensslSettings.pkcs11Path().toAscii().constData());
 }

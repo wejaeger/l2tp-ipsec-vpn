@@ -33,6 +33,13 @@ public:
    explicit PreferencesEditorDialog(QWidget* pParent = 0);
    virtual ~PreferencesEditorDialog();
 
+private slots:
+   void onEnginePath();
+   void onPkcs11Path();
+   void accept();
+   void readSettings() const;
+   bool writeSettings() const;
+
 private:
    PreferencesEditorDialog(const PreferencesEditorDialog& orig);
    PreferencesEditorDialog& operator=(const PreferencesEditorDialog& orig);

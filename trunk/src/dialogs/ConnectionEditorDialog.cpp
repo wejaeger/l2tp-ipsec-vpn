@@ -30,6 +30,7 @@
 #include "conf/ConfWriter.h"
 #include "ConnectionSettingsDialog.h"
 #include "ConnectionEditorDialog.h"
+#include "PreferencesEditorDialog.h"
 
 ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pParent), m_pConnectionsModel(new ConnectionsModel())
 {
@@ -39,6 +40,7 @@ ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pPare
    m_Widget.m_pConnections->horizontalHeader()->setStretchLastSection(true);
    m_Widget.m_pConnections->setSelectionBehavior(QAbstractItemView::SelectRows);
 
+   connect(m_Widget.m_pPreferencesCommandLinkButton, SIGNAL(clicked()), this, SLOT(editPreferences()));
    connect(m_Widget.m_pAdd, SIGNAL(clicked()), this, SLOT(addConnection()));
    connect(m_Widget.m_pEdit, SIGNAL(clicked()), this, SLOT(editConnection()));
    connect(m_Widget.m_pDelete, SIGNAL(clicked()), this, SLOT(removeConnection()));
@@ -97,6 +99,13 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
       m_Widget.m_pConnections->setFocus();
 
     return(fRet);
+}
+
+void ConnectionEditorDialog::editPreferences()
+{
+   PreferencesEditorDialog preferences;
+   preferences.exec();
+   m_Widget.m_pConnections->setFocus();
 }
 
 void ConnectionEditorDialog::addConnection()

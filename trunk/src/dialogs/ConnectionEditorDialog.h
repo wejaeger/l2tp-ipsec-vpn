@@ -45,6 +45,7 @@ public slots:
    bool applySettings(bool fInteractive = true) const;
 
 private slots:
+   void editPreferences();
    void addConnection();
    void editConnection();
    void removeConnection();

@@ -27,19 +27,7 @@
 
 #include "Settings.h"
 
-class OpenSSLSettings
-{
-public:
-    OpenSSLSettings() {}
-   virtual ~OpenSSLSettings() {}
-
-   bool setEnginePath(QString& strEnginePath) const;
-   QString enginePath() const;
-   bool setModulePath(const QString& strModulePath) const;
-   QString modulePath() const;
-   bool setEngineId(QString& strEngineId) const;
-   QString engineId() const;
-};
+class OpenSSLSettings;
 
 class Preferences : public Settings
 {
@@ -50,8 +38,26 @@ public:
    OpenSSLSettings openSSLSettings() const;
 
 private:
-   Preferences(const Preferences& orig);
    Preferences& operator=(const Preferences& orig);
+};
+
+class OpenSSLSettings : public Preferences
+{
+public:
+   virtual ~OpenSSLSettings() {}
+
+   bool setEnginePath(const QString& strEnginePath) const;
+   QString enginePath() const;
+   bool setPkcs11Path(const QString& strModulePath) const;
+   QString pkcs11Path() const;
+   bool setEngineId(const QString& strEngineId) const;
+   QString engineId() const;
+
+private:
+   OpenSSLSettings() {}
+   OpenSSLSettings& operator=(const OpenSSLSettings& orig);
+
+   friend class Preferences;
 };
 
 #endif	/* PREFERENCES_H */
