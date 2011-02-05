@@ -96,9 +96,9 @@ void PPPConfWriter::fill()
    if (!fRefuseEap || pppSettings.refuseMsChapV2()) addRefuseEntry(REFUSEMSCHAPV2LINE);
 
    const PppEapSettings eapSettings = pppSettings.eapSettings();
-   if (!eapSettings.certificatePath().isEmpty()) addCertEntry((CERTLINE + eapSettings.certificatePath()).toAscii().constData());
-   if (!eapSettings.caCertificatePath().isEmpty()) addCertEntry((CALINE + eapSettings.caCertificatePath()).toAscii().constData());
-   if (!eapSettings.privateKeyPath().isEmpty()) addCertEntry((KEYLINE + eapSettings.privateKeyPath()).toAscii().constData());
+   if (!eapSettings.certificatePath().isEmpty()) addCertEntry((CERTLINE + "\"" + eapSettings.certificatePath() + "\"").toAscii().constData());
+   if (!eapSettings.caCertificatePath().isEmpty()) addCertEntry((CALINE + "\"" + eapSettings.caCertificatePath() + "\"").toAscii().constData());
+   if (!eapSettings.privateKeyPath().isEmpty()) addCertEntry((KEYLINE + "\"" + eapSettings.privateKeyPath() + "\"").toAscii().constData());
 }
 
 void PPPConfWriter::addRefuseEntry(const QString& strRefuse) const
