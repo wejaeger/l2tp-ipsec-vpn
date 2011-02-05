@@ -21,8 +21,12 @@
 */
 
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QCoreApplication>
 
+#include "pkcs11/Pkcs11.h"
 #include "settings/Preferences.h"
+#include "util/ErrorEx.h"
 #include "PreferencesEditorDialog.h"
 
 PreferencesEditorDialog::PreferencesEditorDialog(QWidget* pParent) : QDialog(pParent)
@@ -61,8 +65,27 @@ void PreferencesEditorDialog::onPkcs11Path()
 
 void PreferencesEditorDialog::accept()
 {
-   writeSettings();
-   QDialog::accept();
+   const QString strPkcs11Lib(m_Widget.m_pPkcs11PathLineEdit->text());
+   const QString strCurrentPkcs11Lib(Preferences().openSSLSettings().pkcs11Path());
+
+   try
+   {
+      if (strPkcs11Lib != strCurrentPkcs11Lib)
+         Pkcs11::loadLibrary(strPkcs11Lib, false);
+
+      writeSettings();
+      QDialog::accept();
+   }
+   catch (ErrorEx error)
+   {
+      QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
+
+      if (!Pkcs11::loaded())
+      {
+         if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
+            QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));
+      }
+  }
 }
 
 void PreferencesEditorDialog::readSettings() const

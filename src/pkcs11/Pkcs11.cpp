@@ -298,13 +298,15 @@ QList<CK_OBJECT_HANDLE> Pkcs11::objectList(const Pkcs11Attlist& atts) const
 
 bool Pkcs11::loadLibrary(QString strFilePath, bool fSilent)
 {
+   m_p11 = NULL;
+
    CK_RV(*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
 
-   lt_dlinit();
+   ::lt_dlinit();
 
    if (m_pLoadedModuleHandle)
    {
-      if (lt_dlclose(m_pLoadedModuleHandle) < 0)
+      if (::lt_dlclose(m_pLoadedModuleHandle) < 0)
       {
          if (fSilent)
             return(false);
@@ -313,8 +315,8 @@ bool Pkcs11::loadLibrary(QString strFilePath, bool fSilent)
       }
    }
 
-   m_p11 = NULL;
    m_pLoadedModuleHandle = NULL;
+
    if (strFilePath.isEmpty())
    {
       if (fSilent)
@@ -323,7 +325,7 @@ bool Pkcs11::loadLibrary(QString strFilePath, bool fSilent)
       throw ErrorEx("PKCS11 library filename empty");
    }
 
-   m_pLoadedModuleHandle = lt_dlopen(::string2FileName(strFilePath));
+   m_pLoadedModuleHandle = ::lt_dlopen(::string2FileName(strFilePath));
    if (m_pLoadedModuleHandle == NULL)
    {
       if (fSilent)
@@ -333,8 +335,7 @@ bool Pkcs11::loadLibrary(QString strFilePath, bool fSilent)
    }
 
    /* Get the list of function pointers */
-   c_get_function_list = (CK_RV(*)(CK_FUNCTION_LIST_PTR_PTR))
-      lt_dlsym(m_pLoadedModuleHandle, "C_GetFunctionList");
+   c_get_function_list = (CK_RV(*)(CK_FUNCTION_LIST_PTR_PTR))lt_dlsym(m_pLoadedModuleHandle, "C_GetFunctionList");
 
    if (c_get_function_list)
    {
@@ -343,10 +344,11 @@ bool Pkcs11::loadLibrary(QString strFilePath, bool fSilent)
    }
 
    /* This state is always worth an error ! */
-   if (lt_dlclose(m_pLoadedModuleHandle) == 0)
+   if (::lt_dlclose(m_pLoadedModuleHandle) == 0)
       m_pLoadedModuleHandle = NULL;
 
-   throw ErrorEx("Failed to open PKCS11 library: " + strFilePath);
+   if (!fSilent)
+      throw ErrorEx("Failed to open PKCS11 library: " + strFilePath);
 
    return(false);
 }
