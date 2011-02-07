@@ -147,6 +147,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="4">
@@ -163,7 +166,6 @@
         <rccDir>src/generated</rccDir>
         <uiDir>src/generated</uiDir>
         <defs>
-          <Elem></Elem>
           <Elem>LIBS+=-lctemplate</Elem>
           <Elem>LIBS+=-lcrypto</Elem>
           <Elem>LIBS+=-lltdl</Elem>
@@ -176,43 +178,22 @@
           </incDir>
         </ccTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lcppunit</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -266,43 +247,22 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lcppunit</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -340,43 +300,22 @@
           </incDir>
         </ccTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lcppunit</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
