@@ -4,6 +4,7 @@
  - Ise QT's QSslCertificate class instead of OpenSSL library calls
  - Show also certificate serial number in tool tips of certificate selection dialogs
  - Added preferences button in connection editor dialog
+ - Removed apply button  in connection editor dialog
  - Fixed bug don't insist on overwriting /etc/resolv.conf
 
 0.9.7
