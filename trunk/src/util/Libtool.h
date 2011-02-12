@@ -1,10 +1,10 @@
 /*
  * $Id$
  *
- * File:   PreferencesEditorDialog.h
+ * File:   Libtool.h
  * Author: wejaeger
  *
- * Created on February 4, 2011, 11:21 AM
+ * Created on February 8, 2011, 1:27 PM
  *
  * Copyright 2011 Werner Jaeger.
  *
@@ -22,31 +22,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _PREFERENCESEDITORDIALOG_H
-#define	_PREFERENCESEDITORDIALOG_H
+#ifndef LIBTOOL_H
+#define	LIBTOOL_H
 
-#include "ui_PreferencesEditorDialog.h"
+class QString;
+struct lt__handle;
 
-class PreferencesEditorDialog : public QDialog
+class Libtool
 {
-   Q_OBJECT
-
 public:
-   explicit PreferencesEditorDialog(QWidget* pParent = 0);
-   virtual ~PreferencesEditorDialog();
+   Libtool(const QString& strLibraryFilePath);
+   virtual ~Libtool();
 
-private slots:
-   void onEnginePath();
-   void onPkcs11Path();
-   void accept();
-   void readSettings() const;
-   bool writeSettings() const;
+   bool hasSymbol(const QString& strSymbolName) const;
 
 private:
-   PreferencesEditorDialog(const PreferencesEditorDialog& orig);
-   PreferencesEditorDialog& operator=(const PreferencesEditorDialog& orig);
+   Libtool(const Libtool& orig);
+   Libtool& operator=(const Libtool& orig);
 
-   Ui::PreferencesEditorDialog m_Widget;
+   bool loaded() const { return !!m_pLoadedModuleHandle; };
+   void exit() const;
+
+   static lt__handle* init(const QString& strLibraryFilePath);
+
+   lt__handle* const m_pLoadedModuleHandle;
 };
 
-#endif	/* _PREFERENCESEDITORDIALOG_H */
+#endif	/* LIBTOOL_H */
+

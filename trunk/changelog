@@ -1,9 +1,10 @@
 0.9.8
- - no longer depends on OpenSC, any PKCS11 library can be used and is dynamically loaded
- - increased retry attempts to detect a system tray from 10 to 30
- - use QT's QSslCertificate class instead of OpenSSL library calls
- - show also certificate serial number in tool tips of certificate selection dialogs
- - added preferences menu and dialog
+ - No longer depends on OpenSC, any PKCS11 library can be used and is dynamically loaded
+ - Increased retry attempts to detect a system tray from 10 to 30
+ - Ise QT's QSslCertificate class instead of OpenSSL library calls
+ - Show also certificate serial number in tool tips of certificate selection dialogs
+ - Added preferences button in connection editor dialog
+ - Fixed bug don't insist on overwriting /etc/resolv.conf
 
 0.9.7
  - When connecting, now calling 'ipsec auto --ready' before calling 'ipsec auto --up' to

@@ -1,5 +1,5 @@
 Source: l2tp-ipsec-vpn
-Section: admin
+Section: net
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Werner Jaeger <werner_jaeger@web.de>
@@ -9,7 +9,8 @@ Homepage: http://launchpad.net/~werner-jaeger
 
 Package: l2tp-ipsec-vpn
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ppp-2.4.5-eaptls-mppe (>=0.98), l2tp-ipsec-vpn-daemon (>= 0.9.3), xl2tpd (>=1.2.5), openswan (>=2.6.23), libengine-pkcs11-openssl (>=0.1.8-2)
+Depends: ${shlibs:Depends}, ${misc:Depends}, l2tp-ipsec-vpn-daemon (>= 0.9.3), xl2tpd (>=1.2.5), openswan (>=2.6.23)
+Recommends: ppp-2.4.5-eaptls-mppe (>=0.98), libengine-pkcs11-openssl (>=0.1.8-2)
 Description: Control your L2TP IPsec VPN connections
  This GUI is not a network manager plugin. However, it provides a system tray
  icon in the notification area from which a non privileged user can establish

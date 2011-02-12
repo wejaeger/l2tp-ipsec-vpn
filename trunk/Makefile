@@ -48,6 +48,7 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
+QMAKE=qmake-qt4
 
 
 # build
@@ -98,7 +99,7 @@ all: .all-post
 build-tests: .build-tests-post
 
 .build-tests-pre:
-# Add your pre 'build-tests' code here...
+	@tail nbproject/Makefile-${CONF}.mk | grep -q "\.build-tests-conf\:" || cat tests/build-tests-conf-template >> nbproject/Makefile-${CONF}.mk;
 
 .build-tests-post: .build-tests-impl
 # Add your post 'build-tests' code here...
