@@ -34,7 +34,7 @@
 #include "ConnectionEditorDialog.h"
 #include "PreferencesEditorDialog.h"
 
-ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pParent), m_pConnectionsModel(new ConnectionsModel())
+ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pParent), m_pConnectionsModel(new ConnectionsModel()), m_fConfigChanged(false)
 {
    m_Widget.setupUi(this);
 
@@ -46,7 +46,6 @@ ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pPare
    connect(m_Widget.m_pAdd, SIGNAL(clicked()), this, SLOT(addConnection()));
    connect(m_Widget.m_pEdit, SIGNAL(clicked()), this, SLOT(editConnection()));
    connect(m_Widget.m_pDelete, SIGNAL(clicked()), this, SLOT(removeConnection()));
-   connect(m_Widget.m_pApplyButton, SIGNAL(clicked()), this, SLOT(applySettings()));
 
    if (m_pConnectionsModel->rowCount() > 0)
       m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(0, 0));
@@ -61,52 +60,68 @@ ConnectionEditorDialog::~ConnectionEditorDialog()
    delete m_pConnectionsModel;
 }
 
+void ConnectionEditorDialog::accept()
+{
+   if (m_fConfigChanged)
+      applySettings();
+
+   QDialog::accept();
+}
+
+void ConnectionEditorDialog::reject()
+{
+   if (m_fConfigChanged)
+      applySettings();
+
+   QDialog::reject();
+}
+
 bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 {
    const ConnectionSettings settings;
    const OpenSSLSettings openSSLSettings(Preferences().openSSLSettings());
    const int iConnections(settings.connections());
 
-    bool fRet(true);
+   bool fRet(true);
 
    if (iConnections > 0)
    {
       if (m_pConnectionsModel->isWriteable())
       {
-         if (!fInteractive || QMessageBox::question(NULL, tr("Confirm applying changes"), tr("You need to reconnect for your changes to take effect!\n\nAre you sure you want to apply your changes?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+         if (fInteractive)
+            QMessageBox::information(NULL, windowTitle(), tr("You need to reconnect for your changes to take effect!"));
+
+         fRet = ConfWriter::write(ConfWriter::IPsec);
+         if (fRet) fRet = ConfWriter::write(ConfWriter::IPsecSECRET);
+         if (fRet) fRet = ConfWriter::write(ConfWriter::L2TP);
+
+         for (int i = 0; fRet && i < iConnections; i++)
          {
-            fRet = ConfWriter::write(ConfWriter::IPsec);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::IPsecSECRET);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::L2TP);
+            const QString strConnectionName(settings.connection(i));
 
-            for (int i = 0; fRet && i < iConnections; i++)
+            fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
+            if (fRet)
             {
-               const QString strConnectionName(settings.connection(i));
+               const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+               const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
+               const PppIpSettings ipSettings(settings.pppSettings(strConnectionName).ipSettings());
 
-               fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
-               if (fRet)
+               if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))
                {
-                  const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
-                  const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
-                  const PppIpSettings ipSettings(settings.pppSettings(strConnectionName).ipSettings());
-
-                  if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))
-                  {
-                     if (QFile::exists(strDNSConfFile))
-                        QFile::remove(strDNSConfFile);
-                  }
-                  else
-                     fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, strDNSConfInstance);
+                  if (QFile::exists(strDNSConfFile))
+                     QFile::remove(strDNSConfFile);
                }
+               else
+                  fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, strDNSConfInstance);
             }
-
-            if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
-            if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
-            if (fRet && !openSSLSettings.enginePath().isEmpty() && !openSSLSettings.pkcs11Path().isEmpty() && !openSSLSettings.engineId().isEmpty())
-               fRet = ConfWriter::write(ConfWriter::OPENSSL);
          }
+
+         if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);
+         if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
+         if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
+         if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
+         if (fRet && !openSSLSettings.enginePath().isEmpty() && !openSSLSettings.pkcs11Path().isEmpty() && !openSSLSettings.engineId().isEmpty())
+            fRet = ConfWriter::write(ConfWriter::OPENSSL);
       }
       else if (fInteractive)
          QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
@@ -121,7 +136,7 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 void ConnectionEditorDialog::editPreferences()
 {
    PreferencesEditorDialog preferences;
-   preferences.exec();
+   m_fConfigChanged = preferences.exec() == QDialog::Accepted;
    m_Widget.m_pConnections->setFocus();
 }
 
@@ -147,6 +162,7 @@ void ConnectionEditorDialog::addConnection()
                case ConnectionsModel::Ok:
                   m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(iRow, 0));
                   enableDeleteAndEdit(true);
+                  m_fConfigChanged = true;
                   emit connectionAdded(strName);
                   break;
 
@@ -181,7 +197,7 @@ void ConnectionEditorDialog::editConnection()
          const QString strName = m_pConnectionsModel->data(index, Qt::DisplayRole).toString();
 
          ConnectionSettingsDialog settings(strName);
-         settings.exec();
+         m_fConfigChanged = settings.exec() == QDialog::Accepted;
       }
    }
    else
@@ -211,6 +227,7 @@ void ConnectionEditorDialog::removeConnection()
                   m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(index.row() - 1, 0));
 
                enableDeleteAndEdit(iRows > 0);
+               m_fConfigChanged = true;
                emit connectionRemoved(strName);
             }
          }

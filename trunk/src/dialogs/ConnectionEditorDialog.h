@@ -37,14 +37,15 @@ public:
    explicit ConnectionEditorDialog(QWidget* pParent = 0);
    virtual ~ConnectionEditorDialog();
 
+   bool applySettings(bool fInteractive = true) const;
+
 signals:
    void connectionAdded(const QString& strName);
    void connectionRemoved(const QString& strName);
 
-public slots:
-   bool applySettings(bool fInteractive = true) const;
-
 private slots:
+   void accept();
+   void reject();
    void editPreferences();
    void addConnection();
    void editConnection();
@@ -59,6 +60,8 @@ private:
    Ui::ConnectionEditorDialog m_Widget;
 
    ConnectionsModel* const m_pConnectionsModel;
+
+   bool m_fConfigChanged;
 };
 
 #endif	/* _CONNECTIONEDITORDIALOG_H */

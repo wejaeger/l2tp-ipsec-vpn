@@ -95,16 +95,6 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="m_pApplyButton">
-     <property name="toolTip">
-      <string>Writes your changes to the appropriate configuration files. You must reconnect after applying your changes.</string>
-     </property>
-     <property name="text">
-      <string>Apply ...</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QCommandLinkButton" name="m_pPreferencesCommandLinkButton">
      <property name="sizePolicy">

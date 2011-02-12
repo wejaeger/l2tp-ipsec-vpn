@@ -8,6 +8,7 @@ l2tp-ipsec-vpn (0.9.8-0ubuntu1) natty; urgency=low
     - Show also certificate serial number in tool tips of certificate
       selection dialogs
     - Added preferences button in connection editor dialog
+    - Removed apply button  in connection editor dialog
     - Fixed bug don't insist on overwriting /etc/resolv.conf
 
  -- Werner Jaeger <werner_jaeger@web.de>  Thu, 10 Feb 2011 19:44:19 +0100
