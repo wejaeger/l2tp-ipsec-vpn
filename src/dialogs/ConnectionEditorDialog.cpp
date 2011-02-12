@@ -24,6 +24,7 @@
 
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QFile>
 
 #include "models/ConnectionsModel.h"
 #include "settings/ConnectionSettings.h"
@@ -83,7 +84,20 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
                const QString strConnectionName(settings.connection(i));
 
                fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
-               if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+               if (fRet)
+               {
+                  const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+                  const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
+                  const PppIpSettings ipSettings(settings.pppSettings(strConnectionName).ipSettings());
+
+                  if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))
+                  {
+                     if (QFile::exists(strDNSConfFile))
+                        QFile::remove(strDNSConfFile);
+                  }
+                  else
+                     fRet = ConfWriter::write(ConfWriter::PPPDNSCONF, strDNSConfInstance);
+               }
             }
 
             if (fRet) fRet = ConfWriter::write(ConfWriter::PPPUPSCRIPT);

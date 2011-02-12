@@ -1,9 +1,11 @@
 /*
+ * $Id$
+ *
  * File:   PreferencesEditorDialog.cpp
  * Author: wejaeger
  *
  * Created on February 4, 2011, 11:21 AM
-  *
+ *
  * Copyright 2011 Werner Jaeger.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,8 +29,10 @@
 #include "pkcs11/Pkcs11.h"
 #include "settings/Preferences.h"
 #include "util/ErrorEx.h"
+#include "util/Libtool.h"
 #include "PreferencesEditorDialog.h"
 
+static const QString VALIDOPENSSLENGINELIBSYMBOL("ENGINE_init");
 static const QString ENGINEIDPATTERN("[a-zA-Z0-9]{0,20}");
 static const QRegExp REENGINID("^" + ENGINEIDPATTERN + "$");
 
@@ -87,24 +91,29 @@ void PreferencesEditorDialog::accept()
       {
          if (!strPkcs11Lib.isEmpty())
          {
-            try
+            if (Libtool(m_Widget.m_pEnginePathLineEdit->text()).hasSymbol(VALIDOPENSSLENGINELIBSYMBOL))
             {
-               if (strPkcs11Lib != strCurrentPkcs11Lib)
-                  Pkcs11::loadLibrary(strPkcs11Lib, false);
-
-               writeSettings();
-               QDialog::accept();
-            }
-            catch (ErrorEx error)
-            {
-               QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
-
-               if (!strCurrentPkcs11Lib.isEmpty() && !Pkcs11::loaded())
+               try
                {
-                  if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
-                     QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));
+                  if (strPkcs11Lib != strCurrentPkcs11Lib)
+                     Pkcs11::loadLibrary(strPkcs11Lib, false);
+
+                  writeSettings();
+                  QDialog::accept();
+               }
+               catch (ErrorEx error)
+               {
+                  QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
+
+                  if (!strCurrentPkcs11Lib.isEmpty() && !Pkcs11::loaded())
+                  {
+                     if (!Pkcs11::loadLibrary(strCurrentPkcs11Lib, true))
+                        QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("I couldn't load PKCS11 library %1.").arg(strCurrentPkcs11Lib));
+                  }
                }
             }
+            else
+               QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("%1 is not a valid OpenSSL engine library.").arg(m_Widget.m_pEnginePathLineEdit->text()));
          }
          else
             QMessageBox::critical(NULL, QCoreApplication::applicationName(), QObject::tr("%1 must not be empty.").arg(m_Widget.m_pPkcs11PathLabel->text()));
