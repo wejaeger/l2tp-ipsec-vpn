@@ -1,4 +1,6 @@
 0.9.8
+ - no longer depends on ppp-2.4.5-eaptls-mppe package. It is optional and only needed if 
+   one wants to use PPP EAP-TLS authentication
  - No longer depends on OpenSC, any PKCS11 library can be used and is dynamically loaded
  - Increased retry attempts to detect a system tray from 10 to 30
  - Ise QT's QSslCertificate class instead of OpenSSL library calls
