@@ -59,7 +59,13 @@ OpenSSLSettings Preferences::openSSLSettings() const
 
 bool OpenSSLSettings::setEnginePath(const QString& strEnginePath) const
 {
-   qSettings()->setValue(ENGINEPATH, strEnginePath);
+   if (strEnginePath != EngineDefaultLibrary)
+   {
+      if (qSettings()->value(ENGINEPATH) != strEnginePath)
+         qSettings()->setValue(ENGINEPATH, strEnginePath);
+   }
+   else
+      qSettings()->remove(ENGINEPATH);
 
    return(true);
 }
@@ -71,7 +77,13 @@ QString OpenSSLSettings::enginePath() const
 
 bool OpenSSLSettings::setPkcs11Path(const QString& strModulePath) const
 {
-   qSettings()->setValue(PKCS11PATH, strModulePath);
+   if (strModulePath != PKCS11DefaultLibrary)
+   {
+     if (qSettings()->value(PKCS11PATH) != strModulePath)
+          qSettings()->setValue(PKCS11PATH, strModulePath);
+   }
+   else
+      qSettings()->remove(PKCS11PATH);
 
    return(true);
 }
@@ -83,7 +95,13 @@ QString OpenSSLSettings::pkcs11Path() const
 
 bool OpenSSLSettings::setEngineId(const QString& strEngineId) const
 {
-   qSettings()->setValue(ENGINEID, strEngineId);
+   if (strEngineId != DefaultEngineId)
+   {
+     if (qSettings()->value(ENGINEID) != strEngineId)
+         qSettings()->setValue(ENGINEID, strEngineId);
+   }
+   else
+      qSettings()->remove(ENGINEID);
 
    return(true);
 }

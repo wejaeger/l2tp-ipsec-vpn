@@ -24,10 +24,11 @@
 
 #include <QStringList>
 #include <QCoreApplication>
+#include <QFileInfo>
 
 #include "Settings.h"
 
-Settings::Settings() : m_Settings(configureQSettings())
+Settings::Settings() : m_Settings(configureQSettings()), m_PreviouslyLastModified(lastModified())
 {
 }
 
@@ -38,6 +39,16 @@ Settings::~Settings()
 bool Settings::isWriteable() const
 {
    return(qSettings()->isWritable());
+}
+
+void Settings::clearChanged()
+{
+   m_PreviouslyLastModified = lastModified();
+}
+
+bool Settings::hasChanged() const
+{
+   return(m_PreviouslyLastModified < lastModified());
 }
 
 /**
@@ -86,6 +97,11 @@ bool Settings::removeArrayItem(const QString& strArrayName, int iIndex) const
    }
 
    return(fRet);
+}
+
+QDateTime Settings::lastModified() const
+{
+   return(QFileInfo(qSettings()->fileName()).lastModified());
 }
 
 QSettings* Settings::configureQSettings()

@@ -28,6 +28,7 @@
 #include "ui_ConnectionEditorDialog.h"
 
 class ConnectionsModel;
+class ConnectionSettings;
 
 class ConnectionEditorDialog : public QDialog
 {
@@ -60,8 +61,7 @@ private:
    Ui::ConnectionEditorDialog m_Widget;
 
    ConnectionsModel* const m_pConnectionsModel;
-
-   bool m_fConfigChanged;
+   ConnectionSettings* const m_pConnectionSettings;
 };
 
 #endif	/* _CONNECTIONEDITORDIALOG_H */

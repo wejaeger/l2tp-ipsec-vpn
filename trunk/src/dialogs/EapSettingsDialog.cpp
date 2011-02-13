@@ -24,6 +24,7 @@
 
 #include <QFileDialog>
 
+#include "pkcs11/Pkcs11.h"
 #include "util/CertificateInfo.h"
 #include "settings/ConnectionSettings.h"
 #include "ConnectionSettingsDialog.h"
@@ -121,6 +122,19 @@ void EapSettingsDialog::readSettings()
    const ConnectionSettings settings;
    const PppSettings pppSettings(settings.pppSettings(m_strConnectionName));
    const PppEapSettings eapSettings = pppSettings.eapSettings();
+
+   if (!Pkcs11::loaded())
+   {
+      m_Widget.m_pUseSmartCardRadioButton->setDisabled(true);
+
+      if (eapSettings.useSmartCard())
+      {
+         eapSettings.setUseSmartCard(false);
+         eapSettings.setCertificatePath("");
+         eapSettings.setPrivateKeyPath("");
+         eapSettings.setPrivateKeyPassword("");
+      }
+   }
 
    if (eapSettings.useSmartCard())
    {

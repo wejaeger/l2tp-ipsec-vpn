@@ -47,7 +47,11 @@ int main(int iArgc, char* pcArgv[])
       Q_INIT_RESOURCE(L2tpIPsecVpn);
 
       if (!Pkcs11::loaded())
-         iRet = Pkcs11::loadLibrary(Preferences().openSSLSettings().pkcs11Path(), true) ? 0 : 2;
+      {
+         const QString strPkcs11Lib(Preferences().openSSLSettings().pkcs11Path());
+         if (!strPkcs11Lib.isEmpty())
+            iRet = Pkcs11::loadLibrary(Preferences().openSSLSettings().pkcs11Path(), true) ? 0 : 2;
+      }
 
       if (iRet == 0)
       {

@@ -247,7 +247,8 @@ bool ConnectionSettings::setValue(const QString& strValue, const QString& strPat
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      qSettings()->setValue(strPath, strValue);
+      if  (qSettings()->value(strPath) != strValue)
+         qSettings()->setValue(strPath, strValue);
       qSettings()->endArray();
    }
 
@@ -278,7 +279,8 @@ bool ConnectionSettings::setSecret(const QString& strValue, const QString& strPa
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
       EncSecrets secrets(KEY, IV, strValue.toAscii().constData());
-      qSettings()->setValue(strPath, secrets.getbuf());
+      if  (qSettings()->value(strPath) != secrets.getbuf())
+         qSettings()->setValue(strPath, secrets.getbuf());
       qSettings()->endArray();
    }
 
@@ -310,7 +312,8 @@ bool ConnectionSettings::setValue(int iValue, const QString& strPath) const
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      qSettings()->setValue(strPath, iValue);
+      if  (qSettings()->value(strPath) != iValue)
+         qSettings()->setValue(strPath, iValue);
       qSettings()->endArray();
    }
 
@@ -340,7 +343,8 @@ bool ConnectionSettings::setValue(bool fValue, const QString& strPath) const
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      qSettings()->setValue(strPath, fValue);
+      if  (qSettings()->value(strPath) != fValue)
+         qSettings()->setValue(strPath, fValue);
       qSettings()->endArray();
    }
 
@@ -376,7 +380,8 @@ bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, con
       if (iRow < iSize)
       {
          qSettings()->setArrayIndex(iRow);
-         qSettings()->setValue(strPropertyName, strValue);
+         if  (qSettings()->value(strPropertyName) != strValue)
+            qSettings()->setValue(strPropertyName, strValue);
       }
       else
          fRet = false;
