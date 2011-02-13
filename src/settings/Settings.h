@@ -27,11 +27,14 @@
 
 #include <QSharedPointer>
 #include <QSettings>
+#include <QDateTime>
 
 class Settings
 {
 public:
    bool isWriteable() const;
+   void clearChanged();
+   bool hasChanged() const;
 
 protected:
    Settings();
@@ -44,9 +47,13 @@ protected:
 private:
    Settings& operator=(const Settings& orig);
 
+   QDateTime lastModified() const;
+
    static QSettings* configureQSettings();
 
    QSharedPointer<QSettings> const m_Settings;
+
+   QDateTime m_PreviouslyLastModified;
 };
 
 #endif	/* SETTINGS_H */

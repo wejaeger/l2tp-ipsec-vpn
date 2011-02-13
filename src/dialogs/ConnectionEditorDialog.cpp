@@ -34,7 +34,7 @@
 #include "ConnectionEditorDialog.h"
 #include "PreferencesEditorDialog.h"
 
-ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pParent), m_pConnectionsModel(new ConnectionsModel()), m_fConfigChanged(false)
+ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pParent), m_pConnectionsModel(new ConnectionsModel()), m_pConnectionSettings(new ConnectionSettings())
 {
    m_Widget.setupUi(this);
 
@@ -53,34 +53,42 @@ ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pPare
       enableDeleteAndEdit(false);
 
    m_Widget.m_pConnections->setFocus();
+
+   m_pConnectionSettings->clearChanged();
 }
 
 ConnectionEditorDialog::~ConnectionEditorDialog()
 {
    delete m_pConnectionsModel;
+   delete m_pConnectionSettings;
 }
 
 void ConnectionEditorDialog::accept()
 {
-   if (m_fConfigChanged)
+   if (m_pConnectionSettings->hasChanged())
+   {
       applySettings();
+      m_pConnectionSettings->clearChanged();
+   }
 
    QDialog::accept();
 }
 
 void ConnectionEditorDialog::reject()
 {
-   if (m_fConfigChanged)
+   if (m_pConnectionSettings->hasChanged())
+   {
       applySettings();
+      m_pConnectionSettings->clearChanged();
+   }
 
    QDialog::reject();
 }
 
 bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 {
-   const ConnectionSettings settings;
    const OpenSSLSettings openSSLSettings(Preferences().openSSLSettings());
-   const int iConnections(settings.connections());
+   const int iConnections(m_pConnectionSettings->connections());
 
    bool fRet(true);
 
@@ -97,14 +105,14 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 
          for (int i = 0; fRet && i < iConnections; i++)
          {
-            const QString strConnectionName(settings.connection(i));
+            const QString strConnectionName(m_pConnectionSettings->connection(i));
 
             fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
             if (fRet)
             {
                const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
                const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
-               const PppIpSettings ipSettings(settings.pppSettings(strConnectionName).ipSettings());
+               const PppIpSettings ipSettings(m_pConnectionSettings->pppSettings(strConnectionName).ipSettings());
 
                if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))
                {
@@ -120,8 +128,17 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
          if (fRet) fRet = ConfWriter::write(ConfWriter::PPPDOWNSCRIPT);
          if (fRet) fRet = ConfWriter::write(ConfWriter::GETIPSECINFO);
          if (fRet) fRet = ConfWriter::write(ConfWriter::RSYSLOG);
-         if (fRet && !openSSLSettings.enginePath().isEmpty() && !openSSLSettings.pkcs11Path().isEmpty() && !openSSLSettings.engineId().isEmpty())
-            fRet = ConfWriter::write(ConfWriter::OPENSSL);
+         if (fRet)
+         {
+            if (openSSLSettings.enginePath().isEmpty() || openSSLSettings.pkcs11Path().isEmpty() || openSSLSettings.engineId().isEmpty())
+            {
+               const QString strOpenSSLConfFile(ConfWriter::fileName(ConfWriter::OPENSSL));
+               if (QFile::exists(strOpenSSLConfFile))
+                  QFile::remove(strOpenSSLConfFile);
+            }
+            else
+               fRet = ConfWriter::write(ConfWriter::OPENSSL);
+         }
       }
       else if (fInteractive)
          QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
@@ -136,7 +153,7 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 void ConnectionEditorDialog::editPreferences()
 {
    PreferencesEditorDialog preferences;
-   m_fConfigChanged = preferences.exec() == QDialog::Accepted;
+   preferences.exec();
    m_Widget.m_pConnections->setFocus();
 }
 
@@ -162,7 +179,6 @@ void ConnectionEditorDialog::addConnection()
                case ConnectionsModel::Ok:
                   m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(iRow, 0));
                   enableDeleteAndEdit(true);
-                  m_fConfigChanged = true;
                   emit connectionAdded(strName);
                   break;
 
@@ -197,7 +213,7 @@ void ConnectionEditorDialog::editConnection()
          const QString strName = m_pConnectionsModel->data(index, Qt::DisplayRole).toString();
 
          ConnectionSettingsDialog settings(strName);
-         m_fConfigChanged = settings.exec() == QDialog::Accepted;
+         settings.exec();
       }
    }
    else
@@ -227,7 +243,6 @@ void ConnectionEditorDialog::removeConnection()
                   m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(index.row() - 1, 0));
 
                enableDeleteAndEdit(iRows > 0);
-               m_fConfigChanged = true;
                emit connectionRemoved(strName);
             }
          }
