@@ -55,7 +55,7 @@ static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
 static const int VPN_TASK_TIMOUT(40000);
 
 static const QString strRuntimePath("/var/run/L2tpIPsecVpn/");
-static const char* const strAbout("<p><center><small>Copyright &copy; 2010 Werner Jaeger</small></center></p><p><center><a href='https://launchpad.net/~werner-jaeger/+archive/ppa-werner-vpn'>Website</a></center></p>");
+static const char* const strAbout("<p><center><small>Copyright &copy; 2010 Werner Jaeger</small></center></p><p><center><a href='https://launchpad.net/l2tp-ipsec-vpn'>Website</a></center></p>");
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
   m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
