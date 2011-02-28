@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 7.0.50),
                libqt4-dev (>= 4.6.2),
                qt4-qmake (>= 4.6.2)
 Standards-Version: 3.9.1
-Homepage: http://launchpad.net/~werner-jaeger
+Homepage: https://launchpad.net/l2tp-ipsec-vpn
 
 Package: l2tp-ipsec-vpn
 Architecture: any
@@ -21,7 +21,7 @@ Depends: l2tp-ipsec-vpn-daemon (>= 0.9.3),
          ${shlibs:Depends}
 Recommends: libengine-pkcs11-openssl (>=0.1.8-2), ppp-2.4.5-eaptls-mppe (>=0.98)
 Description: control your L2TP IPsec VPN connections
- This GUI is not a network manager plugin. However, it provides a system tray
+ This GUI is not a network manager plug-in. However, it provides a system tray
  icon in the notification area from which a non privileged user can establish
  and bring down L2TP over IPsec VPN connections.
  .
