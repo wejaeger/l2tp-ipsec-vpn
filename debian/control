@@ -3,30 +3,39 @@ Section: net
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Werner Jaeger <werner_jaeger@web.de>
-Build-Depends: debhelper (>= 7.0.50), libqt4-dev (>= 4.6.2), qt4-qmake (>= 4.6.2), libctemplate-dev (>=0.96), libopensc2-dev (>= 0.11.12), libltdl-dev (>= 2.2.6) 
+Build-Depends: debhelper (>= 7.0.50),
+               libctemplate-dev (>=0.96),
+               libltdl-dev (>= 2.2.6),
+               libopensc2-dev (>= 0.11.12),
+               libqt4-dev (>= 4.6.2),
+               qt4-qmake (>= 4.6.2)
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/~werner-jaeger
 
 Package: l2tp-ipsec-vpn
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, l2tp-ipsec-vpn-daemon (>= 0.9.3), xl2tpd (>=1.2.5), openswan (>=2.6.23)
-Recommends: ppp-2.4.5-eaptls-mppe (>=0.98), libengine-pkcs11-openssl (>=0.1.8-2)
-Description: Control your L2TP IPsec VPN connections
+Depends: l2tp-ipsec-vpn-daemon (>= 0.9.3),
+         openswan (>=2.6.23),
+         xl2tpd (>=1.2.5),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: libengine-pkcs11-openssl (>=0.1.8-2), ppp-2.4.5-eaptls-mppe (>=0.98)
+Description: control your L2TP IPsec VPN connections
  This GUI is not a network manager plugin. However, it provides a system tray
  icon in the notification area from which a non privileged user can establish
  and bring down L2TP over IPsec VPN connections.
  .
- There is also a 'Edit connections' menu item. In order to bring up the 
+ There is also a 'Edit connections' menu item. In order to bring up the
  editor dialog, a non privileged user must authenticate as root.
  .
  From there the user can add, remove and edit vpn connections.
  .
  Editing allows configuring various options for IPsec, L2TP and PPP.
  .
- Among others, the user can configure eg. the gateway, the use of either 
+ Among others, the user can configure eg. the gateway, the use of either
  PSK or a certificate for authentication, various L2TP options as redial-
- timeout and attempts and of course all important PPP options. It also 
- allows you to configure PPP for tunnel splitting because you can add 
+ timeout and attempts and of course all important PPP options. It also
+ allows you to configure PPP for tunnel splitting because you can add
  routes as you want.
  .
  When applying your settings, all necessary configuration files are written
@@ -36,11 +45,10 @@ Description: Control your L2TP IPsec VPN connections
  It relies on Openswan and xl2tp packages as the underlying protocol
  handlers.
  .
- You can also use certificates on your local machine or, if e.g. OpenSC is 
+ You can also use certificates on your local machine or, if e.g. OpenSC is
  installed and configured, even on a smart card to handle PPP
  authentication.
  .
- The GUI automatically detects when network interfaces are going up or 
+ The GUI automatically detects when network interfaces are going up or
  down and can (if so configured) automatically establish or close VPN
  connections.
-
