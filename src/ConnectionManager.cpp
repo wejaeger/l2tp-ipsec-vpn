@@ -55,7 +55,11 @@ static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
 static const int VPN_TASK_TIMOUT(40000);
 
 static const QString strRuntimePath("/var/run/L2tpIPsecVpn/");
-static const char* const strAbout("<p><center><small>Copyright &copy; 2010 Werner Jaeger</small></center></p><p><center><a href='https://launchpad.net/l2tp-ipsec-vpn'>Website</a></center></p>");
+static const char* const strAbout(
+   "<p><center><small>Copyright &copy; 2010-2011 Werner Jaeger</small></center></p>"
+   "<p><center><a href='http://wiki.l2tpipsecvpn.tuxfamily.org/'>Help</a></center></p>"
+   "<p><center><a href='https://launchpad.net/l2tp-ipsec-vpn'>Website</a></center></p>"
+);
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
   m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
@@ -473,72 +477,66 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
 {
 //   qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << ", " << iPriority << ")";
 
-   if (!interface.isPtP())
+   if (iPriority != 100)
    {
-      if (iPriority != 100)
+      if (!m_fRoutePriorityIsChanging)
       {
-         if (!m_fRoutePriorityIsChanging)
+         bool fHasDefaultGateway = false;
+         if (!interface.isNull())
          {
-            bool fHasDefaultGateway = false;
-            if (!interface.isNull())
+            if (interface.routeEntries().size() == 1)
             {
-               if (interface.routeEntries().size() == 1)
-               {
 //                  qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << "): dst =" << (*interface.routeEntries().begin()).ip() << "gw =" << (*interface.routeEntries().begin()).broadcast() << "gw is null =" << (*interface.routeEntries().begin()).broadcast().isNull();
-                  fHasDefaultGateway = !(*interface.routeEntries().begin()).broadcast().isNull() && (*interface.routeEntries().begin()).ip().isNull();
-               }
-            }
-            else
-               fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
-
-            if (m_pState && m_pState->isState(ConnectionState::NotConnected) && fHasDefaultGateway)
-            {
-//               qDebug() << "ConnectionManager::onRouteAdded: found default gateway";
-
-               ConnectionSettings settings;
-               const int iConnections = settings.connections();
-
-               bool fDone = false;
-               for (int i = 0; !fDone && i < iConnections; i++)
-               {
-                  const QString strName = settings.connection(i);
-                  if (settings.commonSettings(strName).autoConnect())
-                  {
-                     fDone = true;
-                     vpnConnect(strName);
-                  }
-               }
+               fHasDefaultGateway = !(*interface.routeEntries().begin()).broadcast().isNull() && (*interface.routeEntries().begin()).ip().isNull();
             }
          }
          else
-            m_fRoutePriorityIsChanging = false;
+            fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
+
+         if (m_pState && m_pState->isState(ConnectionState::NotConnected) && fHasDefaultGateway)
+         {
+//               qDebug() << "ConnectionManager::onRouteAdded: found default gateway";
+
+            ConnectionSettings settings;
+            const int iConnections = settings.connections();
+
+            bool fDone = false;
+            for (int i = 0; !fDone && i < iConnections; i++)
+            {
+               const QString strName = settings.connection(i);
+               if (settings.commonSettings(strName).autoConnect())
+               {
+                  fDone = true;
+                  vpnConnect(strName);
+               }
+            }
+         }
       }
       else
-         m_fRoutePriorityIsChanging = true;
+         m_fRoutePriorityIsChanging = false;
    }
+   else
+      m_fRoutePriorityIsChanging = true;
 
 //   qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << ", " << iPriority << ") -> finished";
 }
 
-void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int iPriority)
+void ConnectionManager::onRouteDeleted(NetworkInterface /* interface */, unsigned int iPriority)
 {
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ", " << iPriority << ")";
 
-   if (!interface.isPtP())
+   if (iPriority != 100)
    {
-      if (iPriority != 100)
+      if (!m_fRoutePriorityIsChanging)
       {
-         if (!m_fRoutePriorityIsChanging)
-         {
-            if (m_pState && m_pState->isState(ConnectionState::Connected) && NetworkInterface::defaultGateway().size() == 0)
-               vpnDisconnect();
-         }
-         else
-            m_fRoutePriorityIsChanging = false;
+         if (m_pState && m_pState->isState(ConnectionState::Connected) && NetworkInterface::defaultGateway().size() == 0)
+            vpnDisconnect();
       }
       else
-         m_fRoutePriorityIsChanging = true;
+         m_fRoutePriorityIsChanging = false;
    }
+   else
+      m_fRoutePriorityIsChanging = true;
 
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ") -> finished";
 }

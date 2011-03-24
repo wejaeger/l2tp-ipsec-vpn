@@ -1,7 +1,7 @@
 Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=REVISION
 Upstream-Name: L2TP IPsec VPN Manager
 Upstream-Contact: Werner Jaeger <werner_jaeger@web.de>
-Source: http://launchpad.net/l2tp-ipsec-vpn/trunk/0.9.8/+download/l2tp-ipsec-vpn_0.9.8.tar.gz
+Source: http://launchpad.net/l2tp-ipsec-vpn/trunk/0.9.9/+download/l2tp-ipsec-vpn_0.9.9.tar.gz
 
 Files: *
 Copyright: Copyright 2011 Werner Jaeger <werner_jaeger@web.de>
