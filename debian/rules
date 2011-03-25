@@ -2,9 +2,7 @@
 
 export DH_VERBOSE=1
 
-%:
-	qmake-qt4 VPATH=. -o qttmp-Release.mk nbproject/qt-Release.pro
-	mv -f qttmp-Release.mk nbproject/qt-Release.mk
+%: nbproject/qt-Release.mk
 	dh $@
 
 override_dh_auto_install:
@@ -15,12 +13,17 @@ override_dh_auto_build:
 	# Compile the package.
 	make -f nbproject/qt-Release.mk dist/Release/GNU-Linux-x86/L2tpIPsecVpn
 
-
 override_dh_auto_clean:
 	# Clean up after the build process.
 	make -f nbproject/qt-Release.mk distclean
+	rm -f nbproject/qt-Release.mk
 
 override_dh_auto_test:
 
 override_dh_installchangelogs:
 	dh_installchangelogs changelog
+
+nbproject/qt-Release.mk:
+	qmake-qt4 -o qttmp-Release.mk nbproject/qt-Release.pro
+	mv -f qttmp-Release.mk nbproject/qt-Release.mk
+

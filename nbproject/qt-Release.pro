@@ -3,7 +3,7 @@
 TEMPLATE = app
 DESTDIR = dist/Release/GNU-Linux-x86
 TARGET = L2tpIPsecVpn
-VERSION = 0.9.4
+VERSION = 0.9.9
 CONFIG -= debug_and_release app_bundle lib_bundle
 CONFIG += release 
 QT = core gui network
@@ -21,7 +21,6 @@ QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += src /usr/include/qt4 /usr/include/qt4/QtCore 
 LIBS += 
-LIBS+=-lopensc
 
 LIBS+=-lctemplate
 LIBS+=-lcrypto
