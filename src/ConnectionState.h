@@ -27,6 +27,8 @@
 
 #include <QSystemTrayIcon>
 
+#include "util/NetworkInterface.h"
+
 class QIcon;
 class QString;
 
@@ -35,7 +37,7 @@ class ConnectionState
 public:
    enum State {NotConnected, Connecting, Disconnecting, Connected, Error};
 
-   ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon);
+   ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface = NetworkInterface::null);
    virtual ~ConnectionState();
 
    virtual bool isState(State state) const = 0;
@@ -44,6 +46,7 @@ public:
    const QString& msgBody() const;
    const QIcon& icon() const;
    const QSystemTrayIcon::MessageIcon& msgIcon() const;
+   const NetworkInterface& ptpInterface() const;
 
 private:
    ConnectionState(const ConnectionState& orig);
@@ -54,6 +57,7 @@ private:
    const QString m_strMsgBody;
    const QIcon m_Icon;
    const QSystemTrayIcon::MessageIcon m_MsgIcon;
+   const NetworkInterface m_PtpInterface;
 };
 
 class NotConnected : public ConnectionState
@@ -95,7 +99,7 @@ private:
 class Connected : public ConnectionState
 {
 public:
-   Connected(const QString& strHostName);
+   Connected(const QString& strHostName, const NetworkInterface& ptpInterface);
    virtual ~Connected();
    virtual bool isState(State state) const { return(state == ConnectionState::Connected ? true : false); }
 

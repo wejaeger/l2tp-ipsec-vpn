@@ -23,8 +23,9 @@
  */
 
 #include "ConnectionState.h"
+#include "ConnectionManager.h"
 
-ConnectionState::ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon) : m_strHostName(strHostName), m_strMsgTitle(strMsgTitle), m_strMsgBody(strMsgBody), m_Icon(icon), m_MsgIcon(msgIcon)
+ConnectionState::ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface) : m_strHostName(strHostName), m_strMsgTitle(strMsgTitle), m_strMsgBody(strMsgBody), m_Icon(icon), m_MsgIcon(msgIcon), m_PtpInterface(ptpInterface)
 {
 }
 
@@ -57,6 +58,11 @@ const QSystemTrayIcon::MessageIcon& ConnectionState::msgIcon() const
    return(m_MsgIcon);
 }
 
+const NetworkInterface& ConnectionState::ptpInterface() const
+{
+   return(m_PtpInterface);
+}
+
 NotConnected::NotConnected() : ConnectionState("", QObject::tr("Not Connected"), QObject::tr("Click to show details"), QIcon(":/images/connectNo.png"), QSystemTrayIcon::Warning)
 {
 }
@@ -81,7 +87,7 @@ Disconnecting::~Disconnecting()
 {
 }
 
-Connected::Connected(const QString& strHostName) : ConnectionState(strHostName, QObject::tr("Connected to ") + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectEstablished.png"), QSystemTrayIcon::Information)
+Connected::Connected(const QString& strHostName, const NetworkInterface& ptpInterface) : ConnectionState(strHostName, QObject::tr("Connected to ") + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectEstablished.png"), QSystemTrayIcon::Information, ptpInterface)
 {
 }
 

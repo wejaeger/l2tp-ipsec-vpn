@@ -342,11 +342,11 @@ void ConnectionManager::messageClicked()
 
 void ConnectionManager::detectConnectionState()
 {
-   const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
-   if (!strConnectionName.isNull())
+   const ConnectionInfo connectionInfo(connectionNameOfUpAndRunningPtpInterface());
+   if (!connectionInfo.first.isNull())
    {
       if (NetworkInterface::defaultGateway().size() == 1)
-         connected(strConnectionName);
+         connected(connectionInfo.first, connectionInfo.second);
       else
          vpnDisconnect(true);
    }
@@ -549,7 +549,7 @@ void ConnectionManager::onPtpInterfaceIsUpAnRunning(NetworkInterface interface)
    {
       const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())
-         connected(strConnectionName);
+         connected(strConnectionName, interface);
    }
 
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ", " << iPriority << ") -> finished";
@@ -573,11 +573,11 @@ void ConnectionManager::onCheckPtpInterfaceIsUp()
 {
    if (!m_fIsExecuting && m_pState->isState(ConnectionState::Connecting))
    {
-      const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
-      if (strConnectionName.isNull())
+      const ConnectionInfo connectionInfo(connectionNameOfUpAndRunningPtpInterface());
+      if (connectionInfo.first.isNull())
          disConnected();
       else
-         connected(strConnectionName);
+         connected(connectionInfo.first, connectionInfo.second);
    }
 }
 
@@ -585,11 +585,11 @@ void ConnectionManager::onCheckPtpInterfaceIsDown()
 {
    if (!m_fIsExecuting && m_pState->isState(ConnectionState::Disconnecting))
    {
-      const QString strConnectionName(connectionNameOfUpAndRunningPtpInterface());
-      if (strConnectionName.isNull())
+      const ConnectionInfo connectionInfo(connectionNameOfUpAndRunningPtpInterface());
+      if (connectionInfo.first.isNull())
          disConnected();
       else
-         connected(strConnectionName);
+         connected(connectionInfo.first, connectionInfo.second);
    }
 }
 
@@ -604,7 +604,7 @@ void ConnectionManager::enableAllConnections(bool fEnable) const
       m_pActions->at(i)->setEnabled(fEnable);
 }
 
-void ConnectionManager::connected(const QString& strConnectionName)
+void ConnectionManager::connected(const QString& strConnectionName, const NetworkInterface& ptpInterface)
 {
    const QString strGateway(ConnectionSettings().gateway(strConnectionName));
 
@@ -612,7 +612,7 @@ void ConnectionManager::connected(const QString& strConnectionName)
 
    delete m_pState;
 
-   m_pState = new Connected(strGateway);
+   m_pState = new Connected(strGateway, ptpInterface);
 
    onStatusChanged();
 }
@@ -642,7 +642,7 @@ void ConnectionManager::error(int iErrorCode)
    }
 }
 
-QString ConnectionManager::connectionNameOfUpAndRunningPtpInterface() const
+ConnectionManager::ConnectionInfo ConnectionManager::connectionNameOfUpAndRunningPtpInterface() const
 {
    QString strConnectionName;
 
@@ -652,7 +652,7 @@ QString ConnectionManager::connectionNameOfUpAndRunningPtpInterface() const
    for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); itInterfaces++)
       strConnectionName = ConnectionManager::connectionName((*itInterfaces).second);
 
-   return(strConnectionName);
+  return(ConnectionInfo(strConnectionName, (*--itInterfaces).second));
 }
 
 QString ConnectionManager::connectionName(const NetworkInterface& interface, int iRetry)
