@@ -39,6 +39,11 @@ NetworkInterface::NetworkInterface(const NetworkInterface& orig) : m_strName(ori
 {
 }
 
+bool NetworkInterface::operator==(const NetworkInterface& other) const
+{
+   return(m_strName.compare(other.m_strName) == 0);
+}
+
 bool NetworkInterface::removeAddressEntry(const QNetworkAddressEntry& addressEntry)
 {
    bool fFound = false;

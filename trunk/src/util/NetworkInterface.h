@@ -52,8 +52,9 @@ public:
    };
    Q_DECLARE_FLAGS(InterfaceFlags, InterfaceFlag)
 
-   NetworkInterface() : m_strName(""), m_iIndex(0), m_Flags(0) {}
+   NetworkInterface() : m_strName(""), m_iIndex(0), m_Flags(0), m_AddressEntries(std::vector<QNetworkAddressEntry>()), m_RouteEntries(std::vector<QNetworkAddressEntry>()) {}
    NetworkInterface(const NetworkInterface& orig);
+   bool operator==(const NetworkInterface& other) const;
 
    virtual ~NetworkInterface() {}
 

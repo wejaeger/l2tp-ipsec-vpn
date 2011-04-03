@@ -27,6 +27,7 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
+#include <QPair>
 
 #include "util/NetworkInterface.h"
 
@@ -74,6 +75,7 @@ private slots:
 
 private:
    typedef QList<QAction*> ActionList;
+   typedef QPair<const QString, const NetworkInterface> ConnectionInfo;
    typedef enum { DISC, EDIT, INFO, ABOUT, QUIT } ActionType;
 
    ConnectionManager(const ConnectionManager& orig);
@@ -84,10 +86,10 @@ private:
    void onStatusChanged();
    void vpnConnect(const QString& strConnectionName);
    void enableAllConnections(bool fEnable) const;
-   void connected(const QString& strConnectionName);
+   void connected(const QString& strConnectionName, const NetworkInterface& ptpInterface);
    void disConnected();
    void error(int iErrorCode);
-   QString connectionNameOfUpAndRunningPtpInterface() const;
+   ConnectionInfo connectionNameOfUpAndRunningPtpInterface() const;
 
    QAction* action(ActionType type) const;
 

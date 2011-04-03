@@ -2,7 +2,6 @@ Source: l2tp-ipsec-vpn
 Section: net
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Werner Jaeger <werner_jaeger@web.de>
 Build-Depends: debhelper (>= 7.0.50),
                libctemplate-dev (>=0.96),
                libltdl-dev (>= 2.2.6),
