@@ -44,10 +44,56 @@ bool NetworkInterface::operator==(const NetworkInterface& other) const
    return(m_strName.compare(other.m_strName) == 0);
 }
 
+bool NetworkInterface::hasDefaultGateway() const
+{
+   bool fRet = false;
+
+   AddressEntries::const_iterator it(m_RouteEntries.begin());
+
+   while (!fRet && it != m_RouteEntries.end())
+      fRet = (*it++).ip().isNull();
+
+   return(fRet);
+}
+
+bool NetworkInterface::isIPsecPysicalGateway() const
+{
+   using namespace std;
+
+   string strInterfaceName;
+   string strDestination;
+   string strGateway;
+
+   ifstream ipsecInfo("/var/run/pluto/ipsec.info", ios::in);
+   while (ipsecInfo)
+   {
+      string strLine;
+      getline(ipsecInfo, strLine);
+
+      if (strLine.length() > 0)
+      {
+         istringstream strFormat(strLine.replace(strLine.find('='), 1, " "));
+
+         string strKey;
+         string strValue;
+         strFormat >> strKey >> strValue;
+
+         if (strKey == "defaultroutephys")
+            strInterfaceName = strValue;
+         else if (strKey == "defaultrouteaddr")
+            strDestination = strValue;
+         else if (strKey == "defaultroutenexthop")
+            strGateway = strValue;
+      }
+   }
+
+   return(strInterfaceName.compare(m_strName) == 0);
+}
+
 bool NetworkInterface::removeAddressEntry(const QNetworkAddressEntry& addressEntry)
 {
    bool fFound = false;
-   AddressEntries::iterator it = m_AddressEntries.begin();
+   AddressEntries::iterator it(m_AddressEntries.begin());
    while (!fFound && it != m_AddressEntries.end())
    {
       if ((*it++) == addressEntry)
@@ -62,7 +108,7 @@ bool NetworkInterface::removeAddressEntry(const QNetworkAddressEntry& addressEnt
 bool NetworkInterface::removeRouteEntry(const QNetworkAddressEntry& routeEntry)
 {
    bool fFound = false;
-   AddressEntries::iterator it = m_RouteEntries.begin();
+   AddressEntries::iterator it(m_RouteEntries.begin());
    while (!fFound && it != m_RouteEntries.end())
    {
       if ((*it++) == routeEntry)
@@ -139,55 +185,6 @@ NetworkInterface::InterfaceMap NetworkInterface::defaultGateway(void)
       routeEntry.setBroadcast(QHostAddress(iGatewayAddress));
 
       (*ret.first).second.addRouteEntry(routeEntry);
-   }
-
-   return(interfaces);
-}
-
-NetworkInterface::InterfaceMap NetworkInterface::ipsecPhysicalGateway(void)
-{
-   InterfaceMap interfaces;
-
-   using namespace std;
-
-   string strInterfaceName;
-   string strDestination;
-   string strGateway;
-
-   ifstream ipsecInfo("/var/run/pluto/ipsec.info", ios::in);
-   while (ipsecInfo)
-   {
-      string strLine;
-      getline(ipsecInfo, strLine);
-
-      if (strLine.length() > 0)
-      {
-         istringstream strFormat(strLine.replace(strLine.find('='), 1, " "));
-
-         string strKey;
-         string strValue;
-         strFormat >> strKey >> strValue;
-
-         if (strKey == "defaultroutephys")
-            strInterfaceName = strValue;
-         else if (strKey == "defaultrouteaddr")
-            strDestination = strValue;
-         else if (strKey == "defaultroutenexthop")
-            strGateway = strValue;
-      }
-   }
-
-   if (!strInterfaceName.empty())
-   {
-      const InterfaceMapEntry entry(std::make_pair(strInterfaceName, NetworkInterface(strInterfaceName.c_str(), ::if_nametoindex(strInterfaceName.c_str()), IFF_UP | IFF_RUNNING)));
-      std::pair<InterfaceMap::iterator, bool> ret = interfaces.insert(entry);
-
-      QNetworkAddressEntry addressEntry;
-      addressEntry.setIp(QHostAddress(strDestination.c_str()));
-      addressEntry.setNetmask(QHostAddress());
-      addressEntry.setBroadcast(QHostAddress(strGateway.c_str()));
-
-      (*ret.first).second.addAddressEntry(addressEntry);
    }
 
    return(interfaces);

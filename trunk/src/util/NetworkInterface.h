@@ -63,6 +63,8 @@ public:
    InterfaceFlags flags() const { return(m_Flags); }
    bool isNull() const { return(m_strName.empty()); }
    bool isPtP() const { return(m_Flags & IsPointToPoint); }
+   bool hasDefaultGateway() const;
+   bool isIPsecPysicalGateway() const;
 
    const AddressEntries& addressEntries() const { return(m_AddressEntries); }
    void clearAddressEntries(void) { m_AddressEntries.clear(); }
@@ -71,7 +73,6 @@ public:
 
    static InterfaceMap pointToPointInterfaces(void);
    static InterfaceMap defaultGateway(void);
-   static InterfaceMap ipsecPhysicalGateway(void);
 
    static const NetworkInterface null;
 

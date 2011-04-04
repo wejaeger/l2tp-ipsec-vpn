@@ -4,6 +4,9 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
     - added help link to about dialog
     - fixed bug dial-up to network interfaces (PPPn) are not automatically
       detected (LP: #741430)
+    - fixed bug disconnection of physical network interface not detected if
+      'Use default gateway on the remote network' is selected in PPP ->
+      IP setting -> Routes configuration for the VPN connection (LP: #750000)
 
  -- Werner Jaeger <werner_jaeger@web.de>  Thu, 24 Mar 2011 09:32:14 +0100
 

@@ -483,13 +483,7 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
       {
          bool fHasDefaultGateway = false;
          if (!interface.isNull())
-         {
-            if (interface.routeEntries().size() == 1)
-            {
-//                  qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << "): dst =" << (*interface.routeEntries().begin()).ip() << "gw =" << (*interface.routeEntries().begin()).broadcast() << "gw is null =" << (*interface.routeEntries().begin()).broadcast().isNull();
-               fHasDefaultGateway = !(*interface.routeEntries().begin()).broadcast().isNull() && (*interface.routeEntries().begin()).ip().isNull();
-            }
-         }
+            fHasDefaultGateway = interface.hasDefaultGateway();
          else
             fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
 
@@ -521,7 +515,7 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
 //   qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << ", " << iPriority << ") -> finished";
 }
 
-void ConnectionManager::onRouteDeleted(NetworkInterface /* interface */, unsigned int iPriority)
+void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int iPriority)
 {
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ", " << iPriority << ")";
 
@@ -529,7 +523,7 @@ void ConnectionManager::onRouteDeleted(NetworkInterface /* interface */, unsigne
    {
       if (!m_fRoutePriorityIsChanging)
       {
-         if (m_pState && m_pState->isState(ConnectionState::Connected) && NetworkInterface::defaultGateway().size() == 0)
+         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isIPsecPysicalGateway() && !interface.hasDefaultGateway())
             vpnDisconnect();
       }
       else
