@@ -7,8 +7,10 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
     - fixed bug disconnection of physical network interface not detected if
       'Use default gateway on the remote network' is selected in PPP ->
       IP setting -> Routes configuration for the VPN connection (LP: #750000)
+    - fixed bug manager applet no longer started automatically after 
+      upgrading it (LP: #750174)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Thu, 24 Mar 2011 09:32:14 +0100
+ -- Werner Jaeger <werner_jaeger@web.de>  Mon, 4 Apr 2011 13:14:52 +0200
 
 l2tp-ipsec-vpn (0.9.8-0ubuntu1~ppa1~maverick1) maverick; urgency=low
 
