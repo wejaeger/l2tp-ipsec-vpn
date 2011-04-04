@@ -646,7 +646,7 @@ ConnectionManager::ConnectionInfo ConnectionManager::connectionNameOfUpAndRunnin
    for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); itInterfaces++)
       strConnectionName = ConnectionManager::connectionName((*itInterfaces).second);
 
-  return(ConnectionInfo(strConnectionName, (*--itInterfaces).second));
+  return(ConnectionInfo(strConnectionName, strConnectionName.isNull() ? NetworkInterface::null : (*--itInterfaces).second));
 }
 
 QString ConnectionManager::connectionName(const NetworkInterface& interface, int iRetry)
