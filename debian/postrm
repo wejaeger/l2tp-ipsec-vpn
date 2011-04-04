@@ -20,9 +20,12 @@ set -e
 
 
 case "$1" in
-    purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    remove|disappear)
 	rm -f /etc/xdg/autostart/L2tpIPsecVpn.desktop
 	rm -f /usr/share/applications/L2TP-Ipsec-VPN-Manager.desktop
+    ;;
+
+    purge|upgrade|failed-upgrade|abort-install|abort-upgrade)
     ;;
 
     *)
