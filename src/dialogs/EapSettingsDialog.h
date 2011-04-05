@@ -42,6 +42,7 @@ private slots:
    void onCaCertificate();
    void readSettings();
    bool writeSettings() const;
+   void onHelpRequested() const;
    void accept();
 
 private:

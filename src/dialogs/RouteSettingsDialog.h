@@ -40,6 +40,7 @@ public:
 private slots:
    void addRoute() const;
    void removeRoute() const;
+   void onHelpRequested() const;
    void accept();
 
 private:

@@ -23,6 +23,7 @@
  */
 
 #include "settings/ConnectionSettings.h"
+#include "util/GlobalFunctions.h"
 #include "AdvancedSettingsDialog.h"
 
 AdvancedSettingsDialog::AdvancedSettingsDialog(const QString& strConnectionName, QWidget* pParent) : QDialog(pParent), m_strConnectionName(strConnectionName)
@@ -31,11 +32,18 @@ AdvancedSettingsDialog::AdvancedSettingsDialog(const QString& strConnectionName,
 
    setWindowTitle(strConnectionName + tr(" - Advanced Settings"));
 
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
+
    readSettings();
 }
 
 AdvancedSettingsDialog::~AdvancedSettingsDialog()
 {
+}
+
+void AdvancedSettingsDialog::onHelpRequested() const
+{
+   ::showHelp("Configure_advanced_settings");
 }
 
 void AdvancedSettingsDialog::accept()

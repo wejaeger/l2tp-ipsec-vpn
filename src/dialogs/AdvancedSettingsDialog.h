@@ -35,6 +35,7 @@ public:
    AdvancedSettingsDialog(const QString& strConnectionName, QWidget* pParent = 0);
    virtual ~AdvancedSettingsDialog();
 private slots:
+   void onHelpRequested() const;
    void accept();
 
 private:

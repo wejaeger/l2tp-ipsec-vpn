@@ -18,7 +18,7 @@
     <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
   </property>
   <layout class="QGridLayout" name="m_pDialogGridLayout">
-   <item row="0" column="0" colspan="3">
+   <item row="0" column="0" colspan="2">
     <layout class="QFormLayout" name="m_pConnectionNameLayout">
      <property name="fieldGrowthPolicy">
       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -61,7 +61,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
+   <item row="2" column="0" colspan="2">
     <widget class="QTabWidget" name="m_pTabWidget">
      <property name="focusPolicy">
       <enum>Qt::StrongFocus</enum>
@@ -561,41 +561,10 @@ If left empty you'll be ask each time you try to establish a connection.</string
      </widget>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QPushButton" name="m_pCancelButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>&amp;Cancel</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="m_pOkButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Ok</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>true</bool>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="m_pButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -627,29 +596,11 @@ If left empty you'll be ask each time you try to establish a connection.</string
   <tabstop>m_pPppPeerAuthenticationButton</tabstop>
   <tabstop>m_pPppIpSettingsButton</tabstop>
   <tabstop>m_pPppAdvancedButton</tabstop>
-  <tabstop>m_pCancelButton</tabstop>
-  <tabstop>m_pOkButton</tabstop>
  </tabstops>
  <resources>
   <include location="../../resources/L2tpIPsecVpn.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>m_pCancelButton</sender>
-   <signal>clicked()</signal>
-   <receiver>ConnectionSettingsDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>410</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>237</x>
-     <y>216</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>m_pL2tpRedialCheckBox</sender>
    <signal>clicked(bool)</signal>
@@ -683,13 +634,29 @@ If left empty you'll be ask each time you try to establish a connection.</string
    </hints>
   </connection>
   <connection>
-   <sender>m_pOkButton</sender>
-   <signal>clicked()</signal>
+   <sender>m_pButtonBox</sender>
+   <signal>accepted()</signal>
    <receiver>ConnectionSettingsDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>399</x>
+     <x>222</x>
+     <y>417</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>225</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ConnectionSettingsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>222</x>
      <y>417</y>
     </hint>
     <hint type="destinationlabel">

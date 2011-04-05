@@ -26,10 +26,11 @@
 #include <QMessageBox>
 #include <QFile>
 
+#include "conf/ConfWriter.h"
 #include "models/ConnectionsModel.h"
 #include "settings/ConnectionSettings.h"
 #include "settings/Preferences.h"
-#include "conf/ConfWriter.h"
+#include "util/GlobalFunctions.h"
 #include "ConnectionSettingsDialog.h"
 #include "ConnectionEditorDialog.h"
 #include "PreferencesEditorDialog.h"
@@ -43,9 +44,10 @@ ConnectionEditorDialog::ConnectionEditorDialog(QWidget* pParent) : QDialog(pPare
    m_Widget.m_pConnections->setSelectionBehavior(QAbstractItemView::SelectRows);
 
    connect(m_Widget.m_pPreferencesCommandLinkButton, SIGNAL(clicked()), this, SLOT(editPreferences()));
-   connect(m_Widget.m_pAdd, SIGNAL(clicked()), this, SLOT(addConnection()));
-   connect(m_Widget.m_pEdit, SIGNAL(clicked()), this, SLOT(editConnection()));
-   connect(m_Widget.m_pDelete, SIGNAL(clicked()), this, SLOT(removeConnection()));
+   connect(m_Widget.m_pAdd, SIGNAL(clicked()), SLOT(addConnection()));
+   connect(m_Widget.m_pEdit, SIGNAL(clicked()), SLOT(editConnection()));
+   connect(m_Widget.m_pDelete, SIGNAL(clicked()), SLOT(removeConnection()));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    if (m_pConnectionsModel->rowCount() > 0)
       m_Widget.m_pConnections->setCurrentIndex(m_pConnectionsModel->index(0, 0));
@@ -61,6 +63,11 @@ ConnectionEditorDialog::~ConnectionEditorDialog()
 {
    delete m_pConnectionsModel;
    delete m_pConnectionSettings;
+}
+
+void ConnectionEditorDialog::onHelpRequested() const
+{
+   ::showHelp("Installing_L2TP_over_IPsec_VPN_Manager");
 }
 
 void ConnectionEditorDialog::accept()

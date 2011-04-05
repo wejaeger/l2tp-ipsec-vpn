@@ -45,6 +45,7 @@ signals:
    void connectionRemoved(const QString& strName);
 
 private slots:
+   void onHelpRequested() const;
    void accept();
    void reject();
    void editPreferences();

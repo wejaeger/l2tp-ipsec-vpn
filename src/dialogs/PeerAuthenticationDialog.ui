@@ -46,12 +46,12 @@ If not empty, the name reported by the peer is checked against this name and con
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <widget class="QDialogButtonBox" name="m_pButtonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -59,12 +59,12 @@ If not empty, the name reported by the peer is checked against this name and con
  </widget>
  <tabstops>
   <tabstop>m_pRemoteNameEdit</tabstop>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>m_pButtonBox</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>m_pButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>PeerAuthenticationDialog</receiver>
    <slot>accept()</slot>
@@ -80,7 +80,7 @@ If not empty, the name reported by the peer is checked against this name and con
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>m_pButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>PeerAuthenticationDialog</receiver>
    <slot>reject()</slot>

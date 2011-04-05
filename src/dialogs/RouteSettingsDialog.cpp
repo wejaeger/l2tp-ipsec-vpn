@@ -25,6 +25,7 @@
 #include <QMessageBox>
 
 #include "models/PppRoutesModel.h"
+#include "util/GlobalFunctions.h"
 #include "RouteSettingsDialog.h"
 
 RouteSettingsDialog::RouteSettingsDialog(const QString& strConnectionName, QWidget* pParent) : QDialog(pParent), m_strConnectionName(strConnectionName), m_pRoutesModel(new PppRoutesModel(strConnectionName))
@@ -35,8 +36,9 @@ RouteSettingsDialog::RouteSettingsDialog(const QString& strConnectionName, QWidg
    m_Widget.m_pRoutesTableView->horizontalHeader()->setStretchLastSection(true);
    m_Widget.m_pRoutesTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-   connect(m_Widget.m_pAddButton, SIGNAL(clicked()), this, SLOT(addRoute()));
-   connect(m_Widget.m_pDeleteButton, SIGNAL(clicked()), this, SLOT(removeRoute()));
+   connect(m_Widget.m_pAddButton, SIGNAL(clicked()), SLOT(addRoute()));
+   connect(m_Widget.m_pDeleteButton, SIGNAL(clicked()), SLOT(removeRoute()));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    if (m_pRoutesModel->rowCount() > 0)
       m_Widget.m_pRoutesTableView->setCurrentIndex(m_pRoutesModel->index(0, 0));
@@ -90,6 +92,11 @@ void RouteSettingsDialog::removeRoute() const
    }
 
    m_Widget.m_pRoutesTableView->setFocus();
+}
+
+void RouteSettingsDialog::onHelpRequested() const
+{
+   ::showHelp("Configure_routes");
 }
 
 void RouteSettingsDialog::accept()

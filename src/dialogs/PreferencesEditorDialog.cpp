@@ -29,6 +29,7 @@
 #include "pkcs11/Pkcs11.h"
 #include "settings/Preferences.h"
 #include "util/ErrorEx.h"
+#include "util/GlobalFunctions.h"
 #include "util/Libtool.h"
 #include "PreferencesEditorDialog.h"
 
@@ -50,8 +51,9 @@ PreferencesEditorDialog::PreferencesEditorDialog(QWidget* pParent) : QDialog(pPa
 
    m_Widget.m_pEngineIDLineEdit->setValidator(new QRegExpValidator(REENGINID, this));
 
-   connect(m_Widget.m_pEnginePathPushButton, SIGNAL(clicked()), this, SLOT(onEnginePath()));
-   connect(m_Widget.m_pPkcs11PathPushButton, SIGNAL(clicked()), this, SLOT(onPkcs11Path()));
+   connect(m_Widget.m_pEnginePathPushButton, SIGNAL(clicked()), SLOT(onEnginePath()));
+   connect(m_Widget.m_pPkcs11PathPushButton, SIGNAL(clicked()), SLOT(onPkcs11Path()));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
 }
@@ -78,6 +80,11 @@ void PreferencesEditorDialog::onPkcs11Path()
 
    if (!strPkcs11Path.isNull())
       m_Widget.m_pPkcs11PathLineEdit->setText(strPkcs11Path);
+}
+
+void PreferencesEditorDialog::onHelpRequested() const
+{
+   ::showHelp("Editing_preferences");
 }
 
 void PreferencesEditorDialog::accept()
