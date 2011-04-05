@@ -23,6 +23,8 @@
  */
 
 #include <QRegExp>
+#include <QUrl>
+#include <QDesktopServices>
 
 #include "GlobalFunctions.h"
 
@@ -78,4 +80,15 @@ QByteArray fileName2ByteArray(const QString& strFileName)
 const char* string2FileName(const QString& strFileNme)
 {
    return(fileName2ByteArray(strFileNme).constData());
+}
+
+void showHelp(const QString& strFragment)
+{
+
+   QUrl url("http://wiki.l2tpipsecvpn.tuxfamily.org/wiki/index.php?title=Main_Page");
+
+   if (!strFragment.isNull())
+      url.setFragment(strFragment);
+
+   QDesktopServices::openUrl(url);
 }

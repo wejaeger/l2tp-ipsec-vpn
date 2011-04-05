@@ -38,6 +38,7 @@ public:
 private slots:
    void readSettings() const;
    bool writeSettings() const;
+   void onHelpRequested() const;
    void accept();
 
 private:

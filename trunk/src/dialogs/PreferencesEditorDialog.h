@@ -38,6 +38,7 @@ public:
 private slots:
    void onEnginePath();
    void onPkcs11Path();
+   void onHelpRequested() const;
    void accept();
    void readSettings() const;
    bool writeSettings() const;

@@ -85,16 +85,6 @@
      </attribute>
     </widget>
    </item>
-   <item row="5" column="1">
-    <widget class="QPushButton" name="m_pClose">
-     <property name="text">
-      <string>&amp;Close</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QCommandLinkButton" name="m_pPreferencesCommandLinkButton">
      <property name="sizePolicy">
@@ -123,28 +113,19 @@
      </property>
     </widget>
    </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="m_pButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Help</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
   <include location="../../resources/L2tpIPsecVpn.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>m_pClose</sender>
-   <signal>clicked()</signal>
-   <receiver>ConnectionEditorDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>342</x>
-     <y>273</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>m_pConnections</sender>
    <signal>doubleClicked(QModelIndex)</signal>
@@ -158,6 +139,22 @@
     <hint type="destinationlabel">
      <x>345</x>
      <y>57</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ConnectionEditorDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>151</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>198</x>
+     <y>122</y>
     </hint>
    </hints>
   </connection>

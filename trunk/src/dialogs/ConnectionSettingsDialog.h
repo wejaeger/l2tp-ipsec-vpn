@@ -42,6 +42,7 @@ public:
    virtual ~ConnectionSettingsDialog();
 
 private slots:
+   void onHelpRequested() const;
    void accept();
    void readSettings() const;
    bool writeSettings() const;

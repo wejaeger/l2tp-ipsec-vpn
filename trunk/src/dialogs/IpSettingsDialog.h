@@ -37,6 +37,7 @@ public:
 
 private slots:
    void onRouteSettings() const;
+   void onHelpRequested() const;
    void accept();
 
 private:

@@ -26,6 +26,7 @@
 
 #include "pkcs11/Pkcs11.h"
 #include "util/CertificateInfo.h"
+#include "util/GlobalFunctions.h"
 #include "settings/ConnectionSettings.h"
 #include "ConnectionSettingsDialog.h"
 #include "SmartCardObjectsDialog.h"
@@ -37,10 +38,11 @@ EapSettingsDialog::EapSettingsDialog(const QString& strConnectionName, QWidget* 
 
    setWindowTitle(strConnectionName + tr(" - EAP Settings"));
 
-   connect(m_Widget.m_pUseCertificateRadioButton, SIGNAL(toggled(bool)), this, SLOT(onUseCertificateRadioButtonToggled(bool)));
-   connect(m_Widget.m_pBrowseCertificateButton, SIGNAL(clicked()), this, SLOT(onCertificate()));
-   connect(m_Widget.m_pBrowsePrivateKeyButton, SIGNAL(clicked()), this, SLOT(onPrivateKey()));
-   connect(m_Widget.m_pBrowseCaCertificateButton, SIGNAL(clicked()), this, SLOT(onCaCertificate()));
+   connect(m_Widget.m_pUseCertificateRadioButton, SIGNAL(toggled(bool)), SLOT(onUseCertificateRadioButtonToggled(bool)));
+   connect(m_Widget.m_pBrowseCertificateButton, SIGNAL(clicked()), SLOT(onCertificate()));
+   connect(m_Widget.m_pBrowsePrivateKeyButton, SIGNAL(clicked()), SLOT(onPrivateKey()));
+   connect(m_Widget.m_pBrowseCaCertificateButton, SIGNAL(clicked()), SLOT(onCaCertificate()));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
 }
@@ -168,6 +170,11 @@ bool EapSettingsDialog::writeSettings() const
    if (fRet) fRet = pppSettings.setUserName(m_strUserName);
 
    return(fRet);
+}
+
+void EapSettingsDialog::onHelpRequested() const
+{
+   ::showHelp("Configure_EAP_TLS_.28certificate.29_authentication");
 }
 
 void EapSettingsDialog::accept()

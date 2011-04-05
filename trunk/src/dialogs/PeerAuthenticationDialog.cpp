@@ -23,6 +23,7 @@
  */
 
 #include "settings/ConnectionSettings.h"
+#include "util/GlobalFunctions.h"
 #include "PeerAuthenticationDialog.h"
 
 PeerAuthenticationDialog::PeerAuthenticationDialog(const QString& strConnectionName, QWidget* pParent) : QDialog(pParent), m_strConnectionName(strConnectionName)
@@ -30,6 +31,8 @@ PeerAuthenticationDialog::PeerAuthenticationDialog(const QString& strConnectionN
    m_Widget.setupUi(this);
 
    setWindowTitle(strConnectionName + tr(" - Peer Authentication Settings"));
+
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
 }
@@ -54,6 +57,11 @@ bool PeerAuthenticationDialog::writeSettings() const
    bool fRet = pppSettings.setRemoteName(m_Widget.m_pRemoteNameEdit->text());
 
    return(fRet);
+}
+
+void PeerAuthenticationDialog::onHelpRequested() const
+{
+   ::showHelp("Configure_Peer_authentication");
 }
 
 void PeerAuthenticationDialog::accept()

@@ -50,13 +50,14 @@ ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionN
    m_Widget.m_pIPsecGatewayEdit->setValidator(new QRegExpValidator(::gatewayValidationRE(), this));
    m_Widget.m_pTabWidget->setCurrentIndex(0);
 
-   connect(m_Widget.m_pIPsecUseCertificateRadioButton, SIGNAL(toggled(bool)), this, SLOT(onUseIPsecCertificateRadioButtonToggled(bool)));
-   connect(m_Widget.m_pIPsecBrowsePrivateKeyButton, SIGNAL(clicked()), this, SLOT(onPrivateKey()));
-   connect(m_Widget.m_pPppPropertiesButton, SIGNAL(clicked()), this, SLOT(onEapProperties()));
-   connect(m_Widget.m_pPppPeerAuthenticationButton, SIGNAL(clicked()), this, SLOT(onPeerAuthentication()));
-   connect(m_Widget.m_pPppIpSettingsButton, SIGNAL(clicked()), this, SLOT(onIpSettings()));
-   connect(m_Widget.m_pPppAdvancedButton, SIGNAL(clicked()), this, SLOT(onAdvancedSettings()));
-   connect(m_Widget.m_pPppUseEAPRadioButton, SIGNAL(toggled(bool)), this, SLOT(onUseEapRadioButtonToggled(bool)));
+   connect(m_Widget.m_pIPsecUseCertificateRadioButton, SIGNAL(toggled(bool)), SLOT(onUseIPsecCertificateRadioButtonToggled(bool)));
+   connect(m_Widget.m_pIPsecBrowsePrivateKeyButton, SIGNAL(clicked()), SLOT(onPrivateKey()));
+   connect(m_Widget.m_pPppPropertiesButton, SIGNAL(clicked()), SLOT(onEapProperties()));
+   connect(m_Widget.m_pPppPeerAuthenticationButton, SIGNAL(clicked()), SLOT(onPeerAuthentication()));
+   connect(m_Widget.m_pPppIpSettingsButton, SIGNAL(clicked()), SLOT(onIpSettings()));
+   connect(m_Widget.m_pPppAdvancedButton, SIGNAL(clicked()), SLOT(onAdvancedSettings()));
+   connect(m_Widget.m_pPppUseEAPRadioButton, SIGNAL(toggled(bool)), SLOT(onUseEapRadioButtonToggled(bool)));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
 }
@@ -64,6 +65,27 @@ ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionN
 ConnectionSettingsDialog::~ConnectionSettingsDialog()
 {
    delete m_pCertificateListModel;
+}
+
+void ConnectionSettingsDialog::onHelpRequested() const
+{
+   switch (m_Widget.m_pTabWidget->currentIndex())
+   {
+      case 0:
+         ::showHelp("Configure_IPsec_options");
+         break;
+
+      case 1:
+         ::showHelp("Configure_L2TP_options");
+         break;
+
+      case 2:
+         ::showHelp("Configure_PPP_options");
+         break;
+
+      default:
+         ::showHelp("Configuring_a_connection");
+   }
 }
 
 void ConnectionSettingsDialog::accept()

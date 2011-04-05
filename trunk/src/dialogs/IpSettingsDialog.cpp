@@ -37,7 +37,8 @@ IpSettingsDialog::IpSettingsDialog(const QString& strConnectionName, QWidget* pP
    m_Widget.m_pSecundaryDNSServersEdit->setValidator(new QRegExpValidator(::ipv4ValidationRE(), this));
    m_Widget.m_pSearchDomainsEdit->setValidator(new QRegExpValidator(::hostNameListValidationRE(), this));
 
-   connect(m_Widget.m_pRoutesButton, SIGNAL(clicked()), this, SLOT(onRouteSettings()));
+   connect(m_Widget.m_pRoutesButton, SIGNAL(clicked()), SLOT(onRouteSettings()));
+   connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
 }
@@ -50,6 +51,11 @@ void IpSettingsDialog::onRouteSettings() const
 {
    RouteSettingsDialog routeSettings(m_strConnectionName);
    routeSettings.exec();
+}
+
+void IpSettingsDialog::onHelpRequested() const
+{
+   ::showHelp("Configure_IP_settings");
 }
 
 void IpSettingsDialog::accept()
