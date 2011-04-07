@@ -27,6 +27,8 @@
 
 #include "ui_ConnectionInformationDialog.h"
 
+class ConnectionState;
+
 class ConnectionInformationDialog : public QDialog
 {
    Q_OBJECT
@@ -38,6 +40,12 @@ public:
    void clearLog() { m_Widget.m_pTextEdit->clear(); }
    void appendLogPlainText(const char* pcText) { m_Widget.m_pTextEdit->insertPlainText(QString(pcText)); }
    void appendLogColorText(const QColor&, const char* pcText);
+
+public slots:
+   void onConectionStateChanged(const ConnectionState* pNewState, const QString& strConnectionName);
+
+private slots:
+   void onStatistics() const;
 
 private:
    ConnectionInformationDialog(const ConnectionInformationDialog& orig);

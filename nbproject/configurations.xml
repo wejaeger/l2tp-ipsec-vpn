@@ -26,6 +26,7 @@
       <itemPath>src/conf/IPsecConfWriter.h</itemPath>
       <itemPath>src/conf/IPsecSecretsConfWriter.h</itemPath>
       <itemPath>src/dialogs/IPsecSettingsDialog.h</itemPath>
+      <itemPath>src/dialogs/InterfaceStatisticsDialog.h</itemPath>
       <itemPath>src/dialogs/IpSettingsDialog.h</itemPath>
       <itemPath>src/conf/L2tpConfWriter.h</itemPath>
       <itemPath>src/L2tpIPsecVpnApplication.h</itemPath>
@@ -93,6 +94,8 @@
       <itemPath>src/conf/IPsecConfWriter.cpp</itemPath>
       <itemPath>src/conf/IPsecSecretsConfWriter.cpp</itemPath>
       <itemPath>src/dialogs/IPsecSettingsDialog.cpp</itemPath>
+      <itemPath>src/dialogs/InterfaceStatisticsDialog.cpp</itemPath>
+      <itemPath>src/dialogs/InterfaceStatisticsDialog.ui</itemPath>
       <itemPath>src/dialogs/IpSettingsDialog.cpp</itemPath>
       <itemPath>src/dialogs/IpSettingsDialog.ui</itemPath>
       <itemPath>src/conf/L2tpConfWriter.cpp</itemPath>
@@ -197,10 +200,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -227,10 +232,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -309,10 +316,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -339,10 +348,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

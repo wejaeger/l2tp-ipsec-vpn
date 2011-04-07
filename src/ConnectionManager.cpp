@@ -197,10 +197,10 @@ void ConnectionManager::onStatusChanged()
       action(DISC)->setEnabled(false);
    }
 
-   const QIcon& icon = m_pState->icon();
+   const QIcon& icon(m_pState->icon());
    m_pTrayIcon->setIcon(icon);
    m_pTrayIcon->setToolTip(m_pState->msgTitle());
-   m_pConnectionInformation->setWindowIcon(icon);
+   m_pConnectionInformation->onConectionStateChanged(m_pState, m_pVPNControlTask->connectionName());
    showMessage();
 }
 
@@ -626,7 +626,7 @@ void ConnectionManager::error(int iErrorCode)
    {
       const ConnectionSettings settings;
       const QString strGateway(settings.ipsecSettings(m_pVPNControlTask->connectionName()).gateway());
-      const bool fDisconnecting = !m_pState->isState(ConnectionState::Connecting);
+      const bool fDisconnecting(!m_pState->isState(ConnectionState::Connecting));
 
       delete m_pState;
       m_pState = new Error(strGateway, iErrorCode, fDisconnecting);

@@ -153,7 +153,7 @@ Use spaces to separate multiple domains.</string>
        </widget>
       </item>
       <item row="4" column="0" colspan="3">
-       <spacer name="m_pVerticalSpacer_2">
+       <spacer name="m_pVerticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
