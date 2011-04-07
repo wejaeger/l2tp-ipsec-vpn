@@ -33,6 +33,7 @@
 
 #include "NetworkInterface.h"
 
+const char* const pcProcNetDevPath("/proc/net/dev");
 const NetworkInterface NetworkInterface::null(NetworkInterface("", 0, 0));
 
 NetworkInterface::NetworkInterface(const NetworkInterface& orig) : m_strName(orig.m_strName), m_iIndex(orig.m_iIndex), m_Flags(orig.m_Flags), m_AddressEntries(orig.m_AddressEntries), m_RouteEntries(orig.m_RouteEntries)
@@ -190,6 +191,127 @@ NetworkInterface::InterfaceMap NetworkInterface::defaultGateway(void)
    return(interfaces);
 }
 
+QStringList NetworkInterface::dns(void)
+{
+   using namespace std;
+
+   QStringList list;
+
+   ifstream resolv("/etc/resolv.conf", ios::in);
+   while (resolv)
+   {
+      string strLine;
+      getline(resolv, strLine);
+
+      if (strLine.length() > 0)
+      {
+         istringstream strFormat(strLine);
+
+         string strKey;
+         string strValue;
+         strFormat >> strKey >> strValue;
+
+         if (strKey == "nameserver")
+            list.append(strValue.c_str());
+      }
+   }
+
+   return(list);
+}
+
+NetworkInterface::Statistic NetworkInterface::statistic(const std::string& strInterfaceName)
+{
+   using namespace std;
+
+   Statistic::Values receivedValues;
+   Statistic::Values transmittedValues;
+
+   ifstream statStream(pcProcNetDevPath, ios::in);
+   string strLine;
+
+   // read first header line
+   if (statStream)
+      getline(statStream, strLine);
+
+   // read second header line
+   if (statStream)
+   {
+      getline(statStream, strLine);
+
+      string::size_type firstPipe(strLine.find('|') + 1);
+      string::size_type secondPipe(strLine.rfind('|'));
+
+      // there must be two pipe characters separating received part from transmitted part
+      if (firstPipe != string::npos && secondPipe != string::npos)
+      {
+         Statistic::Headers receivedHeaders;
+
+         string strReceivedHeaders(strLine.substr(firstPipe, secondPipe -firstPipe));
+         istringstream formatReceived(strReceivedHeaders);
+
+         while (formatReceived)
+         {
+            string strText;
+            formatReceived >> strText;
+
+            if (!strText.empty())
+               receivedHeaders.push_back(strText);
+         }
+
+         Statistic::Headers transmittedHeaders;
+
+         string strTransmittedHeaders(strLine.substr(secondPipe + 1));
+         istringstream formatTransmitted(strTransmittedHeaders);
+
+         while (formatTransmitted)
+         {
+            string strText;
+            formatTransmitted >> strText;
+            if (!strText.empty())
+               transmittedHeaders.push_back(strText);
+         }
+
+         bool fDone(false);
+         while (statStream && !fDone)
+         {
+            getline(statStream, strLine);
+
+            string::size_type colonFound(strLine.find(':'));
+
+            // there must be a colon as separator for the interface name
+            if (colonFound != string::npos)
+            {
+               istringstream format(strLine.replace(colonFound, 1, " "));
+
+               string strName;
+               format >> strName;
+
+               if (strName == strInterfaceName)
+               {
+                  long long lVal;
+
+                  for (Statistic::Headers::size_type i = 0; i < receivedHeaders.size() && format; i++)
+                  {
+                     format >> lVal;
+                     receivedValues.insert(std::make_pair(receivedHeaders.at(i), lVal));
+                  }
+
+                  for (Statistic::Headers::size_type i = 0; i < transmittedHeaders.size() && format; i++)
+                  {
+                     format >> lVal;
+                     transmittedValues.insert(std::make_pair(transmittedHeaders.at(i), lVal));
+                  }
+
+                  fDone = true;
+               }
+            }
+         }
+      }
+   }
+
+   return(Statistic(receivedValues, transmittedValues));
+}
+
 NetworkInterface::InterfaceFlags NetworkInterface::convertFlags(uint iRawFlags)
 {
    InterfaceFlags flags = InterfaceFlag(0);
@@ -201,6 +323,3 @@ NetworkInterface::InterfaceFlags NetworkInterface::convertFlags(uint iRawFlags)
    flags |= (iRawFlags & IFF_MULTICAST) ? CanMulticast : InterfaceFlag(0);
    return(flags);
 }
-
-
-

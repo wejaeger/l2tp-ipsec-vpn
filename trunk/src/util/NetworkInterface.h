@@ -27,6 +27,7 @@
 
 #include <QObject>
 #include <QNetworkAddressEntry>
+#include <QStringList>
 
 #include <map>
 #include <vector>
@@ -35,6 +36,72 @@
 class NetworkInterface
 {
 public:
+
+   class Statistic
+   {
+   private:
+      typedef std::vector<std::string> Headers;
+      typedef std::map<std::string, long long> Values;
+
+   public:
+
+      class ReceivedData
+      {
+      public:
+         long long bytes() const { return(m_ReceivedValues.count("bytes") ? m_ReceivedValues.at("bytes") : 0); }
+         long long packets() const { return(m_ReceivedValues.count("packets") ? m_ReceivedValues.at("packets") : 0); }
+         long long errs() const { return(m_ReceivedValues.count("errs") ? m_ReceivedValues.at("errs") : 0); }
+         long long drop() const { return(m_ReceivedValues.count("drop") ? m_ReceivedValues.at("drop") : 0); }
+         long long fifo() const { return(m_ReceivedValues.count("fifo") ? m_ReceivedValues.at("fifo") : 0); }
+         long long frame() const { return(m_ReceivedValues.count("frame") ? m_ReceivedValues.at("frame") : 0); }
+         long long compressed() const { return(m_ReceivedValues.count("compressed") ? m_ReceivedValues.at("compressed") : 0); }
+         long long multicast() const { return(m_ReceivedValues.count("multicast") ? m_ReceivedValues.at("multicast") : 0); }
+
+      private:
+         ReceivedData(const Values& receivedValues) : m_ReceivedValues(receivedValues) {}
+         ReceivedData(const ReceivedData& orig);
+         ReceivedData& operator=(const ReceivedData& orig);
+
+         const Values m_ReceivedValues;
+
+         friend class Statistic;
+      };
+
+      class TransmittedData
+      {
+      public:
+         long long bytes() const { return(m_TransmittedValues.count("bytes") ? m_TransmittedValues.at("bytes") : 0); }
+         long long packets() const { return(m_TransmittedValues.count("packets") ? m_TransmittedValues.at("packets") : 0); }
+         long long errs() const { return(m_TransmittedValues.count("errs") ? m_TransmittedValues.at("errs") : 0); }
+         long long drop() const { return(m_TransmittedValues.count("drop") ? m_TransmittedValues.at("drop") : 0); }
+         long long fifo() const { return(m_TransmittedValues.count("fifo") ? m_TransmittedValues.at("fifo") : 0); }
+         long long colls() const { return(m_TransmittedValues.count("colls") ? m_TransmittedValues.at("colls") : 0); }
+         long long carrier() const { return(m_TransmittedValues.count("carrier") ? m_TransmittedValues.at("carrier") : 0); }
+         long long compressed() const { return(m_TransmittedValues.count("compressed") ? m_TransmittedValues.at("compressed") : 0); }
+
+      private:
+         TransmittedData(const Values& transmittedValues) : m_TransmittedValues(transmittedValues) {}
+         TransmittedData(const TransmittedData& orig);
+         TransmittedData& operator=(const TransmittedData& orig);
+
+         const Values m_TransmittedValues;
+
+         friend class Statistic;
+      };
+
+      const ReceivedData& received() const { return(m_ReceivedData); }
+      const TransmittedData& transmitted() const  { return(m_TransmittedData); }
+
+   private:
+      Statistic(const Values& receivedValues, const Values& transmittedValues) : m_ReceivedData(receivedValues), m_TransmittedData(transmittedValues) {}
+      Statistic& operator=(const Statistic& orig);
+
+      const ReceivedData m_ReceivedData;
+      const TransmittedData m_TransmittedData;
+
+      friend class NetworkInterface;
+   };
+
    typedef std::map<std::string, NetworkInterface> InterfaceMap;
    typedef std::pair<std::string, NetworkInterface> InterfaceMapEntry;
    typedef std::vector<QNetworkAddressEntry> AddressEntries;
@@ -73,6 +140,8 @@ public:
 
    static InterfaceMap pointToPointInterfaces(void);
    static InterfaceMap defaultGateway(void);
+   static QStringList dns(void);
+   static Statistic statistic(const std::string& strInterfaceName);
 
    static const NetworkInterface null;
 
