@@ -34,14 +34,18 @@ static const long long KILO(1024);
 static const long long MEGA(KILO * KILO);
 static const long long GIGA(MEGA * MEGA);
 
-InterfaceStatisticsDialog::InterfaceStatisticsDialog(const QString& strInterfaceName,QWidget* pParent) : QDialog(pParent), m_strInterfaceName(strInterfaceName), m_lConectedSince(InterfaceStatisticsDialog::connectedSince(strInterfaceName)), m_pTimer(new QTimer())
+InterfaceStatisticsDialog::InterfaceStatisticsDialog(const QString& strInterfaceName,QWidget* pParent) : QDialog(pParent), m_strInterfaceName(strInterfaceName), m_iConectedSince(InterfaceStatisticsDialog::connectedSince(strInterfaceName)), m_pTimer(new QTimer())
 {
    m_Widget.setupUi(this);
 
    connect(m_pTimer, SIGNAL(timeout()), SLOT(onUpdateStatistic()));
 
-   if (m_lConectedSince >= 0)
-      m_Widget.m_pSince->setText(QLocale::system().toString(QDateTime::fromMSecsSinceEpoch(m_lConectedSince), QLocale::ShortFormat));
+   if (m_iConectedSince > 0)
+   {
+      QDateTime connectedSince;
+      connectedSince.setTime_t(m_iConectedSince);
+      m_Widget.m_pSince->setText(QLocale::system().toString(connectedSince, QLocale::ShortFormat));
+   }
 
    onUpdateStatistic();
    m_pTimer->start(1000);
@@ -73,14 +77,14 @@ const QString InterfaceStatisticsDialog::connectionTime() const
 {
    QString strRet;
 
-   if (m_lConectedSince >= 0)
+   if (m_iConectedSince > 0)
    {
-      const qint64 lElapsed(QDateTime::currentMSecsSinceEpoch() - m_lConectedSince);
+      const qint64 lElapsed(QDateTime::currentDateTime().toTime_t() - m_iConectedSince);
 
-      const QString strSeconds(QString::number((lElapsed / 1000) % 60));
-      const QString strMinutes(QString::number((lElapsed / 60000) % 60));
-      const QString stHours(QString::number((lElapsed / 3600000) % 24));
-      const QString stHDays(QString::number(lElapsed / 86400000));
+      const QString strSeconds(QString::number((lElapsed) % 60));
+      const QString strMinutes(QString::number((lElapsed / 60) % 60));
+      const QString stHours(QString::number((lElapsed / 3600) % 24));
+      const QString stHDays(QString::number(lElapsed / 86400));
 
       strRet = (stHDays.toLong() > 0 ? stHDays + " " + tr("Days") + " " : "") +
                (stHours.length() == 1 ? "0" + stHours : stHours) + ":" +
@@ -113,5 +117,5 @@ qint64 InterfaceStatisticsDialog::connectedSince(const QString& strInterfaceName
 {
    const QFileInfo info("/var/run/" + strInterfaceName + ".pid");
 
-   return(info.exists() ? info.lastModified().toMSecsSinceEpoch() : -1);
+   return(info.exists() ? info.lastModified().toTime_t() : 0);
 }
