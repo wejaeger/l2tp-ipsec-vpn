@@ -52,7 +52,7 @@ private:
    static qint64 connectedSince(const QString& strInterfaceName);
 
    const QString m_strInterfaceName;
-   const qint64 m_lConectedSince;
+   const uint m_iConectedSince;
 
    QTimer* const m_pTimer;
 
