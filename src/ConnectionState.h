@@ -29,15 +29,19 @@
 
 #include "util/NetworkInterface.h"
 
+class QSystemTrayIcon;
 class QIcon;
 class QString;
+class QMovie;
 
-class ConnectionState
+class ConnectionState : public QObject
 {
+   Q_OBJECT
+
 public:
    enum State {NotConnected, Connecting, Disconnecting, Connected, Error};
 
-   ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface = NetworkInterface::null);
+   ConnectionState(QSystemTrayIcon* pTrayIcon, const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface = NetworkInterface::null);
    virtual ~ConnectionState();
 
    virtual bool isState(State state) const = 0;
@@ -48,10 +52,14 @@ public:
    const QSystemTrayIcon::MessageIcon& msgIcon() const;
    const NetworkInterface& ptpInterface() const;
 
+protected:
+   QSystemTrayIcon* trayIcon() const { return(m_pTrayIcon); }
+
 private:
    ConnectionState(const ConnectionState& orig);
    ConnectionState& operator=(const ConnectionState& orig);
 
+   QSystemTrayIcon* const m_pTrayIcon;
    const QString m_strHostName;
    const QString m_strMsgTitle;
    const QString m_strMsgBody;
@@ -63,7 +71,7 @@ private:
 class NotConnected : public ConnectionState
 {
 public:
-   NotConnected();
+   NotConnected(QSystemTrayIcon* pTrayIcon);
    virtual ~NotConnected();
    virtual bool isState(State state) const { return(state == ConnectionState::NotConnected ? true : false); }
 
@@ -74,32 +82,46 @@ private:
 
 class Connecting : public ConnectionState
 {
+   Q_OBJECT
+
 public:
-   Connecting(const QString& strHostName);
+   Connecting(QSystemTrayIcon* pTrayIcon, const QString& strHostName);
    virtual ~Connecting();
    virtual bool isState(State state) const { return(state == ConnectionState::Connecting ? true : false); }
+
+private slots:
+   void onFrameChanged() const;
 
 private:
    Connecting(const Connecting& orig);
    Connecting& operator=(const Connecting& orig);
+
+   QMovie* const m_pMovie;
 };
 
 class Disconnecting : public ConnectionState
 {
+   Q_OBJECT
+
 public:
-   Disconnecting(const QString& strHostName);
+   Disconnecting(QSystemTrayIcon* pTrayIcon, const QString& strHostName);
    virtual ~Disconnecting();
    virtual bool isState(State state) const { return(state == ConnectionState::Disconnecting ? true : false); }
+
+private slots:
+   void onFrameChanged() const;
 
 private:
    Disconnecting(const Disconnecting& orig);
    Disconnecting& operator=(const Disconnecting& orig);
+
+   QMovie* const m_pMovie;
 };
 
 class Connected : public ConnectionState
 {
 public:
-   Connected(const QString& strHostName, const NetworkInterface& ptpInterface);
+   Connected(QSystemTrayIcon* pTrayIcon, const QString& strHostName, const NetworkInterface& ptpInterface);
    virtual ~Connected();
    virtual bool isState(State state) const { return(state == ConnectionState::Connected ? true : false); }
 
@@ -111,7 +133,7 @@ private:
 class Error : public ConnectionState
 {
 public:
-   Error(const QString& strHostName, int iReturnCocde, bool fDisconnecting);
+   Error(QSystemTrayIcon* pTrayIcon, const QString& strHostName, int iReturnCocde, bool fDisconnecting);
    virtual ~Error();
    virtual bool isState(State state) const { return(state == ConnectionState::Error ? true : false); }
 
