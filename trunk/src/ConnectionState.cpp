@@ -22,11 +22,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ConnectionState.h"
-#include "ConnectionManager.h"
+#include <QSystemTrayIcon>
+#include <QMovie>
 
-ConnectionState::ConnectionState(const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface) : m_strHostName(strHostName), m_strMsgTitle(strMsgTitle), m_strMsgBody(strMsgBody), m_Icon(icon), m_MsgIcon(msgIcon), m_PtpInterface(ptpInterface)
+#include "ConnectionManager.h"
+#include "ConnectionState.h"
+
+ConnectionState::ConnectionState(QSystemTrayIcon* pTrayIcon, const QString& strHostName, const QString& strMsgTitle, const QString& strMsgBody, const QIcon& icon, const QSystemTrayIcon::MessageIcon& msgIcon, const NetworkInterface& ptpInterface) : m_pTrayIcon(pTrayIcon), m_strHostName(strHostName), m_strMsgTitle(strMsgTitle), m_strMsgBody(strMsgBody), m_Icon(icon), m_MsgIcon(msgIcon), m_PtpInterface(ptpInterface)
 {
+   if (pTrayIcon)
+   {
+      pTrayIcon->setIcon(icon);
+      pTrayIcon->setToolTip(strMsgTitle);
+   }
 }
 
 ConnectionState::~ConnectionState()
@@ -63,7 +71,7 @@ const NetworkInterface& ConnectionState::ptpInterface() const
    return(m_PtpInterface);
 }
 
-NotConnected::NotConnected() : ConnectionState("", QObject::tr("Not Connected"), QObject::tr("Click to show details"), QIcon(":/images/connectNo.png"), QSystemTrayIcon::Warning)
+NotConnected::NotConnected(QSystemTrayIcon* pTrayIcon) : ConnectionState(pTrayIcon, "", QObject::tr("Not Connected"), QObject::tr("Click to show details"), QIcon(":/images/connectNo.png"), QSystemTrayIcon::Warning)
 {
 }
 
@@ -71,23 +79,45 @@ NotConnected::~NotConnected()
 {
 }
 
-Connecting::Connecting(const QString& strHostName) : ConnectionState(strHostName, QObject::tr("Connecting to ") + strHostName + " ...", QObject::tr("Click to show details"), QIcon(":/images/busy.gif"), QSystemTrayIcon::Information)
+Connecting::Connecting(QSystemTrayIcon* pTrayIcon, const QString& strHostName) : ConnectionState(pTrayIcon, strHostName, QObject::tr("Connecting to ") + strHostName + " ...", QObject::tr("Click to show details"), QIcon(":/images/busy.gif"), QSystemTrayIcon::Information), m_pMovie(new QMovie(":/images/busy.gif"))
 {
+   connect(m_pMovie, SIGNAL(frameChanged(int)), SLOT(onFrameChanged()));
+
+   if (m_pMovie->isValid())
+      m_pMovie->start();
 }
 
 Connecting::~Connecting()
 {
+   delete m_pMovie;
 }
 
-Disconnecting::Disconnecting(const QString& strHostName) : ConnectionState(strHostName, QObject::tr("Disconnecting from ") + strHostName + " ...", QObject::tr("Click to show details"), QIcon(":/images/busy.gif"), QSystemTrayIcon::Information)
+void Connecting::onFrameChanged() const
 {
+   if (trayIcon())
+      trayIcon()->setIcon(QIcon(m_pMovie->currentPixmap()));
+}
+
+Disconnecting::Disconnecting(QSystemTrayIcon* pTrayIcon, const QString& strHostName) : ConnectionState(pTrayIcon, strHostName, QObject::tr("Disconnecting from ") + strHostName + " ...", QObject::tr("Click to show details"), QIcon(":/images/busy.gif"), QSystemTrayIcon::Information), m_pMovie(new QMovie(":/images/busy.gif"))
+{
+   connect(m_pMovie, SIGNAL(frameChanged(int)), SLOT(onFrameChanged()));
+
+   if (m_pMovie->isValid())
+      m_pMovie->start();
 }
 
 Disconnecting::~Disconnecting()
 {
+   delete m_pMovie;
 }
 
-Connected::Connected(const QString& strHostName, const NetworkInterface& ptpInterface) : ConnectionState(strHostName, QObject::tr("Connected to ") + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectEstablished.png"), QSystemTrayIcon::Information, ptpInterface)
+void Disconnecting::onFrameChanged() const
+{
+   if (trayIcon())
+      trayIcon()->setIcon(QIcon(m_pMovie->currentPixmap()));
+}
+
+Connected::Connected(QSystemTrayIcon* pTrayIcon, const QString& strHostName, const NetworkInterface& ptpInterface) : ConnectionState(pTrayIcon, strHostName, QObject::tr("Connected to ") + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectEstablished.png"), QSystemTrayIcon::Information, ptpInterface)
 {
 }
 
@@ -95,7 +125,7 @@ Connected::~Connected()
 {
 }
 
-Error::Error(const QString& strHostName, int iReturnCode, bool fDisconnecting) : ConnectionState(strHostName, (fDisconnecting ? QObject::tr("Error %1 occurred when disconnecting from ").arg(iReturnCode) : QObject::tr("Error %1 occurred when connecting to ").arg(iReturnCode)) + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectNo.png"), QSystemTrayIcon::Critical)
+Error::Error(QSystemTrayIcon* pTrayIcon, const QString& strHostName, int iReturnCode, bool fDisconnecting) : ConnectionState(pTrayIcon, strHostName, (fDisconnecting ? QObject::tr("Error %1 occurred when disconnecting from ").arg(iReturnCode) : QObject::tr("Error %1 occurred when connecting to ").arg(iReturnCode)) + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectNo.png"), QSystemTrayIcon::Critical)
 {
 }
 

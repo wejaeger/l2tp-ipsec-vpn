@@ -62,7 +62,7 @@ static const char* const strAbout(
 );
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
-  m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
+  m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected(NULL)), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
 {
    connect(&m_Application, SIGNAL(connectionAdded(const QString&)), SLOT(onConnectionAdded(const QString&)));
    connect(&m_Application, SIGNAL(connectionRemoved(const QString&)), SLOT(onConnectionRemoved(const QString&)));
@@ -164,6 +164,9 @@ void ConnectionManager::createTrayIcon()
 
    m_pTrayIcon = new QSystemTrayIcon(this);
    m_pTrayIcon->setContextMenu(m_pTrayIconMenu);
+
+   m_pState = new NotConnected(m_pTrayIcon);
+
    connect(m_pTrayIconMenu, SIGNAL(triggered(QAction*)), SLOT(vpnConnect(QAction*)));
    connect(m_pTrayIcon, SIGNAL(messageClicked()), SLOT(messageClicked()));
    connect(m_pTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
@@ -197,9 +200,6 @@ void ConnectionManager::onStatusChanged()
       action(DISC)->setEnabled(false);
    }
 
-   const QIcon& icon(m_pState->icon());
-   m_pTrayIcon->setIcon(icon);
-   m_pTrayIcon->setToolTip(m_pState->msgTitle());
    m_pConnectionInformation->onConectionStateChanged(m_pState, m_pVPNControlTask->connectionName());
    showMessage();
 }
@@ -231,7 +231,7 @@ void ConnectionManager::vpnConnect(const QString& strConnectionName)
                const QString strGateway(ConnectionSettings().gateway(strConnectionName));
 
                delete m_pState;
-               m_pState = new Connecting(strGateway);
+               m_pState = new Connecting(m_pTrayIcon, strGateway);
                onStatusChanged();
 
                m_pVPNControlTask->setConnectionName(strConnectionName);
@@ -272,7 +272,7 @@ void ConnectionManager::vpnDisconnect(bool fDontChangeStatus)
          const QString strGateway(settings.gateway(m_pVPNControlTask->connectionName()));
 
          delete m_pState;
-         m_pState = new Disconnecting(strGateway);
+         m_pState = new Disconnecting(m_pTrayIcon, strGateway);
 
          onStatusChanged();
       }
@@ -606,7 +606,7 @@ void ConnectionManager::connected(const QString& strConnectionName, const Networ
 
    delete m_pState;
 
-   m_pState = new Connected(strGateway, ptpInterface);
+   m_pState = new Connected(m_pTrayIcon, strGateway, ptpInterface);
 
    onStatusChanged();
 }
@@ -615,7 +615,7 @@ void ConnectionManager::disConnected()
 {
    delete m_pState;
 
-   m_pState = new NotConnected();
+   m_pState = new NotConnected(m_pTrayIcon);
 
    onStatusChanged();
 }
@@ -629,7 +629,7 @@ void ConnectionManager::error(int iErrorCode)
       const bool fDisconnecting(!m_pState->isState(ConnectionState::Connecting));
 
       delete m_pState;
-      m_pState = new Error(strGateway, iErrorCode, fDisconnecting);
+      m_pState = new Error(m_pTrayIcon, strGateway, iErrorCode, fDisconnecting);
       onStatusChanged();
 
       vpnDisconnect(true);
