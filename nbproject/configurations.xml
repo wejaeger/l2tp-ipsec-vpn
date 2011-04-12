@@ -7,6 +7,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>src/conf/AbstractConfWriter.h</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.h</itemPath>
+      <itemPath>src/dialogs/CertificateImportDialog.h</itemPath>
       <itemPath>src/util/CertificateInfo.h</itemPath>
       <itemPath>src/conf/ConfWriter.h</itemPath>
       <itemPath>src/ConnectionEditor.h</itemPath>
@@ -41,6 +42,7 @@
       <itemPath>src/dialogs/PeerAuthenticationDialog.h</itemPath>
       <itemPath>src/pkcs11/Pkcs11.h</itemPath>
       <itemPath>src/pkcs11/Pkcs11Attribute.h</itemPath>
+      <itemPath>src/util/Pkcs12.h</itemPath>
       <itemPath>src/conf/PppDnsConfWriter.h</itemPath>
       <itemPath>src/conf/PppDownScriptWriter.h</itemPath>
       <itemPath>src/models/PppRoutesModel.h</itemPath>
@@ -72,6 +74,8 @@
       <itemPath>src/conf/AbstractConfWriter.cpp</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.cpp</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.ui</itemPath>
+      <itemPath>src/dialogs/CertificateImportDialog.cpp</itemPath>
+      <itemPath>src/dialogs/CertificateImportDialog.ui</itemPath>
       <itemPath>src/util/CertificateInfo.cpp</itemPath>
       <itemPath>src/conf/ConfWriter.cpp</itemPath>
       <itemPath>src/ConnectionEditor.cpp</itemPath>
@@ -112,6 +116,7 @@
       <itemPath>src/dialogs/PeerAuthenticationDialog.ui</itemPath>
       <itemPath>src/pkcs11/Pkcs11.cpp</itemPath>
       <itemPath>src/pkcs11/Pkcs11Attribute.cpp</itemPath>
+      <itemPath>src/util/Pkcs12.cpp</itemPath>
       <itemPath>src/conf/PppDnsConfWriter.cpp</itemPath>
       <itemPath>src/conf/PppDownScriptWriter.cpp</itemPath>
       <itemPath>src/models/PppRoutesModel.cpp</itemPath>
@@ -141,6 +146,11 @@
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f2"
                      displayName="Libtool Tests"
+                     projectFiles="true"
+                     kind="TEST">
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="Pkcs12 Tests"
                      projectFiles="true"
                      kind="TEST">
       </logicalFolder>
@@ -194,24 +204,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -226,24 +222,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -252,6 +234,21 @@
           <linkerLibItems>
             <linkerOptionItem>-lltdl</linkerOptionItem>
           </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
     </conf>
@@ -310,24 +307,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -342,24 +325,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -368,6 +337,21 @@
           <linkerLibItems>
             <linkerOptionItem>-lltdl</linkerOptionItem>
           </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
     </conf>

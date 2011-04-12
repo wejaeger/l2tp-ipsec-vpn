@@ -84,6 +84,16 @@ QString CertificateInfo::cn() const
    return(strRet);
 }
 
+QString CertificateInfo::issuer() const
+{
+   QString strRet;
+
+   if (isReadable())
+      strRet = m_pQSslCertificate->issuerInfo(QSslCertificate::CommonName);
+
+   return(strRet);
+}
+
 QString CertificateInfo::email() const
 {
    return(alternateSubjectName(QSsl::EmailEntry));

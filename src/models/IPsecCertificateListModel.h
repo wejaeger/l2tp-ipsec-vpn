@@ -37,6 +37,7 @@ public:
    explicit IPsecCertificateListModel(QObject* pParent = 0);
    virtual ~IPsecCertificateListModel();
 
+   void refresh();
    int rowCount(const QModelIndex& parent = QModelIndex()) const;
    QVariant data(const QModelIndex& index, int iRole = Qt::DisplayRole) const;
    bool setData(const QModelIndex& index, const QVariant& qvalue, int iRole = Qt::EditRole);

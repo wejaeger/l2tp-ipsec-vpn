@@ -23,6 +23,7 @@
  */
 
 #include <QFileDialog>
+#include <QDir>
 
 #include "pkcs11/Pkcs11.h"
 #include "util/CertificateInfo.h"
@@ -83,7 +84,7 @@ void EapSettingsDialog::onCertificate()
    }
    else
    {
-      const QString strCertPath = QFileDialog::getOpenFileName(this, tr("Choose your personal certificate ..."), QString(), tr("PEM certificates (*.pem)"));
+      const QString strCertPath(QFileDialog::getOpenFileName(this, tr("Choose your personal certificate ..."), QDir::homePath(), tr("PEM certificates (*.pem)")));
 
       if (!strCertPath.isNull())
       {
@@ -104,7 +105,7 @@ void EapSettingsDialog::onPrivateKey()
    }
    else
    {
-      const QString strPrivateKeyPath = QFileDialog::getOpenFileName(this, tr("Choose your private key ..."), QString(), tr("PEM private keys (*.pem)"));
+      const QString strPrivateKeyPath(QFileDialog::getOpenFileName(this, tr("Choose your private key ..."), QString(), tr("PEM private keys (*.pem)")));
 
       if (!strPrivateKeyPath.isNull())
          m_Widget.m_pPrivateKeyEdit->setText(strPrivateKeyPath);
@@ -113,7 +114,7 @@ void EapSettingsDialog::onPrivateKey()
 
 void EapSettingsDialog::onCaCertificate()
 {
-   const QString strCaCertPath = QFileDialog::getOpenFileName(this, tr("Choose a Certificate Authority certificate ..."), QString(), tr("PEM certificates (*.pem)"));
+   const QString strCaCertPath(QFileDialog::getOpenFileName(this, tr("Choose a Certificate Authority certificate ..."), QString(), tr("PEM certificates (*.pem)")));
 
    if (!strCaCertPath.isNull())
       m_Widget.m_pCaCertificateEdit->setText(strCaCertPath);
@@ -160,9 +161,9 @@ bool EapSettingsDialog::writeSettings() const
 {
    const ConnectionSettings settings;
    const PppSettings pppSettings(settings.pppSettings(m_strConnectionName));
-   const PppEapSettings eapSettings = pppSettings.eapSettings();
+   const PppEapSettings eapSettings(pppSettings.eapSettings());
 
-   bool fRet = eapSettings.setUseSmartCard(m_Widget.m_pUseSmartCardRadioButton->isChecked());
+   bool fRet(eapSettings.setUseSmartCard(m_Widget.m_pUseSmartCardRadioButton->isChecked()));
    if (fRet) fRet = eapSettings.setCertificatePath(m_Widget.m_pCertificateEdit->text());
    if (fRet) fRet = eapSettings.setPrivateKeyPath(m_Widget.m_pPrivateKeyEdit->text());
    if (fRet) fRet = eapSettings.setPrivateKeyPassword(m_Widget.m_pPrivateKeyPwdEdit->text());

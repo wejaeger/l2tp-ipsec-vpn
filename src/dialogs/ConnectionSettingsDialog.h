@@ -53,6 +53,7 @@ private slots:
    void onUseIPsecCertificateRadioButtonToggled(bool fEnable);
    void onUseEapRadioButtonToggled(bool fEnabled);
    void onPrivateKey();
+   void onImport();
 
 private:
    ConnectionSettingsDialog(const ConnectionSettingsDialog& orig);

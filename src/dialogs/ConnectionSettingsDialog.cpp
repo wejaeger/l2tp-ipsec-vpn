@@ -33,11 +33,12 @@
 #include "IpSettingsDialog.h"
 #include "EapSettingsDialog.h"
 #include "AdvancedSettingsDialog.h"
+#include "CertificateImportDialog.h"
 #include "ConnectionSettingsDialog.h"
 
-static const char* const RSASIG = "rsasig";
-static const char* const SECRET = "secret";
-static const char* const IPSECPRIVATEKEYPATH = "/etc/ipsec.d/private";
+static const char* const RSASIG("rsasig");
+static const char* const SECRET("secret");
+static const char* const IPSECPRIVATEKEYPATH("/etc/ipsec.d/private");
 
 ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionName, QWidget* pParent) : QDialog(pParent),
    m_strConnectionName(strConnectionName), m_pCertificateListModel(new IPsecCertificateListModel())
@@ -57,6 +58,7 @@ ConnectionSettingsDialog::ConnectionSettingsDialog(const QString& strConnectionN
    connect(m_Widget.m_pPppIpSettingsButton, SIGNAL(clicked()), SLOT(onIpSettings()));
    connect(m_Widget.m_pPppAdvancedButton, SIGNAL(clicked()), SLOT(onAdvancedSettings()));
    connect(m_Widget.m_pPppUseEAPRadioButton, SIGNAL(toggled(bool)), SLOT(onUseEapRadioButtonToggled(bool)));
+   connect(m_Widget.m_pImportPushButton, SIGNAL(clicked()), SLOT(onImport()));
    connect(m_Widget.m_pButtonBox, SIGNAL(helpRequested()), SLOT(onHelpRequested()));
 
    readSettings();
@@ -108,7 +110,7 @@ bool ConnectionSettingsDialog::writeSettings() const
 {
    const ConnectionSettings settings;
 
-   bool fRet = writeCommonSetting((settings.commonSettings(m_strConnectionName)));
+   bool fRet(writeCommonSetting((settings.commonSettings(m_strConnectionName))));
    if (fRet) fRet = writeIPsecSetting((settings.ipsecSettings(m_strConnectionName)));
    if (fRet) fRet = writeL2tpSettings((settings.l2tpSettings(m_strConnectionName)));
    if (fRet) fRet = writePppSettings((settings.pppSettings(m_strConnectionName)));
@@ -177,10 +179,26 @@ void ConnectionSettingsDialog::onUseEapRadioButtonToggled(bool fEnabled)
 
 void ConnectionSettingsDialog::onPrivateKey()
 {
-   const QString strPrivateKeyPath = QFileDialog::getOpenFileName(this, tr("Choose private key ..."), IPSECPRIVATEKEYPATH, tr("PEM private keys (*.pem)"));
+   const QString strPrivateKeyPath(QFileDialog::getOpenFileName(this, tr("Choose private key ..."), IPSECPRIVATEKEYPATH, tr("PEM private keys (*.pem)")));
 
    if (!strPrivateKeyPath.isNull())
       m_Widget.m_pIPsecPrivateKeyFileEdit->setText(strPrivateKeyPath);
+}
+
+void ConnectionSettingsDialog::onImport()
+{
+   CertificateImportDialog importDialog;
+   if (importDialog.exec() == QDialog::Accepted)
+   {
+      m_pCertificateListModel->refresh();
+
+      if (importDialog.useAsAuthenticationCertificate())
+      {
+         m_pCertificateListModel->select(importDialog.certificateFilename());
+         m_Widget.m_pIPsecPrivateKeyFileEdit->setText(importDialog.privateKeyFilenamePath());
+         m_Widget.m_pIPsecPassphraseEdit->setText(importDialog.passPhrase());
+      }
+   }
 }
 
 void ConnectionSettingsDialog::readCommonSettings(const CommonSettings& commonSettings) const
@@ -266,7 +284,7 @@ bool ConnectionSettingsDialog::writeCommonSetting(const CommonSettings& commonSe
 
 bool ConnectionSettingsDialog::writeIPsecSetting(const IPSecSettings& ipsecSettings) const
 {
-   bool fRet = ipsecSettings.setGateway(m_Widget.m_pIPsecGatewayEdit->text());
+   bool fRet(ipsecSettings.setGateway(m_Widget.m_pIPsecGatewayEdit->text()));
    if (fRet) fRet = ipsecSettings.setIdentity(m_Widget.m_pIPsecIdentityEdit->text());
    if (fRet) fRet = ipsecSettings.setAuthBy(m_Widget.m_pIPsecUseCertificateRadioButton->isChecked() ? RSASIG : SECRET);
    if (fRet) fRet = ipsecSettings.setPreSharedKey(m_Widget.m_pIPsecPreSharedKeyEdit->text());
@@ -279,7 +297,7 @@ bool ConnectionSettingsDialog::writeIPsecSetting(const IPSecSettings& ipsecSetti
 
 bool ConnectionSettingsDialog::writeL2tpSettings(const L2tpSettings& l2tpSettings) const
 {
-   bool fRet = l2tpSettings.setLengthBit(m_Widget.m_pL2tpLengthBitCheckBox->checkState());
+   bool fRet(l2tpSettings.setLengthBit(m_Widget.m_pL2tpLengthBitCheckBox->checkState()));
    if (fRet) fRet = l2tpSettings.setRedial(m_Widget.m_pL2tpRedialCheckBox->checkState());
    if (fRet) fRet = l2tpSettings.setRedialTimeout(m_Widget.m_pL2tpRedialTimeoutSpinBox->value());
    if (fRet) fRet = l2tpSettings.setRedialAttempts(m_Widget.m_pL2tpRedialAttemptsSpinBox->value());
@@ -289,7 +307,7 @@ bool ConnectionSettingsDialog::writeL2tpSettings(const L2tpSettings& l2tpSetting
 
 bool ConnectionSettingsDialog::writePppSettings(const PppSettings& pppSettings) const
 {
-   bool fRet = pppSettings.setRefuseEap(!m_Widget.m_pPppUseEAPRadioButton->isChecked());
+   bool fRet(pppSettings.setRefuseEap(!m_Widget.m_pPppUseEAPRadioButton->isChecked()));
    if (fRet) fRet = pppSettings.setRefusePap(m_Widget.m_pPppAllowProtocolsListWidget->item(0)->checkState() == Qt::Checked ? false : true);
    if (fRet) fRet = pppSettings.setRefuseChap(m_Widget.m_pPppAllowProtocolsListWidget->item(1)->checkState() == Qt::Checked ? false : true);
    if (fRet) fRet = pppSettings.setRefuseMsChap(m_Widget.m_pPppAllowProtocolsListWidget->item(2)->checkState() == Qt::Checked ? false : true);
