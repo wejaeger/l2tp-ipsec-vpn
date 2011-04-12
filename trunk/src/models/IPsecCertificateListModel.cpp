@@ -38,6 +38,12 @@ IPsecCertificateListModel::~IPsecCertificateListModel()
    delete m_pCertificateDirectory;
 }
 
+void IPsecCertificateListModel::refresh()
+{
+   m_pCertificateDirectory->refresh();
+   emit dataChanged(createIndex(0, 0), createIndex(rowCount() - 1, 0));
+}
+
 int IPsecCertificateListModel::rowCount(const QModelIndex& /* parent */) const
 {
    return(m_pCertificateDirectory->entryList().size());

@@ -83,7 +83,7 @@
        <string>IPsec</string>
       </attribute>
       <layout class="QGridLayout" name="m_pIPsecTabLayout">
-       <item row="0" column="0">
+       <item row="0" column="0" colspan="2">
         <layout class="QFormLayout" name="m_pIPsecGatewayLayout">
          <property name="fieldGrowthPolicy">
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -182,7 +182,7 @@ This is mostly a distinguished name like 'CN=cisco-fcs-ber'.</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="0" colspan="2">
         <widget class="QLineEdit" name="m_pIPsecPreSharedKeyEdit">
          <property name="echoMode">
           <enum>QLineEdit::PasswordEchoOnEdit</enum>
@@ -212,7 +212,7 @@ This is mostly a distinguished name like 'CN=cisco-fcs-ber'.</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="6" column="0" colspan="2">
         <widget class="QFrame" name="m_pIPsecPrivateKeyFrame">
          <property name="enabled">
           <bool>true</bool>
@@ -279,6 +279,13 @@ This is mostly a distinguished name like 'CN=cisco-fcs-ber'.</string>
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="m_pImportPushButton">
+         <property name="text">
+          <string>Import ...</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -580,6 +587,7 @@ If left empty you'll be ask each time you try to establish a connection.</string
   <tabstop>m_pIPsecPreSharedKeyEdit</tabstop>
   <tabstop>m_pIPsecUseCertificateRadioButton</tabstop>
   <tabstop>m_pIPsecCertificateListView</tabstop>
+  <tabstop>m_pImportPushButton</tabstop>
   <tabstop>m_pIPsecPrivateKeyFileEdit</tabstop>
   <tabstop>m_pIPsecBrowsePrivateKeyButton</tabstop>
   <tabstop>m_pIPsecPassphraseEdit</tabstop>
@@ -596,6 +604,7 @@ If left empty you'll be ask each time you try to establish a connection.</string
   <tabstop>m_pPppPeerAuthenticationButton</tabstop>
   <tabstop>m_pPppIpSettingsButton</tabstop>
   <tabstop>m_pPppAdvancedButton</tabstop>
+  <tabstop>m_pButtonBox</tabstop>
  </tabstops>
  <resources>
   <include location="../../resources/L2tpIPsecVpn.qrc"/>

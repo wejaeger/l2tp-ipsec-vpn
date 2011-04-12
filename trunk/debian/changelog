@@ -5,6 +5,8 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
     - added a tab to the ConnectionInformation dialog to show various 
       connection information and connection statistics
     - Animated system tray icon when connecting or disconnecting 
+    - Certificates to be used for IPsec rsasig authentication can now be 
+      imported from a PKCS#12 certificate bundle
     - fixed bug dial-up to network interfaces (PPPn) are not automatically
       detected (LP: #741430)
     - fixed bug disconnection of physical network interface not detected if

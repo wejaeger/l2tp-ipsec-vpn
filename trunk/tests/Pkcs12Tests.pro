@@ -1,11 +1,11 @@
 # $Id$
 #
-# File:   LibtoolTests.pro
+# File:  Pkcs12Tests.pro
 # Author: Werner Jaeger
 #
-# Created on Feb 10, 2011, 4:45 AM
+# Apr 8, 2011, 7:41:51 PM
 #
-# Copyright 2010 Werner Jaeger.
+# Copyright 2011 Werner Jaeger.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 OBJECTS_DIR = build/Debug/GNU-Linux-x86/tests/TestFiles
 DESTDIR = build/Debug/GNU-Linux-x86/tests/TestFiles
-TARGET = f2
+TARGET = f3
 CONFIG += debug
-QT = core gui
+QT = core network
 INCLUDEPATH=../src
-SOURCES += tests/src/TestRunner.cpp tests/src/util/LibtoolTests.cpp
-OBJECTS += build/Debug/GNU-Linux-x86/Libtool.o build/Debug/GNU-Linux-x86/GlobalFunctions.o
-LIBS += -lcppunit -lltdl
+SOURCES += tests/src/TestRunner.cpp tests/src/util/Pkcs12Tests.cpp
+OBJECTS += build/Debug/GNU-Linux-x86/Pkcs12.o build/Debug/GNU-Linux-x86/CertificateInfo.o
+LIBS += -lcppunit -lcrypto

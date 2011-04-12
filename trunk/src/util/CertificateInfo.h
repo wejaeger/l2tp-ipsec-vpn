@@ -42,6 +42,7 @@ public:
    bool isReadable() const;
    QString serialNumber() const;
    QString cn() const;
+   QString issuer() const;
    QString email() const;
 
 private:
