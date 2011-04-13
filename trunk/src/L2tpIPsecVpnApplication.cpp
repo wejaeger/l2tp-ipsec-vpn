@@ -25,6 +25,7 @@
 #include <QMetaType>
 #include <QLocalSocket>
 #include <QProcess>
+#include <QStyle>
 
 #include "localpeer/LocalPeer.h"
 #include "ConnectionManager.h"
@@ -49,6 +50,14 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QA
 
    connect(m_pLocalPeer, SIGNAL(messageReceived(const QString&)), SLOT(onMessageReceived(const QString&)));
    connect(m_pProcess, SIGNAL(finished(int)), this, SLOT(onConnectionEditorDialogClosed(int)));
+
+   if (mode() == CONNECTION_EDITOR && arguments().count() >= 3)
+   {
+      const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
+
+      if (iDlgButtonLayout != arguments()[2].toInt())
+         setStyleSheet("QDialogButtonBox { button-layout: " + arguments()[2] + " }");
+   }
 
    if (mode() == CONNECTION_MANAGER)
       setQuitOnLastWindowClosed(false);
@@ -82,7 +91,8 @@ bool L2tpIPsecVpnApplication::sendConnectionRemovedMessage(const QString& strCon
 
 int L2tpIPsecVpnApplication::startConnectionEditorDialog() const
 {
-   m_pProcess->start(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH);
+   const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
+   m_pProcess->start(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH + " " + QString::number(iDlgButtonLayout));
 
    return(0);
 }

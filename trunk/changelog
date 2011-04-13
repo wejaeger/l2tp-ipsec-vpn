@@ -11,6 +11,8 @@
    configuration for the VPN connection (LP: #750000)
  - fixed bug manager applet no longer started automatically after 
    upgrading it (LP: #750174)
+ - fixed bug connection editor has wrong button layout (LP: #759510)
+ - fixed bug invalid version string in .desktop files (LP: #759515)
 
 0.9.8
  - no longer depends on ppp-2.4.5-eaptls-mppe package. It is optional and only needed if 
