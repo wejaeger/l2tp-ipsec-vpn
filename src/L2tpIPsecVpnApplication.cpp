@@ -56,7 +56,9 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QA
    {
       const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
 
-      if (iDlgButtonLayout != arguments()[2].toInt())
+      bool fOk(false);
+      const int iPassedDlgButtonLayout(arguments()[2].toInt(&fOk));
+      if (fOk && iDlgButtonLayout != iPassedDlgButtonLayout)
          setStyleSheet("QDialogButtonBox { button-layout: " + arguments()[2] + " }");
    }
 
