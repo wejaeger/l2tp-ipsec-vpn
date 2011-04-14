@@ -6,4 +6,4 @@ Icon=/usr/share/L2tpIPsecVpn/logo.png
 Type=Application
 Terminal=false
 StartupNotify=false
-Encoding=UTF-8
+
