@@ -33,6 +33,7 @@
 #include "ConnectionEditor.h"
 
 static const char* const CONNECTIONEDITOR_CMD_SWITCH = "connectionEditor";
+static const char* const START_CONNECTIONEDITOR_CMD_SWITCH = "startConnectionEditor";
 static QString const APPLICATIONNAME = "L2TP IPsec VPN Manager";
 static QString const GKSUDO_CMD = "gksudo -D \"" + APPLICATIONNAME + "\" ";
 static QString const CONNECTION_ADDED_MSG_PREFIX = "connectionAdded:";
@@ -76,7 +77,7 @@ bool L2tpIPsecVpnApplication::isRunning()
 
 L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::mode() const
 {
-   return(isConnectionEditor() ? CONNECTION_EDITOR : (isPasswordCallback() ? PASSWORD_CALLBACK : CONNECTION_MANAGER));
+   return(isConnectionEditor() ? CONNECTION_EDITOR : (isConnectionEditorStarter() ? CONNECTION_EDITORSTARTER :  (isPasswordCallback() ? PASSWORD_CALLBACK : CONNECTION_MANAGER)));
 }
 
 bool L2tpIPsecVpnApplication::sendConnectionAddedMessage(const QString& strConnectionName)
@@ -89,10 +90,17 @@ bool L2tpIPsecVpnApplication::sendConnectionRemovedMessage(const QString& strCon
    return(m_pLocalPeer->sendMessage(CONNECTION_REMOVED_MSG_PREFIX + strConnectionName, 5000));
 }
 
-int L2tpIPsecVpnApplication::startConnectionEditorDialog() const
+int L2tpIPsecVpnApplication::startConnectionEditorDialog(bool fDetached) const
 {
+   int iRet(0);
+
    const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
-   m_pProcess->start(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH + " " + QString::number(iDlgButtonLayout));
+   const QString strProgram(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH + " " + QString::number(iDlgButtonLayout));
+
+   if (fDetached)
+      iRet = !QProcess::startDetached(strProgram);
+   else
+      m_pProcess->start(strProgram);
 
    return(0);
 }
@@ -113,6 +121,11 @@ void L2tpIPsecVpnApplication::onConnectionEditorDialogClosed(int iExitCode)
 bool L2tpIPsecVpnApplication::isConnectionEditor() const
 {
    return(arguments().count() >= 2 && arguments()[1] == CONNECTIONEDITOR_CMD_SWITCH);
+}
+
+bool L2tpIPsecVpnApplication::isConnectionEditorStarter() const
+{
+   return(arguments().count() >= 2 && arguments()[1] == START_CONNECTIONEDITOR_CMD_SWITCH);
 }
 
 bool L2tpIPsecVpnApplication::isPasswordCallback() const

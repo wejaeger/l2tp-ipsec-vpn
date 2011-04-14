@@ -40,6 +40,7 @@ public:
    {
       CONNECTION_MANAGER,
       CONNECTION_EDITOR,
+      CONNECTION_EDITORSTARTER,
       PASSWORD_CALLBACK
    };
 
@@ -51,7 +52,7 @@ public:
    bool sendConnectionAddedMessage(const QString& strConnectionName);
    bool sendConnectionRemovedMessage(const QString& strConnectionName);
 
-   int startConnectionEditorDialog() const;
+   int startConnectionEditorDialog(bool fDetached = false) const;
 
 signals:
    void connectionAdded(const QString& strConnectionName);
@@ -67,6 +68,7 @@ private:
    L2tpIPsecVpnApplication & operator=(const L2tpIPsecVpnApplication& orig);
 
    bool isConnectionEditor() const;
+   bool isConnectionEditorStarter() const;
    bool isPasswordCallback() const;
 
    QProcess* const m_pProcess;

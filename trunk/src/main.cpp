@@ -41,7 +41,7 @@ int main(int iArgc, char* pcArgv[])
 
    L2tpIPsecVpnApplication app(iArgc, pcArgv);
 
-   if (app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITOR || app.mode() == L2tpIPsecVpnApplication::PASSWORD_CALLBACK || !app.isRunning())
+   if (app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITOR || app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITORSTARTER || app.mode() == L2tpIPsecVpnApplication::PASSWORD_CALLBACK || !app.isRunning())
    {
       qInstallMsgHandler(messageOutput);
       Q_INIT_RESOURCE(L2tpIPsecVpn);
@@ -77,6 +77,10 @@ int main(int iArgc, char* pcArgv[])
                iRet = callback.exec();
             }
             break;
+
+            case L2tpIPsecVpnApplication::CONNECTION_EDITORSTARTER:
+               iRet = app.startConnectionEditorDialog(true);
+               break;
 
             default:
                Q_ASSERT(false);
