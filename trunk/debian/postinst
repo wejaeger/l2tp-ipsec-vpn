@@ -20,7 +20,15 @@ set -e
 
 case "$1" in
     configure)
+
+    # re-apply settings just in case the new version has changed some things
     L2tpIPsecVpn connectionEditor applySettings
+
+    # if applet is running close and restart it
+    PIDS=$(pidof L2tpIPsecVpn || true)
+    [ -n "$PIDS" ] && kill $PIDS
+    gksu -w -l -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null &
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

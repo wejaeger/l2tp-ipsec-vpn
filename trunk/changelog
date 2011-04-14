@@ -5,6 +5,7 @@
  - Animated system tray icon when connecting or disconnecting
  - Certificates to be used for IPsec rsasig authentication can now be imported from a 
    PKCS#12 certificate bundle
+ - Debian package installer: start / restart applet after installation or upgrade
  - fixed bug dial-up to network interfaces (PPPn) are not automatically detected (LP: #741430)
  - fixed bug disconnection of physical network interface not detected if
    'Use default gateway on the remote network' is selected in PPP -> IP setting -> Routes
