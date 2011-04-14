@@ -221,7 +221,7 @@ void NetworkInterfaceMonitor::handleRoutingMessage(struct nlmsghdr* pNetLinkMess
 
       QNetworkAddressEntry routeEntry;
       routeEntry.setIp(QHostAddress(acDsts));
-      routeEntry.setNetmask(QHostAddress());
+      routeEntry.setPrefixLength(pRouteMessage->rtm_dst_len);
       routeEntry.setBroadcast(QHostAddress(acGws));
 
       (*itInterfaces).second.clearRouteEntries();
@@ -393,7 +393,7 @@ void NetworkInterfaceMonitor::handleAddressMessage(struct nlmsghdr* pNetLinkMess
 
    QNetworkAddressEntry addressEntry;
    addressEntry.setIp(QHostAddress(acIp));
-   addressEntry.setNetmask(QHostAddress());
+   addressEntry.setPrefixLength(pInterfaceAddressMessage->ifa_prefixlen);
    addressEntry.setBroadcast(QHostAddress(acBroadcast));
 
    (*itInterfaces).second.clearAddressEntries();
