@@ -54,6 +54,8 @@ private:
    LocalPeer(const LocalPeer& orig);
    LocalPeer& operator=(const LocalPeer& orig);
 
+   static QString hexUid();
+
    QString m_strApplicationId;
    QString m_strSocketName;
    QLocalServer* const m_pServer;
