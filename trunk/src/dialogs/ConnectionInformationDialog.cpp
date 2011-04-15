@@ -60,11 +60,14 @@ void ConnectionInformationDialog::onConectionStateChanged(const ConnectionState*
       {
          const NetworkInterface interface(pNewState->ptpInterface());
          const NetworkInterface::AddressEntries addressEntries(interface.addressEntries());
+         const NetworkInterface::InternetInterfaceInfo internetInterfaceInfo(NetworkInterface::internetInterfaceInfo());
 
          m_Widget.m_pTabWidget->setCurrentIndex(0);
          m_Widget.m_pTabWidget->setTabEnabled(0, true);
          m_Widget.m_pTabWidget->setTabText(0, strConnectionName);
          m_Widget.m_pGateway->setText(pNewState->hostName());
+         m_Widget.m_pInternetInterfaceName->setText(internetInterfaceInfo.interfaceName().c_str());
+         m_Widget.m_pInternetInterfaceGateway->setText(internetInterfaceInfo.gateway().c_str());
          m_Widget.m_pInterfaceName->setText(interface.name().c_str());
 
          if (addressEntries.size() > 0)
