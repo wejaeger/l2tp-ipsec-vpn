@@ -102,6 +102,21 @@ public:
       friend class NetworkInterface;
    };
 
+   class InternetInterfaceInfo
+   {
+   public:
+      InternetInterfaceInfo(const std::string& strInterfaceName, const std::string& strGateway, const std::string& strIPAddress) : m_strInterfaceName(strInterfaceName), m_strGateway(strGateway), m_strIPAddress(strIPAddress) {}
+
+      const std::string& interfaceName() const { return(m_strInterfaceName); }
+      const std::string& gateway() const { return(m_strGateway); }
+      const std::string& ipAddress() const { return(m_strIPAddress); }
+
+   private:
+      const std::string m_strInterfaceName;
+      const std::string m_strGateway;
+      const std::string m_strIPAddress;
+   };
+
    typedef std::map<std::string, NetworkInterface> InterfaceMap;
    typedef std::pair<std::string, NetworkInterface> InterfaceMapEntry;
    typedef std::vector<QNetworkAddressEntry> AddressEntries;
@@ -142,6 +157,7 @@ public:
    static InterfaceMap defaultGateway(void);
    static QStringList dns(void);
    static Statistic statistic(const std::string& strInterfaceName);
+   static InternetInterfaceInfo internetInterfaceInfo();
 
    static const NetworkInterface null;
 

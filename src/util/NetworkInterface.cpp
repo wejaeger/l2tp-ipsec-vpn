@@ -59,36 +59,7 @@ bool NetworkInterface::hasDefaultGateway() const
 
 bool NetworkInterface::isIPsecPysicalGateway() const
 {
-   using namespace std;
-
-   string strInterfaceName;
-   string strDestination;
-   string strGateway;
-
-   ifstream ipsecInfo("/var/run/pluto/ipsec.info", ios::in);
-   while (ipsecInfo)
-   {
-      string strLine;
-      getline(ipsecInfo, strLine);
-
-      if (strLine.length() > 0)
-      {
-         istringstream strFormat(strLine.replace(strLine.find('='), 1, " "));
-
-         string strKey;
-         string strValue;
-         strFormat >> strKey >> strValue;
-
-         if (strKey == "defaultroutephys")
-            strInterfaceName = strValue;
-         else if (strKey == "defaultrouteaddr")
-            strDestination = strValue;
-         else if (strKey == "defaultroutenexthop")
-            strGateway = strValue;
-      }
-   }
-
-   return(strInterfaceName.compare(m_strName) == 0);
+   return(NetworkInterface::internetInterfaceInfo().interfaceName().compare(m_strName) == 0);
 }
 
 bool NetworkInterface::removeAddressEntry(const QNetworkAddressEntry& addressEntry)
@@ -310,6 +281,40 @@ NetworkInterface::Statistic NetworkInterface::statistic(const std::string& strIn
    }
 
    return(Statistic(receivedValues, transmittedValues));
+}
+
+NetworkInterface::InternetInterfaceInfo NetworkInterface::internetInterfaceInfo()
+{
+   using namespace std;
+
+   string strInterfaceName;
+   string strGateway;
+   string strIPAddress;
+
+   ifstream ipsecInfo("/var/run/pluto/ipsec.info", ios::in);
+   while (ipsecInfo)
+   {
+      string strLine;
+      getline(ipsecInfo, strLine);
+
+      if (strLine.length() > 0)
+      {
+         istringstream strFormat(strLine.replace(strLine.find('='), 1, " "));
+
+         string strKey;
+         string strValue;
+         strFormat >> strKey >> strValue;
+
+         if (strKey == "defaultroutephys")
+            strInterfaceName = strValue;
+         else if (strKey == "defaultrouteaddr")
+            strIPAddress = strValue;
+         else if (strKey == "defaultroutenexthop")
+            strGateway = strValue;
+      }
+   }
+
+   return(InternetInterfaceInfo(strInterfaceName, strGateway, strIPAddress));
 }
 
 NetworkInterface::InterfaceFlags NetworkInterface::convertFlags(uint iRawFlags)

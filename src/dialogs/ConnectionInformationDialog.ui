@@ -33,7 +33,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="m_pGatewayLabel">
          <property name="text">
-          <string>Remote Gateway:</string>
+          <string>Remote Server:</string>
          </property>
         </widget>
        </item>
@@ -50,14 +50,14 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="m_pInterfaceNameLabel">
          <property name="text">
-          <string>Interface:</string>
+          <string>PtP Interface:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="1">
         <widget class="QLabel" name="m_pInterfaceName">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -70,14 +70,14 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="m_pRemoteHostLabel">
          <property name="text">
-          <string>Remote Host:</string>
+          <string>Destination Address:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="4" column="1">
         <widget class="QLabel" name="m_pRemoteHost">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -90,14 +90,14 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="m_pIPlAddressLabel">
          <property name="text">
           <string>IP Address:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="5" column="1">
         <widget class="QLabel" name="m_pIPAddress">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -110,28 +110,28 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="m_pSubnetMaskLabel">
          <property name="text">
           <string>Subnet Mask:</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="6" column="1">
         <widget class="QLabel" name="m_pSubnetMask">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="m_pPrimaryDNSLabel">
          <property name="text">
           <string>Primary DNS:</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="7" column="1">
         <widget class="QLabel" name="m_pPrimaryDNS">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -144,14 +144,14 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="m_pSecondaryDNSLabel">
          <property name="text">
           <string>Secondary DNS:</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="8" column="1">
         <widget class="QLabel" name="m_pSecondaryDNS">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -164,21 +164,21 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="m_pTenaryDNSLabel">
          <property name="text">
           <string>Tenary DNS:</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="9" column="1">
         <widget class="QLabel" name="m_pTenaryDNS">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="8" column="2">
+       <item row="10" column="2">
         <widget class="QPushButton" name="m_pStatisticsPushButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -194,6 +194,34 @@
          </property>
          <property name="autoDefault">
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="m_pInternetInterfaceNameLabel">
+         <property name="text">
+          <string>Internet Interface:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="m_pInternetInterfaceName">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="m_pInternetInterfaceGatewayLabel">
+         <property name="text">
+          <string>Internet Interface Gateway:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="m_pInternetInterfaceGateway">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
