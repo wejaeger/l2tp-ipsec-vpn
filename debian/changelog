@@ -20,8 +20,9 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
     - fixed bug invalid version string in .desktop files (LP: #759515)
     - fixed bug network interface monitor does not set netmask for
       address and route entries (LP: #761036)
+    - fixed bug icon not available to other users (LP: #761216)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Thu, 14 Apr 2011 21:18:03 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Thu, 15 Apr 2011 14:25:56 +0200
 
 l2tp-ipsec-vpn (0.9.8-0ubuntu1~ppa1~maverick1) maverick; urgency=low
 

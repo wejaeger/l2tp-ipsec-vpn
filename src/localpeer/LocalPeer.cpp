@@ -22,6 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
+#include <unistd.h>
+
 #include <QCoreApplication>
 #include <QLocalServer>
 #include <QLocalSocket>
@@ -47,7 +50,7 @@ LocalPeer::LocalPeer(QObject* pParent, const QString& strAppId) : QObject(pParen
 
    QByteArray abApplicationId(m_strApplicationId.toUtf8());
    quint16 iNum = qChecksum(abApplicationId.constData(), abApplicationId.size());
-   m_strSocketName = QLatin1String(APPNAME) + "-" + strPrefix + QLatin1Char('-') + QString::number(iNum, 16) + QLatin1Char('-') + QString::number(9999, 16);
+   m_strSocketName = QLatin1String(APPNAME) + "-" + strPrefix + QLatin1Char('-') + QString::number(iNum, 16) + QLatin1Char('-') + hexUid();
 
    QString strLockName(QDir(QDir::tempPath()).absolutePath() + QLatin1Char('/') + m_strSocketName + QLatin1String("-lockfile"));
    m_LockedFile.setFileName(strLockName);
@@ -166,4 +169,18 @@ void LocalPeer::receiveConnection()
          delete pSocket;
       }
    }
+}
+
+QString LocalPeer::hexUid()
+{
+   QString strHexUid;
+
+   const char* const pcSudoUid(::getenv("SUDO_UID"));
+
+   if (pcSudoUid)
+      strHexUid = QString::number(::strtol(pcSudoUid, NULL, 0), 16);
+   else
+      strHexUid = QString::number(::getuid(), 16);
+
+   return(strHexUid);
 }
