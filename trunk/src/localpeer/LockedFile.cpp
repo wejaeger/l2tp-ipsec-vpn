@@ -22,8 +22,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <pwd.h>
 
 #include "LockedFile.h"
 
@@ -45,10 +47,34 @@ bool LockedFile::open(OpenMode mode)
 {
    bool fRet(false);
 
-   if (mode & QIODevice::Truncate)
-      qWarning("LockedFile::open(): Truncate mode not allowed.");
-   else
+   if (!(mode & QIODevice::Truncate))
+   {
       fRet = QFile::open(mode);
+
+      const char* const pcSudoUid(::getenv("SUDO_UID"));
+
+      if (fRet && pcSudoUid)
+      {
+         const uid_t lUid(::strtol(pcSudoUid, NULL, 0));
+         const struct passwd* const pPwd(::getpwuid(lUid));
+
+         if (!pPwd)
+         {
+            fRet = false;
+            qWarning("LockedFile::open(): Unable to get SUDO_USER's group id.");
+         }
+         else
+         {
+            if (::chown(fileName().toUtf8().constData(), lUid, pPwd->pw_gid) != 0)
+            {
+               fRet = false;
+               qWarning("LockedFile::open(): Unable to set SUDO_USER as owner of the lock file.");
+            }
+         }
+      }
+   }
+   else
+      qWarning("LockedFile::open(): Truncate mode not allowed.");
 
    return(fRet);
 }
