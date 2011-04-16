@@ -42,7 +42,7 @@ public:
    const QString cn() const;
    const QString serialNumber() const;
    bool hasPrivateKey() const { return(m_pKey); }
-   int caCerts() const { return(::sk_num(m_pAdditionalCerts)); }
+   int caCerts() const { return(::sk_num(reinterpret_cast<const stack_st*>(m_pAdditionalCerts))); }
    bool cert2Pem(const QString& strFilenamePath);
    int caChain2Pem(const QString& strFilenamePath);
    bool privateKey2Pem(const QString& strFilenamePath, const QString& strPassphrase);
