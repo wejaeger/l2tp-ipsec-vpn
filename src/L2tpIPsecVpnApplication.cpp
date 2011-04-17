@@ -32,12 +32,14 @@
 #include "L2tpIPsecVpnApplication.h"
 #include "ConnectionEditor.h"
 
-static const char* const CONNECTIONEDITOR_CMD_SWITCH = "connectionEditor";
-static const char* const START_CONNECTIONEDITOR_CMD_SWITCH = "startConnectionEditor";
-static QString const APPLICATIONNAME = "L2TP IPsec VPN Manager";
-static QString const GKSUDO_CMD = "gksudo -D \"" + APPLICATIONNAME + "\" ";
-static QString const CONNECTION_ADDED_MSG_PREFIX = "connectionAdded:";
-static QString const CONNECTION_REMOVED_MSG_PREFIX = "connectionRemoved:";
+static const char* const DESKTOP_SESSION("DESKTOP_SESSION");
+static const char* const CONNECTIONEDITOR_CMD_SWITCH("connectionEditor");
+static const char* const START_CONNECTIONEDITOR_CMD_SWITCH("startConnectionEditor");
+static QString const DESKTOP_SESSION_CMD_SWITCH("desktopSession");
+static QString const APPLICATIONNAME("L2TP IPsec VPN Manager");
+static QString const GKSUDO_CMD("gksudo -D \"" + APPLICATIONNAME + "\" ");
+static QString const CONNECTION_ADDED_MSG_PREFIX("connectionAdded:");
+static QString const CONNECTION_REMOVED_MSG_PREFIX("connectionRemoved:");
 
 L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QApplication(iArgc, ppArgv, iArgc != 4), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
@@ -51,16 +53,6 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QA
 
    connect(m_pLocalPeer, SIGNAL(messageReceived(const QString&)), SLOT(onMessageReceived(const QString&)));
    connect(m_pProcess, SIGNAL(finished(int)), this, SLOT(onConnectionEditorDialogClosed(int)));
-
-   if (mode() == CONNECTION_EDITOR && arguments().count() >= 3)
-   {
-      const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
-
-      bool fOk(false);
-      const int iPassedDlgButtonLayout(arguments()[2].toInt(&fOk));
-      if (fOk && iDlgButtonLayout != iPassedDlgButtonLayout)
-         setStyleSheet("QDialogButtonBox { button-layout: " + arguments()[2] + " }");
-   }
 
    if (mode() == CONNECTION_MANAGER)
       setQuitOnLastWindowClosed(false);
@@ -96,8 +88,8 @@ int L2tpIPsecVpnApplication::startConnectionEditorDialog(bool fDetached) const
 {
    int iRet(0);
 
-   const int iDlgButtonLayout(style()->styleHint(QStyle::SH_DialogButtonLayout));
-   const QString strProgram(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH + " " + QString::number(iDlgButtonLayout));
+   const char* const pcDesktopSession(::getenv(DESKTOP_SESSION));
+   const QString strProgram(GKSUDO_CMD + arguments()[0] + " " + CONNECTIONEDITOR_CMD_SWITCH + " " + (pcDesktopSession ? DESKTOP_SESSION_CMD_SWITCH + " " + pcDesktopSession : ""));
 
    if (fDetached)
       iRet = !QProcess::startDetached(strProgram);
@@ -132,5 +124,5 @@ bool L2tpIPsecVpnApplication::isConnectionEditorStarter() const
 
 bool L2tpIPsecVpnApplication::isPasswordCallback() const
 {
-   return(arguments().count() == 4);
+   return(arguments().count() == 4 && arguments()[1] != CONNECTIONEDITOR_CMD_SWITCH);
 }
