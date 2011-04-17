@@ -23,9 +23,9 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <pwd.h>
 
 #include "LockedFile.h"
 
@@ -52,23 +52,18 @@ bool LockedFile::open(OpenMode mode)
       fRet = QFile::open(mode);
 
       const char* const pcSudoUid(::getenv("SUDO_UID"));
-
       if (fRet && pcSudoUid)
       {
-         const uid_t lUid(::strtol(pcSudoUid, NULL, 0));
-         const struct passwd* const pPwd(::getpwuid(lUid));
+         const uid_t uiUid(::strtol(pcSudoUid, NULL, 0));
+         if (uiUid)
+         {
+            const char* const pcSudoGid(::getenv("SUDO_GID"));
+            const uid_t uiGid(pcSudoGid ? ::strtol(pcSudoGid, NULL, 0) : 0);
 
-         if (!pPwd)
-         {
-            fRet = false;
-            qWarning("LockedFile::open(): Unable to get SUDO_USER's group id.");
-         }
-         else
-         {
-            if (::chown(fileName().toUtf8().constData(), lUid, pPwd->pw_gid) != 0)
+            if (::chown(fileName().toUtf8().constData(), uiUid, uiGid) != 0)
             {
                fRet = false;
-               qWarning("LockedFile::open(): Unable to set SUDO_USER as owner of the lock file.");
+               qWarning("LockedFile::open(): Failed to chown() lock file with uid %d and gid %d.", uiUid, uiGid);
             }
          }
       }

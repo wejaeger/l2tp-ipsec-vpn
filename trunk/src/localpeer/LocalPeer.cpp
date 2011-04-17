@@ -173,14 +173,15 @@ void LocalPeer::receiveConnection()
 
 QString LocalPeer::hexUid()
 {
-   QString strHexUid;
+   QString strHexUid(QString::number(::getuid(), 16));
 
    const char* const pcSudoUid(::getenv("SUDO_UID"));
-
    if (pcSudoUid)
-      strHexUid = QString::number(::strtol(pcSudoUid, NULL, 0), 16);
-   else
-      strHexUid = QString::number(::getuid(), 16);
+   {
+      const int uiSudoUid(::strtol(pcSudoUid, NULL, 0));
+      if (uiSudoUid)
+         strHexUid = QString::number(uiSudoUid, 16);
+   }
 
    return(strHexUid);
 }
