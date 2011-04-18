@@ -44,7 +44,7 @@ public:
       PASSWORD_CALLBACK
    };
 
-   L2tpIPsecVpnApplication(int& iArgc, char** ppArgv);
+   L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode);
    virtual ~L2tpIPsecVpnApplication();
 
    bool isRunning();
@@ -53,6 +53,8 @@ public:
    bool sendConnectionRemovedMessage(const QString& strConnectionName);
 
    int startConnectionEditorDialog(bool fDetached = false) const;
+
+   static APPLICATIONMODE parseCmdLine(int& iArgc, char** ppArgv);
 
 signals:
    void connectionAdded(const QString& strConnectionName);
@@ -71,6 +73,7 @@ private:
    bool isConnectionEditorStarter() const;
    bool isPasswordCallback() const;
 
+   const APPLICATIONMODE m_Mode;
    QProcess* const m_pProcess;
    LocalPeer* const m_pLocalPeer;
 };
