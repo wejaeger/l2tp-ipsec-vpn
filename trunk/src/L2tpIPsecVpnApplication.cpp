@@ -41,7 +41,7 @@ static QString const GKSUDO_CMD("gksudo -D \"" + APPLICATIONNAME + "\" ");
 static QString const CONNECTION_ADDED_MSG_PREFIX("connectionAdded:");
 static QString const CONNECTION_REMOVED_MSG_PREFIX("connectionRemoved:");
 
-L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv) : QApplication(iArgc, ppArgv, !isPasswordCallback()), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
+L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode) : QApplication(iArgc, ppArgv, appMode != PASSWORD_CALLBACK), m_Mode(appMode), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
@@ -71,7 +71,7 @@ bool L2tpIPsecVpnApplication::isRunning()
 
 L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::mode() const
 {
-   return(isConnectionEditor() ? CONNECTION_EDITOR : (isConnectionEditorStarter() ? CONNECTION_EDITORSTARTER :  (isPasswordCallback() ? PASSWORD_CALLBACK : CONNECTION_MANAGER)));
+   return(m_Mode);
 }
 
 bool L2tpIPsecVpnApplication::sendConnectionAddedMessage(const QString& strConnectionName)
@@ -114,15 +114,45 @@ void L2tpIPsecVpnApplication::onConnectionEditorDialogClosed(int iExitCode)
 
 bool L2tpIPsecVpnApplication::isConnectionEditor() const
 {
-   return(arguments().count() >= 2 && arguments()[1] == CONNECTIONEDITOR_CMD_SWITCH);
+   return(m_Mode == CONNECTION_EDITOR);
 }
 
 bool L2tpIPsecVpnApplication::isConnectionEditorStarter() const
 {
-   return(arguments().count() >= 2 && arguments()[1] == START_CONNECTIONEDITOR_CMD_SWITCH);
+   return(m_Mode == CONNECTION_EDITORSTARTER);
 }
 
 bool L2tpIPsecVpnApplication::isPasswordCallback() const
 {
-   return(arguments().count() == 4 && arguments()[1] != CONNECTIONEDITOR_CMD_SWITCH);
+   return(m_Mode == PASSWORD_CALLBACK);
+}
+
+L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(int& iArgc, char* pcArgv[])
+{
+   APPLICATIONMODE retMode(CONNECTION_MANAGER);
+
+   int iQtArgs(0);
+   bool fDone(false);
+   for (int i(1); !fDone && i < iArgc; i++)
+   {
+      if (::strcmp(pcArgv[i], CONNECTIONEDITOR_CMD_SWITCH) == 0)
+      {
+         retMode = CONNECTION_EDITOR;
+         fDone = true;
+      }
+      else if (::strcmp(pcArgv[i], START_CONNECTIONEDITOR_CMD_SWITCH) == 0)
+      {
+         retMode = CONNECTION_EDITORSTARTER;
+         fDone = true;
+      }
+      else if (i + 1 < iArgc && DESKTOP_SESSION_CMD_SWITCH == pcArgv[i])
+         ::setenv(DESKTOP_SESSION, pcArgv[i + 1], 0);
+      else if (pcArgv[i][0] == '-')
+         iQtArgs++;
+   }
+
+   if ((iArgc - iQtArgs) == 4 && retMode != CONNECTION_EDITOR && retMode != CONNECTION_EDITORSTARTER)
+      retMode = PASSWORD_CALLBACK;
+
+   return(retMode);
 }
