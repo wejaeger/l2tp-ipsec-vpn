@@ -9,6 +9,9 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
       imported from a PKCS#12 certificate bundle
     - Debian package installer: start / restart applet after installation or 
       upgrade
+    - Spitted context menu. Now connection specific action are in a separate
+      connection menu which is activated by a left click on the system tray
+      icon
     - fixed bug dial-up to network interfaces (PPPn) are not automatically
       detected (LP: #741430)
     - fixed bug disconnection of physical network interface not detected if
