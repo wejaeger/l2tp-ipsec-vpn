@@ -22,14 +22,14 @@ case "$1" in
     configure)
 
     # re-apply settings just in case the new version has changed some things
-    L2tpIPsecVpn connectionEditor applySettings || true
+    L2tpIPsecVpn applySettings || true
 
     # if applet is running try to close and restart it
     PIDS=$(pidof L2tpIPsecVpn || true)
-    if [ -n "$PIDS" ]; then 
+    if [ -n "$PIDS" ]; then
        kill $PIDS || true
     fi
-    if [ -n "$SUDO_USER" ]; then 
+    if [ -n "$SUDO_USER" ]; then
        gksu -w -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
     fi
     ;;

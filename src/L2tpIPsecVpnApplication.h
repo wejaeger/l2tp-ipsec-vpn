@@ -40,7 +40,8 @@ public:
    {
       CONNECTION_MANAGER,
       CONNECTION_EDITOR,
-      CONNECTION_EDITORSTARTER,
+      CONNECTION_EDITOR_STARTER,
+      APPLYSETTINGS,
       PASSWORD_CALLBACK
    };
 
@@ -68,10 +69,6 @@ private slots:
 private:
    L2tpIPsecVpnApplication(const L2tpIPsecVpnApplication& orig);
    L2tpIPsecVpnApplication & operator=(const L2tpIPsecVpnApplication& orig);
-
-   bool isConnectionEditor() const;
-   bool isConnectionEditorStarter() const;
-   bool isPasswordCallback() const;
 
    const APPLICATIONMODE m_Mode;
    QProcess* const m_pProcess;

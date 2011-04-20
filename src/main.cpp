@@ -48,13 +48,15 @@ int main(int iArgc, char* pcArgv[])
    qInstallMsgHandler(messageOutput);
 
    const L2tpIPsecVpnApplication::APPLICATIONMODE mode(L2tpIPsecVpnApplication::parseCmdLine(iArgc, pcArgv));
-   checkDesktop();
+
+   if (mode != L2tpIPsecVpnApplication::PASSWORD_CALLBACK && mode != L2tpIPsecVpnApplication::APPLYSETTINGS)
+      checkDesktop();
 
    L2tpIPsecVpnApplication app(iArgc, pcArgv, mode);
 
    int iRet(0);
 
-   if (app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITOR || app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITORSTARTER || app.mode() == L2tpIPsecVpnApplication::PASSWORD_CALLBACK || !app.isRunning())
+   if (app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITOR || app.mode() == L2tpIPsecVpnApplication::CONNECTION_EDITOR_STARTER || app.mode() == L2tpIPsecVpnApplication::APPLYSETTINGS || app.mode() == L2tpIPsecVpnApplication::PASSWORD_CALLBACK || !app.isRunning())
    {
       Q_INIT_RESOURCE(L2tpIPsecVpn);
 
@@ -76,6 +78,7 @@ int main(int iArgc, char* pcArgv[])
             }
             break;
 
+            case L2tpIPsecVpnApplication::APPLYSETTINGS:
             case L2tpIPsecVpnApplication::CONNECTION_EDITOR:
             {
                ConnectionEditor connectionEditor(app);
@@ -90,7 +93,7 @@ int main(int iArgc, char* pcArgv[])
             }
             break;
 
-            case L2tpIPsecVpnApplication::CONNECTION_EDITORSTARTER:
+            case L2tpIPsecVpnApplication::CONNECTION_EDITOR_STARTER:
                iRet = app.startConnectionEditorDialog(true);
                break;
 
