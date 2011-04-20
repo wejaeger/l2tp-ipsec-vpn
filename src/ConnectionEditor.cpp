@@ -31,8 +31,11 @@
 
 ConnectionEditor::ConnectionEditor(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_Application(application), m_pConnectionEditorDialog(application.mode() == L2tpIPsecVpnApplication::APPLYSETTINGS ? NULL : new ConnectionEditorDialog)
 {
-   connect(m_pConnectionEditorDialog, SIGNAL(connectionAdded(const QString&)), this, SLOT(onConnectionAdded(const QString&)));
-   connect(m_pConnectionEditorDialog, SIGNAL(connectionRemoved(const QString&)), this, SLOT(onConnectionRemoved(const QString&)));
+   if (m_pConnectionEditorDialog)
+   {
+      connect(m_pConnectionEditorDialog, SIGNAL(connectionAdded(const QString&)), this, SLOT(onConnectionAdded(const QString&)));
+      connect(m_pConnectionEditorDialog, SIGNAL(connectionRemoved(const QString&)), this, SLOT(onConnectionRemoved(const QString&)));
+   }
 }
 
 ConnectionEditor::~ConnectionEditor()
