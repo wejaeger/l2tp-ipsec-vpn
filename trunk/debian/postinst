@@ -31,6 +31,8 @@ case "$1" in
     fi
     if [ -n "$SUDO_USER" ]; then
        gksu -w -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
+    elif [ -n "$USERNAME" -a "$USERNAME" != "root" ]; then
+        gksu -w -u $USERNAME nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
     fi
     ;;
 
