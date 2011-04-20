@@ -35,13 +35,14 @@
 static const char* const DESKTOP_SESSION("DESKTOP_SESSION");
 static const char* const CONNECTIONEDITOR_CMD_SWITCH("connectionEditor");
 static const char* const START_CONNECTIONEDITOR_CMD_SWITCH("startConnectionEditor");
+static const char* const APPLYSETTINGS_CMD_SWITCH("applySettings");
 static QString const DESKTOP_SESSION_CMD_SWITCH("desktopSession");
 static QString const APPLICATIONNAME("L2TP IPsec VPN Manager");
 static QString const GKSUDO_CMD("gksudo -D \"" + APPLICATIONNAME + "\" ");
 static QString const CONNECTION_ADDED_MSG_PREFIX("connectionAdded:");
 static QString const CONNECTION_REMOVED_MSG_PREFIX("connectionRemoved:");
 
-L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode) : QApplication(iArgc, ppArgv, appMode != PASSWORD_CALLBACK), m_Mode(appMode), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
+L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode) : QApplication(iArgc, ppArgv, appMode != PASSWORD_CALLBACK && appMode != APPLYSETTINGS), m_Mode(appMode), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
@@ -112,21 +113,6 @@ void L2tpIPsecVpnApplication::onConnectionEditorDialogClosed(int iExitCode)
    emit connectionEditorDialogClosed(iExitCode);
 }
 
-bool L2tpIPsecVpnApplication::isConnectionEditor() const
-{
-   return(m_Mode == CONNECTION_EDITOR);
-}
-
-bool L2tpIPsecVpnApplication::isConnectionEditorStarter() const
-{
-   return(m_Mode == CONNECTION_EDITORSTARTER);
-}
-
-bool L2tpIPsecVpnApplication::isPasswordCallback() const
-{
-   return(m_Mode == PASSWORD_CALLBACK);
-}
-
 L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(int& iArgc, char* pcArgv[])
 {
    APPLICATIONMODE retMode(CONNECTION_MANAGER);
@@ -142,7 +128,12 @@ L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(i
       }
       else if (::strcmp(pcArgv[i], START_CONNECTIONEDITOR_CMD_SWITCH) == 0)
       {
-         retMode = CONNECTION_EDITORSTARTER;
+         retMode = CONNECTION_EDITOR_STARTER;
+         fDone = true;
+      }
+      else if (::strcmp(pcArgv[i], APPLYSETTINGS_CMD_SWITCH) == 0)
+      {
+         retMode = APPLYSETTINGS;
          fDone = true;
       }
       else if (i + 1 < iArgc && DESKTOP_SESSION_CMD_SWITCH == pcArgv[i])
@@ -151,7 +142,7 @@ L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(i
          iQtArgs++;
    }
 
-   if ((iArgc - iQtArgs) == 4 && retMode != CONNECTION_EDITOR && retMode != CONNECTION_EDITORSTARTER)
+   if ((iArgc - iQtArgs) == 4 && retMode == CONNECTION_MANAGER)
       retMode = PASSWORD_CALLBACK;
 
    return(retMode);

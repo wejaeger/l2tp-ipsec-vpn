@@ -74,7 +74,7 @@ void ConnectionEditorDialog::accept()
 {
    if (m_pConnectionSettings->hasChanged())
    {
-      applySettings();
+      applySettings(m_pConnectionsModel, m_pConnectionSettings, windowTitle(), m_Widget.m_pConnections);
       m_pConnectionSettings->clearChanged();
    }
 
@@ -85,26 +85,26 @@ void ConnectionEditorDialog::reject()
 {
    if (m_pConnectionSettings->hasChanged())
    {
-      applySettings();
+      applySettings(m_pConnectionsModel, m_pConnectionSettings, windowTitle(), m_Widget.m_pConnections);
       m_pConnectionSettings->clearChanged();
    }
 
    QDialog::reject();
 }
 
-bool ConnectionEditorDialog::applySettings(bool fInteractive) const
+bool ConnectionEditorDialog::applySettings(ConnectionsModel* pConnectionsModel, ConnectionSettings* pConnectionSettings, const QString strMsgBoxTitle, QWidget* pFocus)
 {
    const OpenSSLSettings openSSLSettings(Preferences().openSSLSettings());
-   const int iConnections(m_pConnectionSettings->connections());
+   const int iConnections(pConnectionSettings->connections());
 
    bool fRet(true);
 
    if (iConnections > 0)
    {
-      if (m_pConnectionsModel->isWriteable())
+      if (pConnectionsModel->isWriteable())
       {
-         if (fInteractive)
-            QMessageBox::information(NULL, windowTitle(), tr("You need to reconnect for your changes to take effect!"));
+         if (pFocus)
+            QMessageBox::information(NULL, strMsgBoxTitle, tr("You need to reconnect for your changes to take effect!"));
 
          fRet = ConfWriter::write(ConfWriter::IPsec);
          if (fRet) fRet = ConfWriter::write(ConfWriter::IPsecSECRET);
@@ -112,14 +112,14 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
 
          for (int i = 0; fRet && i < iConnections; i++)
          {
-            const QString strConnectionName(m_pConnectionSettings->connection(i));
+            const QString strConnectionName(pConnectionSettings->connection(i));
 
             fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
             if (fRet)
             {
                const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
                const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
-               const PppIpSettings ipSettings(m_pConnectionSettings->pppSettings(strConnectionName).ipSettings());
+               const PppIpSettings ipSettings(pConnectionSettings->pppSettings(strConnectionName).ipSettings());
 
                if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))
                {
@@ -147,12 +147,17 @@ bool ConnectionEditorDialog::applySettings(bool fInteractive) const
                fRet = ConfWriter::write(ConfWriter::OPENSSL);
          }
       }
-      else if (fInteractive)
-         QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
+      else
+      {
+         if (pFocus)
+            QMessageBox::critical(NULL, tr("Apply settings"), tr("You do not have the permission to apply settings"));
+
+         fRet = false;
+      }
    }
 
-   if (fInteractive)
-      m_Widget.m_pConnections->setFocus();
+   if (pFocus)
+      pFocus->setFocus();
 
     return(fRet);
 }

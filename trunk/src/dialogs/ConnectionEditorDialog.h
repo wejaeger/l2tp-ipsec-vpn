@@ -38,7 +38,7 @@ public:
    explicit ConnectionEditorDialog(QWidget* pParent = 0);
    virtual ~ConnectionEditorDialog();
 
-   bool applySettings(bool fInteractive = true) const;
+   static bool applySettings(ConnectionsModel* pConnectionsModel, ConnectionSettings* pConnectionSettings, const QString strMsgBoxTitle = QString::null, QWidget* pFocus = NULL);
 
 signals:
    void connectionAdded(const QString& strName);
