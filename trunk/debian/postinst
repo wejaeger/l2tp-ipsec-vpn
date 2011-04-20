@@ -27,12 +27,15 @@ case "$1" in
     # if applet is running try to close and restart it
     PIDS=$(pidof L2tpIPsecVpn || true)
     if [ -n "$PIDS" ]; then
+       echo "Trying to stop L2tpIPsecVpn applet" >&2
        kill $PIDS || true
     fi
     if [ -n "$SUDO_USER" ]; then
+       echo "Trying to restart L2tpIPsecVpn applet for user '$SUDO_USER'" >&2
        gksu -w -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
     elif [ -n "$USERNAME" -a "$USERNAME" != "root" ]; then
-        gksu -w -u $USERNAME nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
+       echo "Trying to restart L2tpIPsecVpn applet for user '$USERNAME'" >&2
+       gksu -w -u $USERNAME nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
     fi
     ;;
 
