@@ -29,7 +29,9 @@ case "$1" in
     if [ -n "$PIDS" ]; then 
        kill $PIDS || true
     fi
-    gksu -w -l -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
+    if [ -n "$SUDO_USER" ]; then 
+       gksu -w -u $SUDO_USER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
+    fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
