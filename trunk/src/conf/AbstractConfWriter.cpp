@@ -25,6 +25,7 @@
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
 #include <QTextStream>
 #include <QCoreApplication>
 #include "AbstractConfWriter.h"
@@ -101,38 +102,51 @@ void AbstractConfWriter::save()
    //   ctemplate::ExpandTemplate(key().toAscii().constData(), ctemplate::DO_NOT_STRIP, dictionary(), &strOut);
 
          QFile outFile(fileName());
+         QDir outFileDir(QFileInfo(outFile).absoluteDir());
 
          bool fOk = true;
-//         if (outFile.exists())
-//            fOk = outFile.copy(fileName() + "." + QDateTime::currentDateTime().toString("yyyyMMddhhmmss").toAscii().constData() + ".~");
+         if (!outFileDir.exists())
+         {
+            const QString strDirName(outFileDir.dirName());
+            outFileDir.cdUp();
+            fOk = outFileDir.mkpath(strDirName);
+         }
 
          if (fOk)
          {
-            if (outFile.open(QIODevice::WriteOnly | QIODevice::Text))
+//            if (outFile.exists())
+//               fOk = outFile.copy(fileName() + "." + QDateTime::currentDateTime().toString("yyyyMMddhhmmss").toAscii().constData() + ".~");
+
+            if (fOk)
             {
-               switch (m_Type)
+               if (outFile.open(QIODevice::WriteOnly | QIODevice::Text))
                {
-                  case EXECUTABLE:
-                     outFile.setPermissions(outFile.permissions() | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
-                     break;
+                  switch (m_Type)
+                  {
+                     case EXECUTABLE:
+                        outFile.setPermissions(outFile.permissions() | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
+                        break;
 
-                  case SECRET:
-                     outFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner);
-                     break;
+                     case SECRET:
+                        outFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner);
+                        break;
 
-                  default:
-                     ;
+                     default:
+                        ;
+                  }
+
+                  QTextStream out(&outFile);
+                  out << strOut.data();
+                  outFile.close();
                }
-
-               QTextStream out(&outFile);
-               out << strOut.data();
-               outFile.close();
+               else
+                  addErrorMsg(QObject::tr("Failed to open configuration file '%1'.").arg(outFile.fileName()));
             }
             else
-               addErrorMsg(QObject::tr("Failed to open configuration file '%1'.").arg(outFile.fileName()));
+               addErrorMsg(QObject::tr("Failed to backup file '%1'.").arg(outFile.fileName()));
          }
          else
-            addErrorMsg(QObject::tr("Failed to backup file '%1'.").arg(outFile.fileName()));
+            addErrorMsg(QObject::tr("Failed to create directory '%1'.").arg(outFileDir.absolutePath()));
       }
       else
          addErrorMsg(QObject::tr("Failed to expand template '%1'.").arg(templateKey()));

@@ -505,7 +505,7 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
          else
             fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
 
-         if (m_pState && m_pState->isState(ConnectionState::NotConnected) && fHasDefaultGateway)
+         if (m_pState && (m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error)) && fHasDefaultGateway)
          {
 //               qDebug() << "ConnectionManager::onRouteAdded: found default gateway";
 
@@ -577,6 +577,8 @@ void ConnectionManager::onPtpInterfaceIsGoingDown(NetworkInterface interface)
       if (!strConnectionName.isNull())
          disConnected();
    }
+   if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isIPsecPysicalGateway())
+      vpnDisconnect();
 
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsGoingDown(" << interface.name().c_str() << ") -> finished";
 }
