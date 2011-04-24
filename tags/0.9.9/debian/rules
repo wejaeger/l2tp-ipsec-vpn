@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+%: nbproject/qt-Release.mk
+	dh $@
+
+override_dh_auto_install:
+	# Install the package into debian/l2tp-ipsec-vpn
+	make -f nbproject/qt-Release.mk INSTALL_ROOT=$(CURDIR)/debian/l2tp-ipsec-vpn install
+
+override_dh_auto_build:
+	# Compile the package.
+	make -f nbproject/qt-Release.mk dist/Release/GNU-Linux-x86/L2tpIPsecVpn
+
+override_dh_auto_clean:
+	# Clean up after the build process.
+	make -f nbproject/qt-Release.mk distclean
+	rm -f nbproject/qt-Release.mk
+
+override_dh_auto_test:
+
+override_dh_installchangelogs:
+	dh_installchangelogs changelog
+
+nbproject/qt-Release.mk:
+	qmake-qt4 -o qttmp-Release.mk nbproject/qt-Release.pro
+	mv -f qttmp-Release.mk nbproject/qt-Release.mk
+

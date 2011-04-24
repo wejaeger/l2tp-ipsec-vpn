@@ -1,0 +1,17 @@
+
+nbproject/qt-EncSecretsTests.mk: tests/EncSecretsTests.pro FORCE
+	${QMAKE} VPATH=. -o qttmp-EncSecretsTests.mk tests/EncSecretsTests.pro
+	mv -f qttmp-EncSecretsTests.mk nbproject/qt-EncSecretsTests.mk
+
+nbproject/qt-LibtoolTests.mk: tests/EncSecretsTests.pro FORCE
+	${QMAKE} VPATH=. -o qttmp-LibtoolTests.mk tests/LibtoolTests.pro
+	mv -f qttmp-LibtoolTests.mk nbproject/qt-LibtoolTests.mk
+
+nbproject/qt-Pkcs12Tests.mk: tests/Pkcs12Tests.pro FORCE
+	${QMAKE} VPATH=. -o qttmp-Pkcs12Tests.mk tests/Pkcs12Tests.pro
+	mv -f qttmp-Pkcs12Tests.mk nbproject/qt-Pkcs12Tests.mk
+
+.build-tests-conf: nbproject/qt-EncSecretsTests.mk nbproject/qt-LibtoolTests.mk nbproject/qt-Pkcs12Tests.mk
+	"${MAKE}" -f nbproject/qt-EncSecretsTests.mk build/Debug/GNU-Linux-x86/tests/TestFiles/f1
+	"${MAKE}" -f nbproject/qt-LibtoolTests.mk build/Debug/GNU-Linux-x86/tests/TestFiles/f2
+	"${MAKE}" -f nbproject/qt-Pkcs12Tests.mk build/Debug/GNU-Linux-x86/tests/TestFiles/f3
