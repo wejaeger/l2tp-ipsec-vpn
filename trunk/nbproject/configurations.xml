@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="69">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>src/conf/AbstractConfWriter.h</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.h</itemPath>
       <itemPath>src/dialogs/CertificateImportDialog.h</itemPath>
@@ -63,14 +62,12 @@
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>resources/L2tpIPsecVpn.qrc</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>src/conf/AbstractConfWriter.cpp</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.cpp</itemPath>
       <itemPath>src/dialogs/AdvancedSettingsDialog.ui</itemPath>
@@ -174,9 +171,8 @@
   <confs>
     <conf name="Debug" type="4">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <qt>
         <target>L2tpIPsecVpn</target>
@@ -254,9 +250,8 @@
     </conf>
     <conf name="Release" type="4">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <qt>
         <target>L2tpIPsecVpn</target>

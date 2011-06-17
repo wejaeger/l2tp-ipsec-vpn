@@ -1,3 +1,8 @@
+1.0.0
+ - fixed bug when connecting ipsec auto --up is occasionally started before 
+   pluto is running or has added the connection (LP: #781498)
+ - fixed bug ipsec setup start failed (LP: #793542)
+
 0.9.9
  - added help button to all dialogs
  - added a tab to the ConnectionInformation dialog to show various connection information and
@@ -25,7 +30,7 @@
    one wants to use PPP EAP-TLS authentication
  - No longer depends on OpenSC, any PKCS11 library can be used and is dynamically loaded
  - Increased retry attempts to detect a system tray from 10 to 30
- - Ise QT's QSslCertificate class instead of OpenSSL library calls
+ - Use QT's QSslCertificate class instead of OpenSSL library calls
  - Show also certificate serial number in tool tips of certificate selection dialogs
  - Added preferences button in connection editor dialog
  - Removed apply button  in connection editor dialog

@@ -23,6 +23,7 @@ case "$1" in
 
     # re-apply settings just in case the new version has changed some things
     L2tpIPsecVpn applySettings || true
+    service rsyslog restart || true
 
     # if applet is running try to close and restart it
     PIDS=$(pidof L2tpIPsecVpn || true)

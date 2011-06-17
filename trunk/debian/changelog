@@ -1,3 +1,11 @@
+l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~natty1) natty; urgency=low
+  * New upstream release
+    - fixed bug when connecting ipsec auto --up is occasionally started before 
+      pluto is running or has added the connection (LP: #781498)
+    - fixed bug ipsec setup start failed (LP: #793542)
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 17 Jun 2011 12:32:31 +0200
+
 l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
 
   * New upstream release

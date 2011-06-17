@@ -83,6 +83,7 @@ private:
    QString m_strConnectionName;
    Action m_Action;
    volatile int m_iReturnCode;
+   volatile bool m_fIPSecConnectionAdded;
    volatile bool m_fIPSecConnectionIsUp;
    QByteArray* const m_pByteArray;
    QTextStream* const m_pErrorStream;
