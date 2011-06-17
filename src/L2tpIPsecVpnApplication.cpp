@@ -97,7 +97,7 @@ int L2tpIPsecVpnApplication::startConnectionEditorDialog(bool fDetached) const
    else
       m_pProcess->start(strProgram);
 
-   return(0);
+   return(iRet);
 }
 
 void L2tpIPsecVpnApplication::onMessageReceived(const QString& strMessage)

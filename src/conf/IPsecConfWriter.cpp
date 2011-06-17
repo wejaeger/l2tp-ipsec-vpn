@@ -29,7 +29,7 @@
 #include "IPsecConfWriter.h"
 
 static const char* const RSASIG = "rsasig";
-static const char* const LEFTCERTLINE = "leftcert=%s";
+static const char* const LEFTCERTLINE = "leftcert=\"%s\"";
 
 static const char* const CONN_SECTION = "CONN_SECTION";
 static const char* const NAME = "NAME";
