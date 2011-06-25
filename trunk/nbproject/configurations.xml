@@ -277,6 +277,9 @@
           <Elem>preferencesmenu.path = /usr/share/applications</Elem>
           <Elem>preferencesmenu.files = resources/L2TP-Ipsec-VPN-Manager.desktop</Elem>
           <Elem>INSTALLS += preferencesmenu</Elem>
+          <Elem>networkmenu.path=/usr/share/applications</Elem>
+          <Elem>networkmenu.files = resources/L2tpIPsecVpn-Applet.desktop</Elem>
+          <Elem>INSTALLS += networkmenu</Elem>
         </defs>
       </qt>
       <compileType>
@@ -338,7 +341,7 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-          </incDir>
+         </incDir>
         </cTool>
         <ccTool>
           <incDir>
