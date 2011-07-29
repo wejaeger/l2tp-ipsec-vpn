@@ -1,4 +1,4 @@
-l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~natty1) natty; urgency=low
+l2tp-ipsec-vpn (1.0.0-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
     - fixed bug when connecting ipsec auto --up is occasionally started before 
       pluto is running or has added the connection (LP: #781498)
@@ -13,7 +13,7 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~natty1) natty; urgency=low
       * used user owning the old PID to restart applet in postinst file
       * removed postrm file
 
- -- Werner Jaeger <werner_jaeger@web.de>  Sat, 25 Jun 2011 09:40:22 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 29 Jul 2011 07:07:22 +0200
 
 l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
 
