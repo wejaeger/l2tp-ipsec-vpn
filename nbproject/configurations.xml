@@ -59,6 +59,7 @@
       <itemPath>src/pkcs11/SmartCardState.h</itemPath>
       <itemPath>src/VPNControlTask.h</itemPath>
       <itemPath>src/util/VpnControlDaemonClient.h</itemPath>
+      <itemPath>src/pkcs11/pkcs11.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -176,7 +177,6 @@
       </toolsSet>
       <qt>
         <target>L2tpIPsecVpn</target>
-        <version>1.0.0</version>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
         <rccDir>src/generated</rccDir>
@@ -255,7 +255,6 @@
       </toolsSet>
       <qt>
         <target>L2tpIPsecVpn</target>
-        <version>1.0.0</version>
         <buildMode>1</buildMode>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
@@ -341,7 +340,7 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-         </incDir>
+          </incDir>
         </cTool>
         <ccTool>
           <incDir>
