@@ -23,7 +23,11 @@ case "$1" in
 
     # re-apply settings just in case the new version has changed some things
     L2tpIPsecVpn applySettings || true
-    service rsyslog restart || true
+
+    # restart syslog daemon just in case the new version has changed the 
+    # Rsyslogd  configuration file (potentially  written out with the command 
+    # 'L2tpIPsecVpn applySettings' above)
+    /etc/init.d/rsyslog restart || true
 
     # if applet is running try to close and restart it
     PIDS=$(pidof L2tpIPsecVpn || true)
@@ -33,7 +37,7 @@ case "$1" in
        kill $PIDS || true
        if [ -n "$RUSER" ]; then
           echo "Trying to restart L2tpIPsecVpn applet for user '$RUSER'" >&2
-          gksu -w -u $RUSER nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null || true &
+          su -c "nohup L2tpIPsecVpn > /dev/null 2>&1 < /dev/null" $RUSER || true &
        fi
     fi
     ;;
