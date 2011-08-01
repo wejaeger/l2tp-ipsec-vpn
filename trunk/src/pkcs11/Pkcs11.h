@@ -26,9 +26,9 @@
 #define	QPKCS11_H
 
 #include <QString>
-#include <opensc/pkcs11.h>
 #include <ltdl.h>
 #include "util/GlobalFunctions.h"
+#include "pkcs11.h"
 #include "Pkcs11Attribute.h"
 
 class Pkcs11

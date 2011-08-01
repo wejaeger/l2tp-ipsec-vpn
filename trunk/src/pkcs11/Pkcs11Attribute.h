@@ -28,7 +28,8 @@
 #include <QString>
 #include <stdlib.h>
 #include <openssl/bn.h>
-#include <opensc/pkcs11.h>
+
+#include "pkcs11.h"
 
 class Pkcs11Attlist;
 
