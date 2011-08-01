@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 7.0.50),
                libctemplate-dev (>=0.96),
                libltdl-dev (>= 2.2.6),
                libqt4-dev (>= 4.6.2),
+               libssl-dev (>=0.9.8),
                qt4-qmake (>= 4.6.2)
 Standards-Version: 3.9.2
 Vcs-bzr: lp:l2tp-ipsec-vpn
@@ -24,3 +25,6 @@ Recommends: libengine-pkcs11-openssl (>=0.1.8-2), ppp-2.4.5-eaptls-mppe (>=0.98)
 Description: control your L2TP IPsec VPN connections
  This GUI provides a system tray icon in the notification area from which a non
  privileged user can establish and bring down L2TP over IPsec VPN connections.
+ .
+ There is also a configuration editor that allows configuring various options
+ for IPsec, L2TP and PPP.

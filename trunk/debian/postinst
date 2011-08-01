@@ -27,7 +27,7 @@ case "$1" in
     # restart syslog daemon just in case the new version has changed the 
     # Rsyslogd  configuration file (potentially  written out with the command 
     # 'L2tpIPsecVpn applySettings' above)
-    /etc/init.d/rsyslog restart || true
+    invoke-rc.d rsyslog restart || true
 
     # if applet is running try to close and restart it
     PIDS=$(pidof L2tpIPsecVpn || true)
