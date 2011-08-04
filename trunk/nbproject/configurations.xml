@@ -176,6 +176,7 @@
         <compilerSet>GNU|GNU</compilerSet>
       </toolsSet>
       <qt>
+        <destdir>${CND_DISTDIR}/${CND_CONF}</destdir>
         <target>L2tpIPsecVpn</target>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
@@ -196,6 +197,18 @@
           </incDir>
         </ccTool>
       </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/package/l2tp-ipsec-vpn-1.0.0.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -254,6 +267,7 @@
         <compilerSet>GNU|GNU</compilerSet>
       </toolsSet>
       <qt>
+        <destdir>${CND_DISTDIR}/${CND_CONF}</destdir>
         <target>L2tpIPsecVpn</target>
         <buildMode>1</buildMode>
         <modules>core gui network</modules>
@@ -300,6 +314,18 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/package/l2tp-ipsec-vpn-1.0.0.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>

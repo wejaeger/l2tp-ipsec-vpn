@@ -22,12 +22,10 @@
 #
 # Build Unit Tests for Libtool class
 #
-OBJECTS_DIR = build/Debug/GNU-Linux-x86/tests/TestFiles
-DESTDIR = build/Debug/GNU-Linux-x86/tests/TestFiles
 TARGET = f3
 CONFIG += debug
 QT = core network
 INCLUDEPATH=../src
 SOURCES += tests/src/TestRunner.cpp tests/src/util/Pkcs12Tests.cpp
-OBJECTS += build/Debug/GNU-Linux-x86/Pkcs12.o build/Debug/GNU-Linux-x86/CertificateInfo.o
+OBJECTS += $$BUILDDIR/Pkcs12.o $$BUILDDIR/CertificateInfo.o
 LIBS += -lcppunit -lcrypto
