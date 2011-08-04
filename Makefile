@@ -1,133 +1,105 @@
 #
-#  There exist several targets which are by default empty and which can be 
-#  used for execution of your targets. These targets are usually executed 
-#  before and after some main targets. They are: 
+# $Id$
 #
-#     .build-pre:              called before 'build' target
-#     .build-post:             called after 'build' target
-#     .clean-pre:              called before 'clean' target
-#     .clean-post:             called after 'clean' target
-#     .clobber-pre:            called before 'clobber' target
-#     .clobber-post:           called after 'clobber' target
-#     .all-pre:                called before 'all' target
-#     .all-post:               called after 'all' target
-#     .help-pre:               called before 'help' target
-#     .help-post:              called after 'help' target
+# File:   Makefile
+# Author: Werner Jaeger
 #
-#  Targets beginning with '.' are not intended to be called on their own.
+# Created on August 4, 2011, 3:17 PM
 #
-#  Main targets can be executed directly, and they are:
-#  
-#     build                    build a specific configuration
-#     clean                    remove built files from a configuration
-#     clobber                  remove all built files
-#     all                      build all configurations
-#     help                     print help mesage
-#  
-#  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
-#  .help-impl are implemented in nbproject/makefile-impl.mk.
+# Copyright 2011 Werner Jaeger.
 #
-#  Available make variables:
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#     CND_BASEDIR                base directory for relative paths
-#     CND_DISTDIR                default top distribution directory (build artifacts)
-#     CND_BUILDDIR               default top build directory (object files, ...)
-#     CONF                       name of current configuration
-#     CND_PLATFORM_${CONF}       platform name (current configuration)
-#     CND_ARTIFACT_DIR_${CONF}   directory of build artifact (current configuration)
-#     CND_ARTIFACT_NAME_${CONF}  name of build artifact (current configuration)
-#     CND_ARTIFACT_PATH_${CONF}  path to build artifact (current configuration)
-#     CND_PACKAGE_DIR_${CONF}    directory of package (current configuration)
-#     CND_PACKAGE_NAME_${CONF}   name of package (current configuration)
-#     CND_PACKAGE_PATH_${CONF}   path to package (current configuration)
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-# NOCDDL
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
+QMAKE = qmake-qt4
 
-# Environment 
-MKDIR=mkdir
-CP=cp
-CCADMIN=CCadmin
-QMAKE=qmake-qt4
+# default configuration is release
+CONF ?= Release
 
+# various directories
+BUILDDIR = build/${CONF}
+TESTDIR = build/TestFiles
 
 # build
-build: .build-post
+build: nbproject/qt-${CONF}.mk
+	make -f nbproject/qt-${CONF}.mk dist/${CONF}/L2tpIPsecVpn
 
-.build-pre:
-#	@if [ "${CONF}" = "Debug" -a -f ${CND_ARTIFACT_DIR_${CONF}}/${CND_ARTIFACT_NAME_${CONF}} ]; then \
-#	   sudo chown ${USER}:${USER} ${CND_ARTIFACT_DIR_${CONF}}/${CND_ARTIFACT_NAME_${CONF}}; \
-#	fi
-
-.build-post: .build-impl
-#	@if [ "${CONF}" = "Debug" -a -f ${CND_ARTIFACT_DIR_${CONF}}/${CND_ARTIFACT_NAME_${CONF}} ]; then \
-#	   sudo chown root:root ${CND_ARTIFACT_DIR_${CONF}}/${CND_ARTIFACT_NAME_${CONF}}; \
-# 	   sudo chmod ug+s  ${CND_ARTIFACT_DIR_${CONF}}/${CND_ARTIFACT_NAME_${CONF}}; \
-#	fi
-
+# install
+install: nbproject/qt-${CONF}.mk
+	make -f nbproject/qt-${CONF}.mk install
 
 # clean
-clean: .clean-post
-
-.clean-pre:
-# Add your pre 'clean' code here...
-
-.clean-post: .clean-impl
-# Add your post 'clean' code here...
-
-
-# clobber
-clobber: .clobber-post
-
-.clobber-pre:
-# Add your pre 'clobber' code here...
-
-.clobber-post: .clobber-impl
-# Add your post 'clobber' code here...
-
-
-# all
-all: .all-post
-
-.all-pre:
-
-.all-post: .all-impl
-# Add your post 'all' code here...
-
-
-# build tests
-build-tests: .build-tests-post
-
-.build-tests-pre:
-	@tail nbproject/Makefile-${CONF}.mk | grep -q "\.build-tests-conf\:" || cat tests/build-tests-conf-template >> nbproject/Makefile-${CONF}.mk;
-
-.build-tests-post: .build-tests-impl
-# Add your post 'build-tests' code here...
-
+clean: nbproject/qt-${CONF}.mk
+	make -f nbproject/qt-${CONF}.mk distclean
+	rm -f nbproject/qt-${CONF}.mk
 
 # run tests
-test: .test-post
-
-.test-pre:
-# Add your pre 'test' code here...
-
-.test-post: .test-impl
-# Add your post 'test' code here...
-
+test: build build-tests
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/f2 || true; \
+	    ${TESTDIR}/f3 || true; \
+	    ${TESTDIR}/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # help
-help: .help-post
+help:
+	@echo "This makefile supports the following configurations:"
+	@echo "    Release, Debug"
+	@echo ""
+	@echo "and the following targets:"
+	@echo "    build  (default target)"
+	@echo "    clean"
+	@echo "    install"
+	@echo "    test"
+	@echo "    help"
+	@echo ""
+	@echo "Makefile Usage:"
+	@echo "    make [CONF=<CONFIGURATION>] build"
+	@echo "    make [CONF=<CONFIGURATION>] clean"
+	@echo "    make [CONF=<CONFIGURATION>] [INSTALL_ROOT=<Base directory to intall in>] install"
+	@echo "    make test"
+	@echo "    make help"
+	@echo ""
+	@echo "Target 'build' will build a specific configuration."
+	@echo "Target 'clean' will clean a specific configuration."
+	@echo "Target 'install' will install a specific configuration of the program."
+	@echo "    in [INSTALL_ROOT]/usr/lib/l2tp-ipsec-vpn-daemon/"
+	@echo "Target 'test' will run the test suit."
+	@echo "Target 'help' prints this message."
+	@echo ""
 
-.help-pre:
-# Add your pre 'help' code here...
+build-tests: nbproject/qt-EncSecretsTests.mk nbproject/qt-LibtoolTests.mk nbproject/qt-Pkcs12Tests.mk
+	make -f nbproject/qt-EncSecretsTests.mk ${TESTDIR}/f1
+	make -f nbproject/qt-LibtoolTests.mk ${TESTDIR}/f2
+	make -f nbproject/qt-Pkcs12Tests.mk ${TESTDIR}/f3
 
-.help-post: .help-impl
-# Add your post 'help' code here...
+nbproject/qt-EncSecretsTests.mk: tests/EncSecretsTests.pro
+	${QMAKE} -o qttmp-EncSecretsTests.mk "BUILDDIR=${BUILDDIR}" "OBJECTS_DIR=${TESTDIR}" "DESTDIR=${TESTDIR}" tests/EncSecretsTests.pro
+	mv -f qttmp-EncSecretsTests.mk nbproject/qt-EncSecretsTests.mk
 
+nbproject/qt-LibtoolTests.mk: tests/EncSecretsTests.pro
+	${QMAKE} -o qttmp-LibtoolTests.mk "BUILDDIR=${BUILDDIR}" "OBJECTS_DIR=${TESTDIR}" "DESTDIR=${TESTDIR}" tests/LibtoolTests.pro
+	mv -f qttmp-LibtoolTests.mk nbproject/qt-LibtoolTests.mk
 
+nbproject/qt-Pkcs12Tests.mk: tests/Pkcs12Tests.pro
+	${QMAKE} -o qttmp-Pkcs12Tests.mk "BUILDDIR=${BUILDDIR}" "OBJECTS_DIR=${TESTDIR}" "DESTDIR=${TESTDIR}" tests/Pkcs12Tests.pro
+	mv -f qttmp-Pkcs12Tests.mk nbproject/qt-Pkcs12Tests.mk
 
-# include project implementation makefile
-include nbproject/Makefile-impl.mk
+nbproject/qt-${CONF}.mk: nbproject/qt-${CONF}.pro
+	${QMAKE} -o qttmp-${CONF}.mk -after "OBJECTS_DIR=${BUILDDIR}" nbproject/qt-${CONF}.pro
+	mv -f qttmp-${CONF}.mk nbproject/qt-${CONF}.mk
 
-# include project make variables
-include nbproject/Makefile-variables.mk

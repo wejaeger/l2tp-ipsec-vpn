@@ -22,12 +22,10 @@
 #
 # Build Unit Tests for Libtool class
 #
-OBJECTS_DIR = build/Debug/GNU-Linux-x86/tests/TestFiles
-DESTDIR = build/Debug/GNU-Linux-x86/tests/TestFiles
 TARGET = f2
 CONFIG += debug
 QT = core gui
 INCLUDEPATH=../src
 SOURCES += tests/src/TestRunner.cpp tests/src/util/LibtoolTests.cpp
-OBJECTS += build/Debug/GNU-Linux-x86/Libtool.o build/Debug/GNU-Linux-x86/GlobalFunctions.o
+OBJECTS += $$BUILDDIR/Libtool.o $$BUILDDIR/GlobalFunctions.o
 LIBS += -lcppunit -lltdl

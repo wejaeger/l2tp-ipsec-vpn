@@ -3,7 +3,9 @@ Section: net
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Build-Depends: debhelper (>= 7.0.50),
+               libcppunit-dev (>= 1.12.1),
                libctemplate-dev (>=0.96),
+               libengine-pkcs11-openssl (>=0.1.8-2),
                libltdl-dev (>= 2.2.6),
                libqt4-dev (>= 4.6.2),
                libssl-dev (>=0.9.8),
@@ -16,7 +18,7 @@ Homepage: https://launchpad.net/l2tp-ipsec-vpn
 Package: l2tp-ipsec-vpn
 Architecture: any
 Depends: gksu (>= 2.0),
-         l2tp-ipsec-vpn-daemon (>= 0.9.3),
+         l2tp-ipsec-vpn-daemon (>= 0.9.5),
          openswan (>=2.6.23),
          xl2tpd (>=1.2.5),
          ${misc:Depends},

@@ -22,12 +22,10 @@
 #
 # Build Unit Tests for EncSecrets class
 #
-OBJECTS_DIR = build/Debug/GNU-Linux-x86/tests/TestFiles
-DESTDIR = build/Debug/GNU-Linux-x86/tests/TestFiles
 TARGET = f1
 CONFIG += debug
 QT = core
 INCLUDEPATH=../src
 SOURCES += tests/src/TestRunner.cpp tests/src/util/EncSecretsTests.cpp
-OBJECTS += build/Debug/GNU-Linux-x86/EncSecrets.o
+OBJECTS += $$BUILDDIR/EncSecrets.o
 LIBS += -lcppunit -lcrypto
