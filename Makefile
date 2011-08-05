@@ -29,6 +29,7 @@ CONF ?= Release
 
 # various directories
 BUILDDIR = build/${CONF}
+DISTDIR = dist/${CONF}
 TESTDIR = build/TestFiles
 
 # build
@@ -40,15 +41,14 @@ install: nbproject/qt-${CONF}.mk
 	make -f nbproject/qt-${CONF}.mk install
 
 # clean
-clean: nbproject/qt-${CONF}.mk nbproject/qt-EncSecretsTests.mk nbproject/qt-LibtoolTests.mk nbproject/qt-Pkcs12Tests.mk
-	make -f nbproject/qt-${CONF}.mk distclean
-	rm -f nbproject/qt-${CONF}.mk
-	make -f nbproject/qt-EncSecretsTests.mk distclean
+clean:
+	rm -rf ${BUILDDIR}/*
+	rm -rf ${DISTDIR}/*
+	rm -rf ${TESTDIR}/*
 	rm -f nbproject/qt-EncSecretsTests.mk
-	make -f nbproject/qt-LibtoolTests.mk distclean
 	rm -f nbproject/qt-LibtoolTests.mk
-	make -f nbproject/qt-Pkcs12Tests.mk distclean
 	rm -f nbproject/qt-Pkcs12Tests.mk
+	rm -f nbproject/qt-${CONF}.mk
 
 # run tests
 test: build build-tests
