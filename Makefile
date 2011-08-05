@@ -29,6 +29,7 @@ CONF ?= Release
 
 # various directories
 BUILDDIR = build/${CONF}
+GENDIR = src/generated
 DISTDIR = dist/${CONF}
 TESTDIR = build/TestFiles
 
@@ -43,6 +44,7 @@ install: nbproject/qt-${CONF}.mk
 # clean
 clean:
 	rm -rf ${BUILDDIR}/*
+	rm -rf ${GENDIR}/*
 	rm -rf ${DISTDIR}/*
 	rm -rf ${TESTDIR}/*
 	rm -f nbproject/qt-EncSecretsTests.mk
