@@ -29,7 +29,6 @@
 #include "util/Pkcs12.h"
 #include "Pkcs12Tests.h"
 
-//static const char* const VALIDPKCS12FILE("/home/wejaeger/Documents/certificates/test/test.p12");
 static const char* const VALIDPKCS12FILE("tests/data/test.p12");
 static const char* const INVALIDPKCS12FILE("tests/data/invalid.p12");
 static const char* const NONEXISTINGPKCS12FILE("tests/data/test2.p12");
