@@ -40,9 +40,15 @@ install: nbproject/qt-${CONF}.mk
 	make -f nbproject/qt-${CONF}.mk install
 
 # clean
-clean: nbproject/qt-${CONF}.mk
+clean: nbproject/qt-${CONF}.mk nbproject/qt-EncSecretsTests.mk nbproject/qt-LibtoolTests.mk nbproject/qt-Pkcs12Tests.mk
 	make -f nbproject/qt-${CONF}.mk distclean
 	rm -f nbproject/qt-${CONF}.mk
+	make -f nbproject/qt-EncSecretsTests.mk distclean
+	rm -f nbproject/qt-EncSecretsTests.mk
+	make -f nbproject/qt-LibtoolTests.mk distclean
+	rm -f nbproject/qt-LibtoolTests.mk
+	make -f nbproject/qt-Pkcs12Tests.mk distclean
+	rm -f nbproject/qt-Pkcs12Tests.mk
 
 # run tests
 test: build build-tests
@@ -78,7 +84,7 @@ help:
 	@echo "Target 'clean' will clean a specific configuration."
 	@echo "Target 'install' will install a specific configuration of the program."
 	@echo "    in [INSTALL_ROOT]/usr/lib/l2tp-ipsec-vpn-daemon/"
-	@echo "Target 'test' will run the test suit."
+	@echo "Target 'test' will run the test suite."
 	@echo "Target 'help' prints this message."
 	@echo ""
 
