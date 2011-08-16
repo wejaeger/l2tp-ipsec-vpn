@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * File:   newtestclass.cpp
+ * File:   Pkcs12Tests.cpp
  * Author: wejaeger
  *
  * Created on Apr 8, 2011, 7:41:51 PM
