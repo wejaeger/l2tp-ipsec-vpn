@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * File:   Libtool.cpp
+ * File:   LibtoolTests.cpp
  * Author: wejaeger
  *
  * Created on Feb 8, 2011, 1:06:28 PM

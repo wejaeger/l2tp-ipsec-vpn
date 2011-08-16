@@ -1,3 +1,16 @@
+l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
+  * New upstream release
+    - Makefile:
+      o clean target did not delete all generated files
+      o added clobber and uninstall target
+
+    - Renamed targets in Qt test project files
+
+  * debian/control: Downgrade libengine-pkcs11-openssl and 
+    ppp-2.4.5-eaptls-mppe dependencies to Suggests
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Mon, 15 Aug 2011 07:35:01 +0200
+
 l2tp-ipsec-vpn (1.0.0-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
     - fixed bug when connecting ipsec auto --up is occasionally started before 
