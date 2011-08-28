@@ -6,10 +6,11 @@ l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
 
     - Renamed targets in Qt test project files
 
-  * debian/control: Downgrade libengine-pkcs11-openssl and 
-    ppp-2.4.5-eaptls-mppe dependencies to Suggests
+  * debian/control: 
+    - Removed ppp-2.4.5-eaptls-mppe suggests dependency
+    - Changed architecture from any to linux-any (Closes: #639434)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Mon, 15 Aug 2011 07:35:01 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Aug, 28 Aug 2011 12:35:41 +0200
 
 l2tp-ipsec-vpn (1.0.0-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release

@@ -4,8 +4,6 @@
    * added clobber and uninstall target
 
  - Renamed targets in Qt test project files
- - Downgrade libengine-pkcs11-openssl and ppp-2.4.5-eaptls-mppe dependencies to 
-   Suggests
 
 1.0.0
  - fixed bug when connecting ipsec auto --up is occasionally started before 
