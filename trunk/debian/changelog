@@ -10,7 +10,7 @@ l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
     - Removed ppp-2.4.5-eaptls-mppe suggests dependency
     - Changed architecture from any to linux-any (Closes: #639434)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Aug, 28 Aug 2011 12:35:41 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Sun, 28 Aug 2011 12:35:41 +0200
 
 l2tp-ipsec-vpn (1.0.0-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
