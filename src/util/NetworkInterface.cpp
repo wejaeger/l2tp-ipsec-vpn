@@ -109,8 +109,12 @@ NetworkInterface::InterfaceMap NetworkInterface::pointToPointInterfaces(void)
 
             QNetworkAddressEntry addressEntry;
             addressEntry.setIp(QHostAddress(pIter->ifa_addr));
-            addressEntry.setNetmask(QHostAddress(pIter->ifa_netmask));
-            addressEntry.setBroadcast(QHostAddress(pIter->ifa_dstaddr));
+
+            if (pIter->ifa_netmask != NULL)
+               addressEntry.setNetmask(QHostAddress(pIter->ifa_netmask));
+
+            if (pIter->ifa_dstaddr)
+               addressEntry.setBroadcast(QHostAddress(pIter->ifa_dstaddr));
 
             (*ret.first).second.addAddressEntry(addressEntry);
          }

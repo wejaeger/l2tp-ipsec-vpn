@@ -1,3 +1,14 @@
+l2tp-ipsec-vpn (1.0.2-0ubuntu1~ppa1~natty1) natty; urgency=low
+  * New upstream release
+    - fixed bug L2tpIPsecVpn core dumps (LP: #845845)
+    - copy an past pre-shared key does not truncate trailing CR/LF
+      (LP: #853020)
+
+  * debian/postinst:
+    - removed restart logic (LP: #818294)
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Sun, 18 Sep 2011 15:24:12 +0200
+
 l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
     - Makefile:
@@ -6,7 +17,7 @@ l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
 
     - Renamed targets in Qt test project files
 
-  * debian/control: 
+  * debian/control:
     - Removed ppp-2.4.5-eaptls-mppe suggests dependency
     - Changed architecture from any to linux-any (Closes: #639434)
 
@@ -14,7 +25,7 @@ l2tp-ipsec-vpn (1.0.1-0ubuntu1~ppa1~natty1) natty; urgency=low
 
 l2tp-ipsec-vpn (1.0.0-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
-    - fixed bug when connecting ipsec auto --up is occasionally started before 
+    - fixed bug when connecting ipsec auto --up is occasionally started before
       pluto is running or has added the connection (LP: #781498)
     - fixed bug ipsec setup start failed (LP: #793542)
     - added menu entry to start applet
@@ -33,12 +44,12 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
 
   * New upstream release
     - added help button to all dialogs
-    - added a tab to the ConnectionInformation dialog to show various 
+    - added a tab to the ConnectionInformation dialog to show various
       connection information and connection statistics
-    - Animated system tray icon when connecting or disconnecting 
-    - Certificates to be used for IPsec rsasig authentication can now be 
+    - Animated system tray icon when connecting or disconnecting
+    - Certificates to be used for IPsec rsasig authentication can now be
       imported from a PKCS#12 certificate bundle
-    - Debian package installer: start / restart applet after installation or 
+    - Debian package installer: start / restart applet after installation or
       upgrade
     - Spitted context menu. Now connection specific action are in a separate
       connection menu which is activated by a left click on the system tray
@@ -48,7 +59,7 @@ l2tp-ipsec-vpn (0.9.9-0ubuntu1~ppa1~maverick1) maverick; urgency=low
     - fixed bug disconnection of physical network interface not detected if
       'Use default gateway on the remote network' is selected in PPP ->
       IP setting -> Routes configuration for the VPN connection (LP: #750000)
-    - fixed bug manager applet no longer started automatically after 
+    - fixed bug manager applet no longer started automatically after
       upgrading it (LP: #750174)
     - fixed bug connection editor has wrong button layout (LP: #759510)
     - fixed bug invalid version string in .desktop files (LP: #759515)

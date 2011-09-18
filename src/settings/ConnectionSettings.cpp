@@ -159,21 +159,6 @@ QString ConnectionSettings::gateway(const QString& strName) const
    return(ipsecSettings(strName).gateway());
 }
 
-QString ConnectionSettings::name(const QHostAddress& gateway) const
-{
-   const int iConnections(connections());
-
-   QString strName;
-   for (int i = 0; strName.isNull() && i < iConnections; i++)
-   {
-      strName = connection(i);
-      if (QHostAddress(ipsecSettings(strName).gateway()) != gateway)
-         strName = QString::null;
-   }
-
-   return(strName);
-}
-
 CommonSettings ConnectionSettings::commonSettings(const QString& strName) const
 {
    return(CommonSettings(connection(strName)));
@@ -247,8 +232,8 @@ bool ConnectionSettings::setValue(const QString& strValue, const QString& strPat
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      if  (qSettings()->value(strPath) != strValue)
-         qSettings()->setValue(strPath, strValue);
+      if  (qSettings()->value(strPath) != strValue.trimmed())
+         qSettings()->setValue(strPath, strValue.trimmed());
       qSettings()->endArray();
    }
 
@@ -278,7 +263,7 @@ bool ConnectionSettings::setSecret(const QString& strValue, const QString& strPa
    {
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(m_iConnectionNo);
-      EncSecrets secrets(KEY, IV, strValue.toAscii().constData());
+      EncSecrets secrets(KEY, IV, strValue.trimmed().toAscii().constData());
       if  (qSettings()->value(strPath) != secrets.getbuf())
          qSettings()->setValue(strPath, secrets.getbuf());
       qSettings()->endArray();
