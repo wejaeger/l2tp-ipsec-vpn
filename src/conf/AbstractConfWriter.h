@@ -54,7 +54,7 @@ private:
 
    void save();
 
-   QString readTemplate(const QString& strKey);
+   void readTemplate(const QString& strKey);
 
    void newDictionary();
 
@@ -66,6 +66,8 @@ private:
    ctemplate::TemplateDictionary* m_pDictionary;
 
    QString m_strLastErrorMsg;
+
+   bool m_fTemplatesInitialized;
 };
 
 #endif	/* ABSTRACTCONFWRITER_H */

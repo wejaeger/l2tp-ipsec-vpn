@@ -1,8 +1,11 @@
 1.0.2
+ - fixed bug No connection names in context menu when using unity desktop
+   (LP: #877083)
  - fixed bug Unable to successfully install/upgrade (LP: #818294)
  - fixed bug L2tpIPsecVpn core dumps (LP: #845845)
- - fixed bug copy an past pre-shared key does not truncate trailing CR/LF
+ - fixed bug copy and paste pre-shared key does not truncate trailing CR/LF
    (LP: #853020)
+ - fixed bug System tray icon disappears sometimes (LP: #791471)
 
 1.0.1
  - Makefile:

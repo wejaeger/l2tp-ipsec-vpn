@@ -102,8 +102,7 @@ private:
 
    ConnectionState* m_pState;
    QSystemTrayIcon* m_pTrayIcon;
-   QMenu* m_pContextMenu;
-   QMenu* m_pConnectionMenu;
+   QMenu* m_pTrayIconMenu;
    VPNControlTask* m_pVPNControlTask;
    volatile bool m_fIsExecuting;
    volatile bool m_fRoutePriorityIsChanging;
