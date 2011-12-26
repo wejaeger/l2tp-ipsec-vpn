@@ -38,8 +38,8 @@ public:
    virtual ~ConnectionInformationDialog();
 
    void clearLog() { m_Widget.m_pTextEdit->clear(); }
-   void appendLogPlainText(const char* pcText) { m_Widget.m_pTextEdit->insertPlainText(QString(pcText)); }
-   void appendLogColorText(const QColor&, const char* pcText);
+   void appendLogPlainText(const char* pcText);
+   void appendLogColorText(const QColor& color, const char* pcText);
 
 public slots:
    void onConectionStateChanged(const ConnectionState* pNewState, const QString& strConnectionName);

@@ -91,7 +91,7 @@ void IPsecSecretsConfWriter::fill()
          else
          {
             pConnection->SetValue(KEYTYPE, PSKKEYTYPE);
-            pConnection->SetValue(KEY, QString('"' + ipsecSetting.preSharedKey() + '"').toAscii().constData());
+            pConnection->SetValue(KEY, QString("0t" + ipsecSetting.preSharedKey()).toAscii().constData());
          }
       }
       else
