@@ -33,7 +33,9 @@
 #include <fcntl.h>
 
 #include "conf/ConfWriter.h"
+#include "settings/ConnectionSettings.h"
 #include "util/VpnControlDaemonClient.h"
+
 #include "VPNControlTask.h"
 #include "ConnectionManager.h"
 
@@ -56,6 +58,7 @@ static const char* const STR_LOG_MATCH_PEERAUTHFAILED("but I couldn't find any s
 
 static const int ERR_INTERRUPTED(98);
 static const int ERR_CONNECTING_TO_CONTROL_DAEMON(99);
+static const int ERR_FAILED_TO_SET_DEFAULT_GATEWAY_INFO(230);
 static const int ERR_IPSEC_SA_NOT_ESTABLISHED(300);
 static const int ERR_LOADING_CERTIFICATE(400);
 static const int ERR_AUTHENTICATION_FAILED(404);
@@ -207,6 +210,8 @@ void VPNControlTask::runConnect()
 {
 //   qDebug() << "VPNControlTask::runConnect()";
 
+   const CommonSettings commonSettings(ConnectionSettings().commonSettings(m_strConnectionName));
+
    if (ipsecInfo.exists())
    {
       runAndWait(VpnClientConnection::CMD_STOP_IPSECD);
@@ -218,7 +223,13 @@ void VPNControlTask::runConnect()
    if (xl2tpdPid.exists())
       runAndWait(VpnClientConnection::CMD_STOP_L2TPD);
 
-   runAndWait(VpnClientConnection::CMD_START_IPSECD);
+   if (!NetworkInterface::writeDefaultGatewayInfo())
+   {
+      m_iReturnCode = ERR_FAILED_TO_SET_DEFAULT_GATEWAY_INFO;
+      emitErrorMsg("");
+   }
+   else if (!commonSettings.disableIPSecEncryption())
+      runAndWait(VpnClientConnection::CMD_START_IPSECD);
 
    if (m_iReturnCode == 0)
    {
@@ -226,25 +237,30 @@ void VPNControlTask::runConnect()
 
       if (m_iReturnCode == 0)
       {
-         if (!m_fIPSecConnectionAdded)
-            exec();
-
-         // avoid need --listen before --initiate error
-         runAndWait(VpnClientConnection::CMD_IPSEC_READY);
-
-         if (m_iReturnCode == 0)
+         if (!commonSettings.disableIPSecEncryption())
          {
-            runAndWait(VpnClientConnection::CMD_IPSEC_UP, m_strConnectionName);
+            if (!m_fIPSecConnectionAdded)
+               exec();
 
-            if (m_iReturnCode == 0 && !m_fIPSecConnectionIsUp)
-            {
-               m_iReturnCode = ERR_IPSEC_SA_NOT_ESTABLISHED;
-               emitErrorMsg("IPsec");
-            }
+            // avoid need --listen before --initiate error
+            runAndWait(VpnClientConnection::CMD_IPSEC_READY);
 
             if (m_iReturnCode == 0)
-               runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+            {
+               runAndWait(VpnClientConnection::CMD_IPSEC_UP, m_strConnectionName);
+
+               if (m_iReturnCode == 0 && !m_fIPSecConnectionIsUp)
+               {
+                  m_iReturnCode = ERR_IPSEC_SA_NOT_ESTABLISHED;
+                  emitErrorMsg("IPsec");
+               }
+
+               if (m_iReturnCode == 0)
+                  runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+            }
          }
+         else
+            runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
       }
    }
 //   qDebug() << "VPNControlTask::runConnect() -> finished";
@@ -254,10 +270,12 @@ void VPNControlTask::runDisconnect()
 {
 //   qDebug() << "VPNControlTask::runDisconnect()";
 
+   const CommonSettings commonSettings(ConnectionSettings().commonSettings(m_strConnectionName));
+
    if (xl2tpdPid.exists())
       runAndWait(VpnClientConnection::CMD_STOP_L2TPD);
 
-   if (m_iReturnCode == 0)
+   if (m_iReturnCode == 0 && !commonSettings.disableIPSecEncryption())
       runAndWait(VpnClientConnection::CMD_STOP_IPSECD);
 
 //   qDebug() << "VPNControlTask::runDisconnect() -> finished";
@@ -438,6 +456,10 @@ void VPNControlTask::emitErrorMsg(const QString& strErrorContext)
 
       case VpnClientConnection::ERR_START_SYSLOG_DAEMON:
          *m_pErrorStream << "Failed to start syslog daemon '" << strErrorContext << "'";
+         break;
+
+      case ERR_FAILED_TO_SET_DEFAULT_GATEWAY_INFO:
+         *m_pErrorStream << "No default gateway found or failed to write default gateway information '" << strErrorContext << "'";
          break;
 
       case ERR_IPSEC_SA_NOT_ESTABLISHED:

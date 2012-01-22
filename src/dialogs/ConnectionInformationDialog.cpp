@@ -70,7 +70,7 @@ void ConnectionInformationDialog::onConectionStateChanged(const ConnectionState*
       {
          const NetworkInterface interface(pNewState->ptpInterface());
          const NetworkInterface::AddressEntries addressEntries(interface.addressEntries());
-         const NetworkInterface::InternetInterfaceInfo internetInterfaceInfo(NetworkInterface::internetInterfaceInfo());
+         const NetworkInterface::DefaultGatewayInfo internetInterfaceInfo(NetworkInterface::defaultGatewayInfo());
 
          m_Widget.m_pTabWidget->setCurrentIndex(0);
          m_Widget.m_pTabWidget->setTabEnabled(0, true);
