@@ -204,6 +204,7 @@ void ConnectionSettingsDialog::onImport()
 void ConnectionSettingsDialog::readCommonSettings(const CommonSettings& commonSettings) const
 {
    m_Widget.m_pConnectAutomatically->setChecked(commonSettings.autoConnect());
+   m_Widget.m_pDisableIPSecEncryption->setChecked(commonSettings.disableIPSecEncryption());
 }
 
 void ConnectionSettingsDialog::readIPSecSettings(const IPSecSettings& ipsecSettings) const
@@ -279,7 +280,10 @@ void ConnectionSettingsDialog::readPppSettings(const PppSettings& pppSettings) c
 
 bool ConnectionSettingsDialog::writeCommonSetting(const CommonSettings& commonSettings) const
 {
-   return(commonSettings.setAutoConnect(m_Widget.m_pConnectAutomatically->isChecked()));
+   bool fRet(commonSettings.setAutoConnect(m_Widget.m_pConnectAutomatically->isChecked()));
+   if (fRet) fRet = commonSettings.setDisableIPSecEncryption(m_Widget.m_pDisableIPSecEncryption->isChecked());
+
+   return(fRet);
 }
 
 bool ConnectionSettingsDialog::writeIPsecSetting(const IPSecSettings& ipsecSettings) const

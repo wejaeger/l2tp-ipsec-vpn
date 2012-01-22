@@ -349,7 +349,7 @@ void ConnectionManager::detectConnectionState()
    const ConnectionInfo connectionInfo(connectionNameOfUpAndRunningPtpInterface());
    if (!connectionInfo.first.isNull())
    {
-      if (NetworkInterface::defaultGateway().size() == 1)
+      if (NetworkInterface::writeDefaultGatewayInfo())
          connected(connectionInfo.first, connectionInfo.second);
       else
          vpnDisconnect(true);
@@ -527,7 +527,7 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
    {
       if (!m_fRoutePriorityIsChanging)
       {
-         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isIPsecPysicalGateway() && !interface.hasDefaultGateway())
+         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway() && !interface.hasDefaultGateway())
             vpnDisconnect();
       }
       else
@@ -563,7 +563,7 @@ void ConnectionManager::onPtpInterfaceIsGoingDown(NetworkInterface interface)
       if (!strConnectionName.isNull())
          disConnected();
    }
-   if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isIPsecPysicalGateway())
+   if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway())
       vpnDisconnect();
 
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsGoingDown(" << interface.name().c_str() << ") -> finished";

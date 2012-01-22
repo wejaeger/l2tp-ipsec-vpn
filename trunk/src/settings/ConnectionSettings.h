@@ -88,6 +88,9 @@ public:
    bool setAutoConnect(bool fAutoConnect) const;
    bool autoConnect() const;
 
+   bool setDisableIPSecEncryption(bool fDisableIPSecEncryption) const;
+   bool disableIPSecEncryption() const;
+
 private:
    explicit CommonSettings(int iConnectionNo) : ConnectionSettings(iConnectionNo) {}
    CommonSettings& operator=(const CommonSettings& orig);

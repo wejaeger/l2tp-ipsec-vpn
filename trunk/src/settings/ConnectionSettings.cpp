@@ -53,6 +53,7 @@ static const QString IP = "Ppp/Ip";
 /** properties */
 static const QString NAME = "name";
 static const QString AUTOCONNECT = "auoConnect";
+static const QString DISABLEIPSECENCRYPTION = "disableIPSecEncryption";
 static const QString GATEWAY = "gateway";
 static const QString IDENTITY = "identity";
 static const QString USERNAME = "userName";
@@ -416,6 +417,17 @@ bool CommonSettings::autoConnect() const
 {
    return(getBoolValue(COMMON + '/' + AUTOCONNECT));
 }
+
+bool CommonSettings::setDisableIPSecEncryption(bool fDisableIPSecEncryption) const
+{
+   return(setValue(fDisableIPSecEncryption, COMMON + '/' + DISABLEIPSECENCRYPTION));
+}
+
+bool CommonSettings::disableIPSecEncryption() const
+{
+   return(getBoolValue(COMMON + '/' + DISABLEIPSECENCRYPTION));
+}
+
 
 /********** IPsec ************/
 

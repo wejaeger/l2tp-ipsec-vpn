@@ -25,7 +25,6 @@
       <itemPath>src/models/IPsecCertificateListModel.h</itemPath>
       <itemPath>src/conf/IPsecConfWriter.h</itemPath>
       <itemPath>src/conf/IPsecSecretsConfWriter.h</itemPath>
-      <itemPath>src/dialogs/IPsecSettingsDialog.h</itemPath>
       <itemPath>src/dialogs/InterfaceStatisticsDialog.h</itemPath>
       <itemPath>src/dialogs/IpSettingsDialog.h</itemPath>
       <itemPath>src/conf/L2tpConfWriter.h</itemPath>
@@ -95,7 +94,6 @@
       <itemPath>src/models/IPsecCertificateListModel.cpp</itemPath>
       <itemPath>src/conf/IPsecConfWriter.cpp</itemPath>
       <itemPath>src/conf/IPsecSecretsConfWriter.cpp</itemPath>
-      <itemPath>src/dialogs/IPsecSettingsDialog.cpp</itemPath>
       <itemPath>src/dialogs/InterfaceStatisticsDialog.cpp</itemPath>
       <itemPath>src/dialogs/InterfaceStatisticsDialog.ui</itemPath>
       <itemPath>src/dialogs/IpSettingsDialog.cpp</itemPath>

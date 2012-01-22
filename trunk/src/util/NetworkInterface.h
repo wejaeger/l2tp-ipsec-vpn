@@ -102,10 +102,10 @@ public:
       friend class NetworkInterface;
    };
 
-   class InternetInterfaceInfo
+   class DefaultGatewayInfo
    {
    public:
-      InternetInterfaceInfo(const std::string& strInterfaceName, const std::string& strGateway, const std::string& strIPAddress) : m_strInterfaceName(strInterfaceName), m_strGateway(strGateway), m_strIPAddress(strIPAddress) {}
+      DefaultGatewayInfo(const std::string& strInterfaceName, const std::string& strGateway, const std::string& strIPAddress) : m_strInterfaceName(strInterfaceName), m_strGateway(strGateway), m_strIPAddress(strIPAddress) {}
 
       const std::string& interfaceName() const { return(m_strInterfaceName); }
       const std::string& gateway() const { return(m_strGateway); }
@@ -146,7 +146,7 @@ public:
    bool isNull() const { return(m_strName.empty()); }
    bool isPtP() const { return(m_Flags & IsPointToPoint); }
    bool hasDefaultGateway() const;
-   bool isIPsecPysicalGateway() const;
+   bool isDefaultGateway() const;
 
    const AddressEntries& addressEntries() const { return(m_AddressEntries); }
    void clearAddressEntries(void) { m_AddressEntries.clear(); }
@@ -157,7 +157,8 @@ public:
    static InterfaceMap defaultGateway(void);
    static QStringList dns(void);
    static Statistic statistic(const std::string& strInterfaceName);
-   static InternetInterfaceInfo internetInterfaceInfo();
+   static DefaultGatewayInfo defaultGatewayInfo();
+   static bool writeDefaultGatewayInfo();
 
    static const NetworkInterface null;
 
@@ -173,6 +174,7 @@ private:
    void setFlags(uint iRawFlags) { m_Flags = convertFlags(iRawFlags); }
 
    static InterfaceFlags convertFlags(uint iRawFlags);
+   static std::string ipAddress(const std::string strInterfaceName);
 
    const std::string m_strName;
    const unsigned int m_iIndex;
