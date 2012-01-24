@@ -83,7 +83,7 @@ private:
 
    void createActions();
    void createTrayIcon();
-   void onStatusChanged();
+   void updateContextMenu(bool fStatusChanged);
    void vpnConnect(const QString& strConnectionName);
    void enableAllConnections(bool fEnable) const;
    void connected(const QString& strConnectionName, const NetworkInterface& ptpInterface);
