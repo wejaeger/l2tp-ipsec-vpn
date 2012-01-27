@@ -31,7 +31,7 @@ DEFAULTCONF=Release
 CONF ?= ${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Debug Release
 
 # various directories
 BUILDDIR = build/${CONF}
@@ -52,6 +52,25 @@ install: nbproject/qt-${CONF}.mk
 uninstall: nbproject/qt-${CONF}.mk
 	make -f nbproject/qt-${CONF}.mk uninstall
 
+lupdate:
+	mv nbproject/qt-${DEFAULTCONF}.pro .
+	lupdate qt-${DEFAULTCONF}.pro
+	mv qt-${DEFAULTCONF}.pro nbproject
+
+lrelease:
+	mv nbproject/qt-${DEFAULTCONF}.pro .
+	lrelease -compress -nounfinished -removeidentical qt-${DEFAULTCONF}.pro
+	mv qt-${DEFAULTCONF}.pro nbproject
+
+ts2pot:
+	lconvert -if ts -of pot -o nls/nls.pot nls/L2tpIPsecVpn_de.ts
+
+ts2po:
+	lconvert -if ts -of po -o nls/de.po nls/L2tpIPsecVpn_de.ts
+
+po2ts:
+	lconvert -if po -of ts -o nls/L2tpIPsecVpn_de.ts nls/de.po
+
 # clean
 clean:
 	rm -rf ${BUILDDIR}/*
@@ -63,7 +82,7 @@ clean:
 	rm -f nbproject/*.bash
 	rm -f *.mk
 
-# clobber 
+# clobber
 clobber:
 	@for CONF in ${ALLCONFS}; \
 	do \
@@ -92,6 +111,11 @@ help:
 	@echo "    clobber"
 	@echo "    install"
 	@echo "    uninstall"
+	@echo "    lupdate"
+	@echo "    lrelease"
+	@echo "    ts2pot"
+	@echo "    ts2po"
+	@echo "    po2ts"
 	@echo "    test"
 	@echo "    help"
 	@echo ""
@@ -101,6 +125,11 @@ help:
 	@echo "    make clobber"
 	@echo "    make [CONF=<CONFIGURATION>] [INSTALL_ROOT=<Base directory to install in>] install"
 	@echo "    make [INSTALL_ROOT=<Base directory to uninstall from>] uninstall"
+	@echo "    make lupdate"
+	@echo "    make lrelease"
+	@echo "    make ts2pot"
+	@echo "    make ts2po"
+	@echo "    make po2ts"
 	@echo "    make test"
 	@echo "    make help"
 	@echo ""
@@ -110,6 +139,11 @@ help:
 	@echo "Target 'install' will install a specific configuration of the program"
 	@echo "       in [INSTALL_ROOT]/usr/bin/"
 	@echo "Target 'uninstall' will uninstall the program from [INSTALL_ROOT]/usr/bin/"
+	@echo "Target 'lupdate' reads the project file, finds the translatable strings in the specified source, header and interface files, and updates the translation files (.ts files) specified in it."
+	@echo "Target 'lrelease' reads the project file and converts the translation files (.ts files) specified in it into Qt message files (.qm files) used by the application to translate."
+	@echo "Target 'ts2pot' converts a translation file (.ts file) to a GNU Portable Object Template File (.pot file)."
+	@echo "Target 'ts2po'  converts all translation files (.ts files) to GNU Portable Object Files (.po files)."
+	@echo "Target 'po2ts' converts all GNU Portable Object Files (.po files) to translation files (.ts files)."
 	@echo "Target 'test' will run the test suite."
 	@echo "Target 'help' prints this message"
 	@echo ""

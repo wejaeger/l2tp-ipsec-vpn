@@ -26,6 +26,7 @@
 #include <QDir>
 #include <QFileInfoList>
 #include <QFile>
+#include <QTranslator>
 
 #include <syslog.h>
 
@@ -53,6 +54,11 @@ int main(int iArgc, char* pcArgv[])
       checkDesktop();
 
    L2tpIPsecVpnApplication app(iArgc, pcArgv, mode);
+
+   const QString strLocale(QLocale::system().name());
+   QTranslator translator;
+   translator.load(QString(":/nls/") + strLocale);
+   app.installTranslator(&translator);
 
    int iRet(0);
 
