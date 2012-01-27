@@ -38,3 +38,4 @@ INSTALLS += preferencesmenu
 networkmenu.path=/usr/share/applications
 networkmenu.files = resources/L2tpIPsecVpn-Applet.desktop
 INSTALLS += networkmenu
+TRANSLATIONS = nls/L2tpIPsecVpn_de.ts
