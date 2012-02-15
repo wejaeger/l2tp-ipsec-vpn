@@ -3,8 +3,9 @@ l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~natty1) natty; urgency=low
     - pure L2TP VPN without IPSEC encryption is now possible
     - disable connection names in context menu when there is no default gateway
     - enabled i18n and added German translation
+    - fixed bug unable to add static routes (LP: #932591)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Sun, 22 Jan 2012 11:50:23 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Wed, 15 Feb 2012 09:48:11 +0200
 
 l2tp-ipsec-vpn (1.0.3-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release

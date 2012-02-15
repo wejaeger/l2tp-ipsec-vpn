@@ -112,7 +112,7 @@ ConnectionSettings::~ConnectionSettings()
 
 int ConnectionSettings::connections() const
 {
-   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
+   const int iSize(qSettings()->beginReadArray(CONNECTIONS));
    qSettings()->endArray();
 
    return(iSize);
@@ -124,7 +124,7 @@ ConnectionSettings::Result ConnectionSettings::addConnection(const QString& strN
 
    if (result == Ok)
    {
-      const int iSize = connections();
+      const int iSize(connections());
 
       qSettings()->beginWriteArray(CONNECTIONS);
       qSettings()->setArrayIndex(iSize);
@@ -137,7 +137,7 @@ ConnectionSettings::Result ConnectionSettings::addConnection(const QString& strN
 
 bool ConnectionSettings::removeConnection(int iConnectionNo) const
 {
-   bool fRet = iConnectionNo < connections() && qSettings()->isWritable();
+   bool fRet(iConnectionNo < connections() && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -184,7 +184,7 @@ QString ConnectionSettings::connection(int iConnectionNo) const
 {
    QString strRet;
 
-   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
+   const int iSize(qSettings()->beginReadArray(CONNECTIONS));
    if (iConnectionNo < iSize)
    {
       qSettings()->setArrayIndex(iConnectionNo);
@@ -198,8 +198,8 @@ QString ConnectionSettings::connection(int iConnectionNo) const
 int ConnectionSettings::connection(const QString& strName) const
 {
    int iRet;
-   bool fFound = false;
-   const int iSize = qSettings()->beginReadArray(CONNECTIONS);
+   bool fFound(false);
+   const int iSize(qSettings()->beginReadArray(CONNECTIONS));
    for (iRet = 0; !fFound && iRet < iSize; iRet++)
    {
       qSettings()->setArrayIndex(iRet);
@@ -227,7 +227,7 @@ ConnectionSettings::Result ConnectionSettings::validateName(const QString& strNa
 /*********** helpers ***************/
 bool ConnectionSettings::setValue(const QString& strValue, const QString& strPath) const
 {
-   const bool fRet = m_iConnectionNo >= 0 && qSettings()->isWritable();
+   const bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -258,7 +258,7 @@ QString ConnectionSettings::getStringValue(const QString& strPath) const
 
 bool ConnectionSettings::setSecret(const QString& strValue, const QString& strPath) const
 {
-   const bool fRet = m_iConnectionNo >= 0 && qSettings()->isWritable();
+   const bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -292,7 +292,7 @@ QString ConnectionSettings::getSecret(const QString& strPath) const
 
 bool ConnectionSettings::setValue(int iValue, const QString& strPath) const
 {
-   const bool fRet = m_iConnectionNo >= 0 && qSettings()->isWritable();
+   const bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -308,7 +308,7 @@ bool ConnectionSettings::setValue(int iValue, const QString& strPath) const
 
 int ConnectionSettings::getIntValue(const QString& strPath, int iDefault) const
 {
-   int iRet = 0;
+   int iRet(0);
 
    if (m_iConnectionNo >= 0)
    {
@@ -323,7 +323,7 @@ int ConnectionSettings::getIntValue(const QString& strPath, int iDefault) const
 
 bool ConnectionSettings::setValue(bool fValue, const QString& strPath) const
 {
-   const bool fRet = m_iConnectionNo >= 0 && qSettings()->isWritable();
+   const bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -339,7 +339,7 @@ bool ConnectionSettings::setValue(bool fValue, const QString& strPath) const
 
 bool ConnectionSettings::getBoolValue(const QString& strPath, bool fDefault) const
 {
-   bool fRet = false;
+   bool fRet(false);
 
    if (m_iConnectionNo >= 0)
    {
@@ -354,7 +354,7 @@ bool ConnectionSettings::getBoolValue(const QString& strPath, bool fDefault) con
 
 bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, const QString strPropertyName) const
 {
-   bool fRet = m_iConnectionNo >= 0 && qSettings()->isWritable();
+   bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
    if (fRet)
    {
@@ -362,7 +362,7 @@ bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, con
       qSettings()->setArrayIndex(m_iConnectionNo);
       qSettings()->beginGroup(IP);
 
-      const int iSize = qSettings()->beginReadArray(ROUTES);
+      const int iSize(qSettings()->beginReadArray(ROUTES));
       if (iRow < iSize)
       {
          qSettings()->setArrayIndex(iRow);
@@ -391,7 +391,7 @@ QString ConnectionSettings::routeProperty(int iRow, const QString strPropertyNam
       qSettings()->setArrayIndex(m_iConnectionNo);
       qSettings()->beginGroup(IP);
 
-      const int iSize = qSettings()->beginReadArray(ROUTES);
+      const int iSize(qSettings()->beginReadArray(ROUTES));
       if (iRow < iSize)
       {
          qSettings()->setArrayIndex(iRow);
@@ -775,7 +775,7 @@ bool PppIpSettings::useDefaultGateway() const
 
 int PppIpSettings::routes() const
 {
-   int iSize = 0;
+   int iSize(0);
 
    if (connectionNo() >= 0)
    {
@@ -823,15 +823,16 @@ QString PppIpSettings::routeComment(int iRow) const
 
 bool PppIpSettings::addRoute() const
 {
-   bool fAdded = false;
+   bool fAdded(false);
 
    if (connectionNo() >= 0)
    {
+      const int iSize(routes());
+
       qSettings()->beginReadArray(CONNECTIONS);
       qSettings()->setArrayIndex(connectionNo());
       qSettings()->beginGroup(IP);
 
-      const int iSize = routes();
       qSettings()->beginWriteArray(ROUTES);
       qSettings()->setArrayIndex(iSize);
       qSettings()->setValue(IPADDRESS, "");
@@ -848,7 +849,7 @@ bool PppIpSettings::addRoute() const
 
 bool PppIpSettings::removeRoute(int iRow) const
 {
-   bool fRemoved = false;
+   bool fRemoved(false);
 
    if (connectionNo() >= 0)
    {
