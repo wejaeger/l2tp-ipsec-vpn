@@ -51,8 +51,8 @@
 */
 
 static const int PTPINTERFACE_CHECK_UP_TIME(30000);
-static const int PTPINTERFACE_CHECK_DOWN_TIME(20000);
-static const int VPN_TASK_TIMOUT(40000);
+static const int PTPINTERFACE_CHECK_DOWN_TIME(30000);
+static const int VPN_TASK_TIMOUT(80000);
 
 static const QString strRuntimePath("/var/run/L2tpIPsecVpn/");
 static const char* const strAbout(

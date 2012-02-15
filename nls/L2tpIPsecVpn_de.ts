@@ -49,144 +49,145 @@
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="14"/>
         <source>Import Certificate Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat Importieren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="33"/>
-        <source>Full path to PKCS12 (*.p12, *.pfx) encoded certificate bundle file to immport</source>
-        <translation type="unfinished"></translation>
+        <source>Full path to PKCS12 (*.p12, *.pfx) encoded certificate bundle file to import</source>
+        <translation>Geben Sie hier den vollständigen Pfad zu der PKCS12 (*.p12, *.pfx) Zertifikatdatei ein die Sie importieren möchten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="88"/>
         <source>PKCS12 File:</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS12 Datei:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="98"/>
-        <source>If checked. the imported certificate is automatically selectd as IPsec authentication certificate </source>
-        <translation type="unfinished"></translation>
+        <source>If checked. the imported certificate is automatically selected as IPsec authentication certificate </source>
+        <translation>Wenn angekreutzt, dann wird das importierte Zertifikat automatisch als IPsec-Authentifizierungszertifikat verwendet</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="101"/>
         <source>Use this certificate for IPsec authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende dieses Zertifikat zur IPsec-Authentifizierung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="123"/>
         <source>Private key passphrase:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kennwort für den privaten Schlüssel:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="130"/>
         <source>Enter the passphrase that shall be used to encrypt the imported private key</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie das Kennwort ein, dass zur Verschlüsselung des importierten privaten Schlüssels benutzt werden soll</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="140"/>
         <source>Verify private key passphrase:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kennwort bestätigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.ui" line="147"/>
         <source>Type the private key passphrase again to confirm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/CertificateImportDialog.cpp" line="110"/>
-        <source>Choose the PKCS11 certificate bundle to import ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie zur Bestätigung das Kennwort für den privaten Schlüssel erneut ein</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="110"/>
         <source>PKSC#12 certificate bundle (*.p12 *.pfx)</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 Zertifikatsdatei (*.p12 *.pfx)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/CertificateImportDialog.cpp" line="110"/>
+        <source>Choose the PKCS12 certificate bundle to import ...</source>
+        <translation>Wählen Sie die zu importierende PKCS12 Zertifikatsdatei aus ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="119"/>
         <source>Passphrase Entry Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Kennwort Eingabe</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="119"/>
         <source>Please enter the passphrase that was used to encrypt this certificate bundle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie bitte das Kennwort ein, das zur Verschlüsselung dieses Zertifikates benutzt wurde:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="135"/>
         <source>Content:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhalt:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="136"/>
         <source>certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="136"/>
         <source>issued by</source>
-        <translation type="unfinished"></translation>
+        <translation>ausgestellt von</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="139"/>
         <source>private key</source>
-        <translation type="unfinished"></translation>
+        <translation>Privater Schlüssel</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="141"/>
         <source>%n root certificate(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Stammzertifikat</numerusform>
+            <numerusform>%n Stammzertifikate</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="188"/>
         <source>certificate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikatedatei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="195"/>
         <source>private key file</source>
-        <translation type="unfinished"></translation>
+        <translation>Private Schlüssel Datei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="201"/>
         <source>root certificate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Stammzertifikatsdatei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="212"/>
         <source>Error:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="225"/>
         <source>A</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="225"/>
         <source>already exists.  Do you want to replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>existiert bereits. Möchten Sie diese ersetzen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="227"/>
         <source>The</source>
-        <translation type="unfinished"></translation>
+        <translation>Die</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="227"/>
         <source>already exists in</source>
-        <translation type="unfinished"></translation>
+        <translation>gibt es bereits in</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="227"/>
         <source>. Replacing it will overwrite its contents.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ersetzen dieser Datei überschreibt deren Inhalt.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/CertificateImportDialog.cpp" line="230"/>
         <source>Importing certificates ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikate werden importiert ...</translation>
     </message>
 </context>
 <context>
@@ -194,58 +195,58 @@
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.ui" line="14"/>
         <source>VPN Connections</source>
-        <translation type="unfinished"></translation>
+        <translation>VPN Verbindungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.ui" line="30"/>
         <source>&amp;Add ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hinzufügen ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.ui" line="40"/>
         <source>&amp;Edit ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bearbeiten ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.ui" line="53"/>
         <source>&amp;Delete ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Löschen ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.ui" line="109"/>
         <source>&amp;Preferences ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Voreinstellungen ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="107"/>
         <source>You need to reconnect for your changes to take effect!</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie müssen sich erneut Verbinden, damit die Änderungen wirksam werden!</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="153"/>
         <source>Apply settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen übernehmen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="153"/>
         <source>You do not have the permission to apply settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben kein ausreichende Berechtigung um die Einstellungen übernehmen zu können</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="176"/>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="212"/>
         <source>New Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Verbindung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="183"/>
         <source>Connection name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungsname:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="198"/>
         <source>A connection with name &apos;%1&apos; already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Verbindung mit dem namen &apos;%1&apos; existiert bereits</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="202"/>
@@ -253,38 +254,41 @@
 
 Name must start with a letter and may contain only letters, digits, periods, underscores, and hyphens.
 Maximum length is 30.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der eingegebene Name &apos;%1&apos;  enthält ungültige Zeichen.
+
+Der Name muss mit einem Buchstaben beginnen und darf nur Buchstaben, Zahlen, Punkte, Unterstriche und Bindestriche enthalten.
+Die Länge darf 30 Zeichen nicht überschreiten.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="212"/>
         <source>You do not have the permission to add a connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben kein ausreichende Berechtigung zum Hinzufügen eine neuen Verbindung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="232"/>
         <source>Edit Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="232"/>
         <source>You do not have the permission to edit a connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben kein ausreichende Berechtigung zum Bearbeiten der Verbindung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="247"/>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="264"/>
         <source>Delete Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung löschen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="247"/>
         <source>Are you sure you wish to delete the connection &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind Sie sicher, dass Sie die Verbindung &apos;%1&apos; löschen möchten?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionEditorDialog.cpp" line="264"/>
         <source>You do not have the permission to remmove a connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben kein ausreichende Berechtigung zum Löschen einer Verbindung</translation>
     </message>
 </context>
 <context>
@@ -292,72 +296,72 @@ Maximum length is 30.</source>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="20"/>
         <source>L2TP IPSec VPN</source>
-        <translation type="unfinished"></translation>
+        <translation>L2TP IPSec VPN</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="30"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="36"/>
         <source>Remote Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Server-Adresse:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="56"/>
         <source>PtP Interface:</source>
-        <translation type="unfinished"></translation>
+        <translation>PtP Schnittstelle:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="76"/>
         <source>Destination Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziel-Adresse:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="96"/>
         <source>IP Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-Adresse:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="116"/>
         <source>Subnet Mask:</source>
-        <translation type="unfinished"></translation>
+        <translation>Subnetmaske:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="130"/>
         <source>Primary DNS:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ester Namensserver:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="150"/>
         <source>Secondary DNS:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweiter Namensserver:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="170"/>
         <source>Tenary DNS:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dritter Namensserver:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="193"/>
         <source>Statistics ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistik ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="203"/>
         <source>Internet Interface:</source>
-        <translation type="unfinished"></translation>
+        <translation>Internet Schnitstelle:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="217"/>
         <source>Internet Interface Gateway:</source>
-        <translation type="unfinished"></translation>
+        <translation>Internet Gateway:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionInformationDialog.ui" line="232"/>
         <source>Logs</source>
-        <translation type="unfinished"></translation>
+        <translation>Ereignisse</translation>
     </message>
 </context>
 <context>
@@ -418,236 +422,237 @@ Maximum length is 30.</source>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="60"/>
         <source>Connect &amp;automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung &amp;automatisch herstellen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="83"/>
         <source>IPsec</source>
-        <translation type="unfinished"></translation>
+        <translation>IPsec</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="106"/>
         <source>&amp;Remote Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Server-Adresse:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="128"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;IPv4 address or domain name of the remote access server that you want to connect to.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Examples:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1.2.3.4&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ipsec.server.edu&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>IPv4 address or domain name of the remote access server that you want to connect to.
+
+Examples:
+1.2.3.4
+ipsec.server.edu</source>
+        <translation>IPv4 Adresse oder Domänennamen des Einwahlservers.
+
+Beispiele;
+1.2.3.4
+ipsec.server.edu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="144"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="139"/>
         <source>Server &amp;Identity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Server &amp;Kennung:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="163"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="158"/>
         <source>Leave empty if you don&apos;t want to check peers&apos;s identity,
 otherwise enter the peer&apos;s identity 
 
 This is mostly a distinguished name like &apos;CN=cisco-fcs-ber&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie die Server-Kennung nicht prüfen wollen, lassen Sie dieses Feld leer, ansonsten geben Sie die Sev er-Kennung ein.
+
+Die Server-Kennung ist meistens ein eindeutiger Name wie z.B. &apos;CN=cisco-fcs-ber&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="175"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="170"/>
         <source>Use &amp;pre-shared key for authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;vereinbarten Schlüssel zur Authentifizierung verwenden</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="195"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="190"/>
         <source>Use &amp;Certificate for authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zertifikat zur Authentisierung verwenden</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="230"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="225"/>
         <source>Private &amp;key:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Privater Schlüssel:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="240"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="235"/>
         <source>Full path to a X.509 pem encoded private key file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiger Pfad zu einer X.509 PEM kodierten privaten Schlüssel Datei</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="250"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="245"/>
         <source>Passphrase:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kennwort:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="287"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="282"/>
         <source>Import ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importieren ...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="298"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="293"/>
         <source>L2TP</source>
-        <translation type="unfinished"></translation>
+        <translation>L2TP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="304"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="299"/>
         <source>If checked, l2tpd will attempt to redial if the call get disconected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn angekreutzt und die Verbinung unterbrochen wird, versucht der L2TP Dämon eine erneute Einwahl.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="307"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="302"/>
         <source>Redial</source>
-        <translation type="unfinished"></translation>
+        <translation>Einwahl-Wiederholung</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="320"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="315"/>
         <source>If Checked, the length bit present in the l2tp packet payload will be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn angejreutzt, wird das im L2TP Paket vorhandene Längenbit verwendet.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="323"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="318"/>
         <source>Length bit</source>
-        <translation type="unfinished"></translation>
+        <translation>Längenbit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="347"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="342"/>
         <source>Timeout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeitüberschreitung:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="366"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="361"/>
         <source>Wait N seconds before redial. The redial option must be set to yes to use this option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Warte N Sekunden bis zum nächsten Einwahlversuch. Die Option Einwahl-Wiederholung muss markiert sein, damit dise Option wirksam wird.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="382"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="377"/>
         <source>Attempts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versuche:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="404"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="399"/>
         <source>Will give up redial tries after N attempts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beende Einwahl-Wiederholugs nach N Versuchen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="417"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="412"/>
         <source>PPP</source>
-        <translation type="unfinished"></translation>
+        <translation>PPP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="423"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="418"/>
         <source>With this option set, pppd will agree to authenticate itself to the peer exclusively using EAP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie diese Option ankreutzen, wird sich der PPP Dämon ausschließlich über das EAP Protokoll authentifizieren.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="426"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="421"/>
         <source>Use Extensible Authentication Protocol (EAP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende das Extensible-Authentication Protocol (EAP)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="436"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="431"/>
         <source>Properties ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften ...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="443"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="438"/>
         <source>Allow these protocols</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestatte folgende Protokolle</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="451"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="446"/>
         <source>Unencrypted password (PAP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unverschlüsseltes Passwort (PAP)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="454"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="449"/>
         <source>With this option set, pppd will agree to authenticate itself to the peer using PAP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie diese Option ankreutzen, wird der PPP Dämon einer PAP Authentifizierung zustimmen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="462"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="457"/>
         <source>Challenge Authentication Protocol (CHAP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Challenge Authentication Protocol (CHAP)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="465"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="460"/>
         <source>With this option set, pppd will agree to authenticate itself to the peer using CHAP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie diese Option ankreutzen, wird der PPP Dämon einer CHAP Authentifizierung zustimmen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="473"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="468"/>
         <source>Microsoft CHAP (MS-Chap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft CHAP (MS-Chap)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="476"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="471"/>
         <source>With this option set, pppd will agree to authenticate itself to the peer using MS-CHAP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie diese Option ankreutzen, wird der PPP Dämon einer MS-CHAP Authentifizierung zustimmen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="484"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="479"/>
         <source>Microsoft CHAP Version 2 (MS-CHAPv2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft CHAP Version 2 (MS-CHAPv2)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="487"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="482"/>
         <source>With this option set, pppd will agree to authenticate itself to the peer using MS-CHAPv2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie diese Option ankreutzen, wird der PPP Dämon einer Microsoft CHAP Version 2 (MS-CHAPv2) Authentifizierung zustimmen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="507"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="502"/>
         <source>User name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="517"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="512"/>
         <source>Set the name used for authenticating the local system to the remote access server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie hier den Benutzername ein, der verwendet werden soll, um das Lokale System beim Zugangsserver zu authentifizieren.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="524"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="519"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="534"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="529"/>
         <source>Enter your password.
 
 If left empty you&apos;ll be ask each time you try to establish a connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie hier Ihr Passwort ein. Wenn Sie dieses Feld leer lassen, dann werden Sie bei jedem Verbindungsversuch nach dem Passwort gefragt.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="549"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="544"/>
         <source>Peer authentication ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Peer-Athentifizierung ...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="556"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="551"/>
         <source>IP settings ...</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Einstellungen ...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="563"/>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="558"/>
         <source>Advanced ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweitert ...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="581"/>
-        <source>Disable IPSEC Encryption</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/dialogs/ConnectionSettingsDialog.ui" line="576"/>
+        <source>&amp;Disable IPSEC Encryption</source>
+        <translation>IPSEC Verschlüsselung a&amp;usschalten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.cpp" line="182"/>
         <source>Choose private key ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen SIe eine private Schlüssel Datei aus ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ConnectionSettingsDialog.cpp" line="182"/>
         <source>PEM private keys (*.pem)</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM private Schlüssel Dateien (*.pem)</translation>
     </message>
 </context>
 <context>
@@ -655,7 +660,7 @@ If left empty you&apos;ll be ask each time you try to establish a connection.</s
     <message>
         <location filename="../src/models/ConnectionsModel.cpp" line="74"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
 </context>
 <context>
@@ -663,97 +668,99 @@ If left empty you&apos;ll be ask each time you try to establish a connection.</s
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="14"/>
         <source>EAP settings</source>
-        <translation type="unfinished"></translation>
+        <translation>EAP Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="30"/>
         <source>When connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Beim Herstellen der Verbindung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="36"/>
         <source>Use my smart card</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Smartcard verwenden</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="43"/>
         <source>Use a certificate on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat auf diesem Computer verwenden</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="68"/>
         <source>User certificate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer Zertifikat:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="78"/>
         <source>Full path to a X.509 encoded personal certificate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiger Pfad zu einer X-509 Zertifikatdatei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="99"/>
         <source>Private key:</source>
-        <translation type="unfinished"></translation>
+        <translation>Privater Schlüssel:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="109"/>
         <source>Full path to a X.509 pem encoded private key file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiger Pfad zu einer X.509 PEM kodierten privaten Schlüssel Datei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="133"/>
         <source>Passphrase:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kennwort:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="143"/>
         <source>Enter the PIN or passphrase for your private key.
 
 If left empty you&apos;ll be ask each time you try to establish a connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie die PIN oder das Kennwort für Ihren Privaten Schlüssel ein.
+
+Wenn Sie keine PIN oder kein Kennwort eingeben, werden Sie vor jedem Verbindungsveruch nach der PIN oder dem Kennwort gefragt.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="176"/>
         <source>CA Certificate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stammzertifikate:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.ui" line="186"/>
         <source>Full path to a X.509 pem encoded Certificate Authority certificate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiger Pfad zu einer X-509 Stammzertifikatdatei</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="40"/>
         <source> - EAP Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>- EAP Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="78"/>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="87"/>
         <source>Choose your personal certificate ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie Ihr personliches Zertifikat ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="87"/>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="117"/>
         <source>PEM certificates (*.pem)</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM Zertifikate (*.pem)</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="102"/>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="108"/>
         <source>Choose your private key ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie Ihren privaten Schlüssel ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="108"/>
         <source>PEM private keys (*.pem)</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM private Schlüssel Dateien (*.pem)</translation>
     </message>
     <message>
         <location filename="../src/dialogs/EapSettingsDialog.cpp" line="117"/>
         <source>Choose a Certificate Authority certificate ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle Sie eine Stammzertifikate-Datei ...</translation>
     </message>
 </context>
 <context>
@@ -761,57 +768,57 @@ If left empty you&apos;ll be ask each time you try to establish a connection.</s
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="14"/>
         <source>Interface Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistik</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="27"/>
         <source>Transmitted bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Übertragenen Bytes:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="41"/>
         <source>Transmitted packets:</source>
-        <translation type="unfinished"></translation>
+        <translation>Übertragenen Pakete:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="55"/>
         <source>Transmission errors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Übertragungsfehler:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="85"/>
         <source>Received bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangenen Bytes:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="99"/>
         <source>Received packets:</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangenen Pakete:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="113"/>
         <source>Reception errors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangsfehler:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="143"/>
         <source>Connected since:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbunden seit:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="157"/>
         <source>Connection time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungszeit:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.ui" line="194"/>
         <source>Collisions:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kollisionen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/InterfaceStatisticsDialog.cpp" line="89"/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Tage</translation>
     </message>
 </context>
 <context>
@@ -819,72 +826,71 @@ If left empty you&apos;ll be ask each time you try to establish a connection.</s
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.ui" line="14"/>
         <source>IpSettingsDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.ui" line="33"/>
         <source>If checked the peer is asked for up to 2 DNS server addresses, otherwise provide the desired primary and secundary DNS server addresses manually in the edit boxes below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn angekreutzt werden bis zu zwei DNS Server Adressen automatisch bezogen, ansonsten geben Sie bitte die bevorzugte- und die alternative DNS Server Adresse manuell ein.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.ui" line="36"/>
         <source>Obtain DNS server addresses automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS Server Adresse automatisch beziehen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.ui" line="49"/>
         <source>Preferred DNS server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugter DNS Server:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.ui" line="65"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ip addresses of preferred domain name server used to resolve host names. Address must be entered as IPv4 address.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Example:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1.2.3.4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Ip addresses of preferred domain name server used to resolve host names. Address must be entered as IPv4 address.
+
+Example:
+1.2.3.4</source>
+        <translation>IP Adresse des bevorzugten Domän-Namensserver. Adresse muss in IPv4 schreibweise eingegeben werden.
+
+Beispiel:
+1.2.3.4</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/IpSettingsDialog.ui" line="85"/>
+        <location filename="../src/dialogs/IpSettingsDialog.ui" line="91"/>
+        <source>Ip addresses of alternate domain name server used to resolve host names. Address must be entered as IPv4 address.
+
+Example:
+1.2.3.4</source>
+        <translation>IP Adresse des alternativen Domän-Namensserver. Adresse muss in IPv4 schreibweise eingegeben werden.
+
+Beispiel:
+1.2.3.4</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/IpSettingsDialog.ui" line="81"/>
         <source>Alternate DNS server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativer DNS Server:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/IpSettingsDialog.ui" line="95"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ip addresses of alternate domain name server used to resolve host names. Address must be entered as IPv4 address.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Example:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1.2.3.4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/IpSettingsDialog.ui" line="115"/>
+        <location filename="../src/dialogs/IpSettingsDialog.ui" line="107"/>
         <source>Search domains:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardsuchdomänen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/IpSettingsDialog.ui" line="125"/>
+        <location filename="../src/dialogs/IpSettingsDialog.ui" line="117"/>
         <source>Domains used when resolving hostnames.
 Use spaces to separate multiple domains.</source>
-        <translation type="unfinished"></translation>
+        <translation>Domain-Namen, nach denen beim Übersetzen von Hostnamen gesucht werden soll.
+Trennen Sie mehrere Domänen durch Leerzeichen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/IpSettingsDialog.ui" line="148"/>
+        <location filename="../src/dialogs/IpSettingsDialog.ui" line="140"/>
         <source>Routes ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Routen ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/IpSettingsDialog.cpp" line="34"/>
         <source> - Ip Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>- Ip Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -892,24 +898,26 @@ Use spaces to separate multiple domains.</source>
     <message>
         <location filename="../src/dialogs/PeerAuthenticationDialog.ui" line="14"/>
         <source>PeerAuthenticationDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Peer-Authentifizierung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PeerAuthenticationDialog.ui" line="29"/>
         <source>Remote name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Server-Kennung:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PeerAuthenticationDialog.ui" line="39"/>
         <source>Set the assumed name of the remote system for authentication purposes.
 
 If not empty, the name reported by the peer is checked against this name and connection will be refused if the reported name is different.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie hier die erwartete Kennung des Einwahlservers zu authentifizierungszwecken ein.
+
+Wenn sie dieses Feld nicht leer lassen, wird die eingegebene Kennung mit der Kennung die der Einwahlserver meldet verglichen und die Verbindung verweigert, wenn die gemeldete und die eingegebne Kennung unterschiedlich sind.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PeerAuthenticationDialog.cpp" line="33"/>
         <source> - Peer Authentication Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>- Peer Authentifizierungseinstellungen</translation>
     </message>
 </context>
 <context>
@@ -917,7 +925,7 @@ If not empty, the name reported by the peer is checked against this name and con
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="110"/>
         <source>Writing certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Speicheren des Zertifikat in</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="110"/>
@@ -925,47 +933,47 @@ If not empty, the name reported by the peer is checked against this name and con
         <location filename="../src/util/Pkcs12.cpp" line="171"/>
         <location filename="../src/util/Pkcs12.cpp" line="206"/>
         <source>failed</source>
-        <translation type="unfinished"></translation>
+        <translation>fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="118"/>
         <source>No certificate found</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Zertifikatdatei gefunden</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="140"/>
         <source>Writing root certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern des Stammzertifikates in</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="171"/>
         <source>Writing private key to</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern des privaten Schlüssels in</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="179"/>
         <source>No private key found</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine private Schlüsseldatei gefunden</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="204"/>
         <source>Wrong passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>Falsches Kennwort</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="206"/>
         <source>Parse PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Analysieren der PKCS#12 Datei</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="220"/>
         <source>The file</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei</translation>
     </message>
     <message>
         <location filename="../src/util/Pkcs12.cpp" line="220"/>
         <source>is not a valid PKCS#12 certificate bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>ist keine gültige PKCS#12 Zertifikatdatei</translation>
     </message>
 </context>
 <context>
@@ -973,17 +981,17 @@ If not empty, the name reported by the peer is checked against this name and con
     <message>
         <location filename="../src/models/PppRoutesModel.cpp" line="115"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="../src/models/PppRoutesModel.cpp" line="119"/>
         <source>Netmask</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzmaske</translation>
     </message>
     <message>
         <location filename="../src/models/PppRoutesModel.cpp" line="123"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bemerkung</translation>
     </message>
 </context>
 <context>
@@ -991,28 +999,28 @@ If not empty, the name reported by the peer is checked against this name and con
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="14"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="28"/>
         <source>OpenSSL</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="34"/>
         <source>Engine &amp;ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>Engine &amp;ID:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="44"/>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="47"/>
         <source>Unique identifier for OpenSSL engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Eindeutige Kennung der OpenSSL-Engine</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="54"/>
-        <source>&amp;Engine Path;</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Engine Path:</source>
+        <translation>&amp;Engine Pfad:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="64"/>
@@ -1022,12 +1030,16 @@ If not empty, the name reported by the peer is checked against this name and con
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Full path to a shared library implementing the &lt;a href=&quot;http://www.openssl.org/docs/crypto/engine.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenSSL engine interface&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vollständiger Pfad zu einer gemeinsam benutzten Bibliothek,welche die &lt;a href=&quot;http://www.openssl.org/docs/crypto/engine.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenSSL Engine Snittstelle&lt;/span&gt;&lt;/a&gt; implementiert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="96"/>
         <source>&amp;PKCS 11 Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PKCS 11 Pfad:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.ui" line="106"/>
@@ -1037,17 +1049,21 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Full path to a shared library implementing the &lt;a href=&quot;http://www.rsa.com/rsalabs/node.asp?id=2133&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Cryptographic Token Interface&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vollständiger Pfad zu einer gemeinsam benutzten Bibliothek,welche die &lt;a href=&quot;http://www.rsa.com/rsalabs/node.asp?id=2133&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Cryptographic Token Shnittstelle&lt;/span&gt;&lt;/a&gt; implementiert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="69"/>
         <source>Choose path of engine library ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie den Pfad für die Engine-Bibliothek ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="79"/>
         <source>Choose path of PKCS11 library ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie den Pfad für die PKCS11-Bibliothek ...</translation>
     </message>
 </context>
 <context>
@@ -1055,17 +1071,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ConnectionManager.cpp" line="133"/>
         <source>I couldn&apos;t detect any system tray on this system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich konnte keine Systemleiste auf diesem System erkennen.</translation>
     </message>
     <message>
         <location filename="../src/ConnectionManager.cpp" line="249"/>
         <source>No smart card reader found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Smartcard Lesegerät gefunden.</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="74"/>
         <source>Not Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht verbunden</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="74"/>
@@ -1074,67 +1090,67 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ConnectionState.cpp" line="120"/>
         <location filename="../src/ConnectionState.cpp" line="128"/>
         <source>Click to show details</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken Sie hier zur Anzeige von Details</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="82"/>
         <source>Connecting to </source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinden mit</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="101"/>
         <source>Disconnecting from </source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung trennen</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="120"/>
         <source>Connected to </source>
-        <translation type="unfinished"></translation>
+        <translation>Verbunden mit</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="128"/>
         <source>Error %1 occurred when disconnecting from </source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler %1 ist aufgetreten beim Trennen der Verbindung zu</translation>
     </message>
     <message>
         <location filename="../src/ConnectionState.cpp" line="128"/>
         <source>Error %1 occurred when connecting to </source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler %1 ist aufgetreten beim verbinden mit</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="147"/>
         <source>Failed to open configuration file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Konfigurationsdatei &apos;%1&apos; nicht öffnen.</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="150"/>
         <source>Failed to backup file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Datei &apos;%1&apos; nicht sichern.</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="153"/>
         <source>Failed to create directory &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte das Verzeichnis &apos;%1&apos; nicht anlegen.</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="156"/>
         <source>Failed to expand template &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Vorlage &apos;%1&apos; nicht expandieren.</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="159"/>
         <source>Failed to get template &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Vorlage &apos;%1&apos; nicht finden.</translation>
     </message>
     <message>
         <location filename="../src/conf/AbstractConfWriter.cpp" line="174"/>
         <source>Failed to open template file &apos;:/templates/%1.tpl&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Vorlagedatei  &apos;/templates/%1.tpl&apos; nicht öffnen.</translation>
     </message>
     <message>
         <location filename="../src/conf/ConfWriter.cpp" line="83"/>
         <source>An error occurred while writing </source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Schreiben der Datei</translation>
     </message>
     <message>
         <location filename="../src/conf/IPsecConfWriter.cpp" line="75"/>
@@ -1143,60 +1159,60 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/conf/PppDownScriptWriter.cpp" line="68"/>
         <location filename="../src/conf/PppUpScriptWriter.cpp" line="85"/>
         <source>No such connection: &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Verbindungsnamen &apos;%1&apos; gibt es nicht.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="42"/>
         <source>Dynamic library files (*.dll)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamische Binliotheksdateien (*.dll)</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="45"/>
         <source>Shared library files (*.so)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamische Binliotheksdateien (*.so)</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="118"/>
         <location filename="../src/main.cpp" line="114"/>
         <source>I couldn&apos;t load PKCS11 library %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte PKCS11 Bibliothek %1 nicht laden.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="123"/>
         <source>%1 is not a valid OpenSSL engine library.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ist keine gültige OpenSSL Engine-Bibliothek.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="126"/>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="129"/>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="132"/>
         <source>%1 must not be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Feld %1 darf nicht leer sein.</translation>
     </message>
     <message>
         <location filename="../src/pkcs11/SmartCardState.cpp" line="35"/>
         <source>Please insert your smart card ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Legen Sie bitte Ihre Smartcard ein ...</translation>
     </message>
     <message>
         <location filename="../src/util/ErrorEx.h" line="70"/>
         <source>Out of Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein freier Speicher mehr verfügbar</translation>
     </message>
     <message>
         <location filename="../src/util/SecretsChecker.cpp" line="80"/>
         <source>Please enter your PIN:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie bitte Ihre PIN ein:</translation>
     </message>
     <message>
         <location filename="../src/util/SecretsChecker.cpp" line="82"/>
         <source>Please enter your passphrase:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie bitte Ihr Kennwort ein:</translation>
     </message>
     <message>
         <location filename="../src/util/SecretsChecker.cpp" line="88"/>
         <source>Please enter your password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie bitte Ihr Passwort ein:</translation>
     </message>
 </context>
 <context>
@@ -1204,27 +1220,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="14"/>
         <source>RouteSettingsDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Routen-Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="39"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="49"/>
         <source>Delete ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen ...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="62"/>
         <source>route packages with the destination addresses listed here through the PPP tunnel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leite Pakete mit den hier gelisteten Zieladressen durch den PPP Tunnel.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="79"/>
         <source>Use following explicit routes to intranet locations (split tunneling)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende folgende expliziten Routen (Split-Tunnel-Steuerung)</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="86"/>
@@ -1240,22 +1256,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.ui" line="95"/>
         <source>Use default gateway on the remote network</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Standard-Gateway</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.cpp" line="48"/>
         <source>Edit routes for VPN connection </source>
-        <translation type="unfinished"></translation>
+        <translation>Routen für VPN Verbindung bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.cpp" line="79"/>
         <source>Delete Route</source>
-        <translation type="unfinished"></translation>
+        <translation>Route löschen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/RouteSettingsDialog.cpp" line="79"/>
         <source>Are you sure you wish to delete the route &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind Sie sicher, dass Sie Route &apos;%1&apos; löschen wollen?</translation>
     </message>
 </context>
 <context>
@@ -1263,7 +1279,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/dialogs/SmartCardObjectsDialog.ui" line="14"/>
         <source>SmartCardObjectsDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Smartcard Objekte</translation>
     </message>
 </context>
 <context>
@@ -1271,12 +1287,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/VPNControlTask.cpp" line="514"/>
         <source>A critical error occurred</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist ein kritischer Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/VPNControlTask.cpp" line="514"/>
         <source>Create vpn syslog pipe command failed with exit code: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Kommando zum Erzeugen eine Syslog-Pipe is fehlgeschlagen. Rückgabewert %1</translation>
     </message>
 </context>
 </TS>

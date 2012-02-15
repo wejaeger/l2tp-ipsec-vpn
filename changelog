@@ -2,6 +2,7 @@
  - pure L2TP VPN without IPSEC encryption is now possible
  - disable connection names in context menu when there is no default gateway
  - enabled i18n and added German translation
+ - fixed bug unable to add static routes (LP: #932591)
 
 1.0.3
  - added timestamp to connection information log

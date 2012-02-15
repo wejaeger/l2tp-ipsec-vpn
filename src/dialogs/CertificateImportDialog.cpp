@@ -107,7 +107,7 @@ void CertificateImportDialog::onHelpRequested() const
 
 void CertificateImportDialog::onCertificate()
 {
-   const QString strPkcs12FileNamePath(QFileDialog::getOpenFileName(this, tr("Choose the PKCS11 certificate bundle to import ..."), QDir::homePath(), tr("PKSC#12 certificate bundle (*.p12 *.pfx)")));
+   const QString strPkcs12FileNamePath(QFileDialog::getOpenFileName(this, tr("Choose the PKCS12 certificate bundle to import ..."), QDir::homePath(), tr("PKSC#12 certificate bundle (*.p12 *.pfx)")));
 
    if (!strPkcs12FileNamePath.isNull())
    {
@@ -182,20 +182,20 @@ bool CertificateImportDialog::isInputValid() const
 bool CertificateImportDialog::writePems() const
 {
    bool fRet(false);
-   
+
    if (isInputValid())
    {
       if (checkIfFileExistAndConfirmOverwrite(certificateFilenamePath(), tr("certificate file")))
          fRet = m_pPkcs12->cert2Pem(certificateFilenamePath());
       else
          fRet = true;
-      
+
       if (fRet)
       {
          if (checkIfFileExistAndConfirmOverwrite(privateKeyFilenamePath(), tr("private key file")))
             fRet = m_pPkcs12->privateKey2Pem(privateKeyFilenamePath(), m_Widget.m_pPrivateKeyPassphraseEdit->text());
       }
-      
+
       if (fRet && m_pPkcs12->caCerts() > 0)
       {
          if (checkIfFileExistAndConfirmOverwrite(caCertificateFilenamePath(), tr("root certificate file")))
