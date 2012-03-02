@@ -1,11 +1,18 @@
-l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~natty1) natty; urgency=low
+l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~precise1) precise; urgency=low
   * New upstream release
     - pure L2TP VPN without IPSEC encryption is now possible
     - disable connection names in context menu when there is no default gateway
     - enabled i18n and added German translation
+    - enabled size grip for all dialogs
     - fixed bug unable to add static routes (LP: #932591)
+    - fixed bug If no smartcard is inserted the insert smartcard dialog is not
+      shown (LP: ##941740)
+    - fixed bug Smartcard inserted event is not detected (LP: #941741)
+    - fixed bug Invalid private key file is written when importing PKCS#12
+      certificate bundle (LP: #941743)
+    - fixed bug Running Pluto is not detected (LP: #941746)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Wed, 15 Feb 2012 09:48:11 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Wed, 26 Feb 2012 17:14:11 +0200
 
 l2tp-ipsec-vpn (1.0.3-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
@@ -154,3 +161,4 @@ l2tp-ipsec-vpn (0.9.2-0ubuntu1~ppa1~maverick1) maverick; urgency=low
   * Initial release (LP: #643433)
 
  -- Werner Jaeger <werner_jaeger@web.de>  Mon, 20 Sep 2010 14:46:57 +0200
+

@@ -100,7 +100,16 @@ QList<unsigned long> Pkcs11::slotList() const
    }
 
    for (unsigned long ul = 0; ul < ulNumSlots; ul++)
-      slotList << p11Slots[ul];
+   {
+      CK_SLOT_INFO slotInfo;
+      rv = m_p11->C_GetSlotInfo(p11Slots[ul], &slotInfo);
+
+      if (rv == CKR_OK)
+      {
+         if ((slotInfo.flags & CKF_TOKEN_PRESENT) == CKF_TOKEN_PRESENT)
+            slotList << p11Slots[ul];
+      }
+    }
 
    if (p11Slots)
       ::free(p11Slots);

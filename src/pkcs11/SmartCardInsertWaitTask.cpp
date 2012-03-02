@@ -42,7 +42,7 @@ void SmartCardInsertWaitTask::run()
       do
       {
          m_iRet = m_pkcs11.slotList().count();
-         msleep(100);
+         msleep(10);
       }
       while (m_iRet == 0 && !m_fStop);
    }

@@ -78,6 +78,7 @@ private:
    void runAndWait(VpnClientConnection::Command iCommand, const QString strArguments = "");
    void emitErrorMsg(const QString& strErrorContext);
    void clearVpnLogPipe();
+   static bool plutoIsRunning();
 
    VpnControlDaemonClient* m_pControlClient;
    QString m_strConnectionName;
