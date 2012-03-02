@@ -12,32 +12,32 @@ msgctxt "AdvancedSettingsDialog|"
 msgid "Advanced Settings"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:24
+#: ../src/dialogs/AdvancedSettingsDialog.ui:27
 msgctxt "AdvancedSettingsDialog|"
 msgid "Compression"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:30
+#: ../src/dialogs/AdvancedSettingsDialog.ui:33
 msgctxt "AdvancedSettingsDialog|"
 msgid "Allow &BSD data compression"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:37
+#: ../src/dialogs/AdvancedSettingsDialog.ui:40
 msgctxt "AdvancedSettingsDialog|"
 msgid "Allow &Deflate data compression"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:44
+#: ../src/dialogs/AdvancedSettingsDialog.ui:47
 msgctxt "AdvancedSettingsDialog|"
 msgid "Use TCP &header compression"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:54
+#: ../src/dialogs/AdvancedSettingsDialog.ui:57
 msgctxt "AdvancedSettingsDialog|"
 msgid "Echo"
 msgstr ""
 
-#: ../src/dialogs/AdvancedSettingsDialog.ui:60
+#: ../src/dialogs/AdvancedSettingsDialog.ui:63
 msgctxt "AdvancedSettingsDialog|"
 msgid "Send PPP &echo packets"
 msgstr ""
@@ -52,46 +52,46 @@ msgctxt "CertificateImportDialog|"
 msgid "Import Certificate Dialog"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:33
+#: ../src/dialogs/CertificateImportDialog.ui:36
 msgctxt "CertificateImportDialog|"
 msgid ""
 "Full path to PKCS12 (*.p12, *.pfx) encoded certificate bundle file to import"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:88
+#: ../src/dialogs/CertificateImportDialog.ui:91
 msgctxt "CertificateImportDialog|"
 msgid "PKCS12 File:"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:98
+#: ../src/dialogs/CertificateImportDialog.ui:101
 msgctxt "CertificateImportDialog|"
 msgid ""
 "If checked. the imported certificate is automatically selected as IPsec "
 "authentication certificate "
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:101
+#: ../src/dialogs/CertificateImportDialog.ui:104
 msgctxt "CertificateImportDialog|"
 msgid "Use this certificate for IPsec authentication"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:123
+#: ../src/dialogs/CertificateImportDialog.ui:126
 msgctxt "CertificateImportDialog|"
 msgid "Private key passphrase:"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:130
+#: ../src/dialogs/CertificateImportDialog.ui:133
 msgctxt "CertificateImportDialog|"
 msgid ""
 "Enter the passphrase that shall be used to encrypt the imported private key"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:140
+#: ../src/dialogs/CertificateImportDialog.ui:143
 msgctxt "CertificateImportDialog|"
 msgid "Verify private key passphrase:"
 msgstr ""
 
-#: ../src/dialogs/CertificateImportDialog.ui:147
+#: ../src/dialogs/CertificateImportDialog.ui:150
 msgctxt "CertificateImportDialog|"
 msgid "Type the private key passphrase again to confirm"
 msgstr ""
@@ -199,22 +199,22 @@ msgctxt "ConnectionEditorDialog|"
 msgid "VPN Connections"
 msgstr ""
 
-#: ../src/dialogs/ConnectionEditorDialog.ui:30
+#: ../src/dialogs/ConnectionEditorDialog.ui:33
 msgctxt "ConnectionEditorDialog|"
 msgid "&Add ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionEditorDialog.ui:40
+#: ../src/dialogs/ConnectionEditorDialog.ui:43
 msgctxt "ConnectionEditorDialog|"
 msgid "&Edit ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionEditorDialog.ui:53
+#: ../src/dialogs/ConnectionEditorDialog.ui:56
 msgctxt "ConnectionEditorDialog|"
 msgid "&Delete ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionEditorDialog.ui:109
+#: ../src/dialogs/ConnectionEditorDialog.ui:112
 msgctxt "ConnectionEditorDialog|"
 msgid "&Preferences ..."
 msgstr ""
@@ -299,67 +299,67 @@ msgctxt "ConnectionInformationDialog|"
 msgid "L2TP IPSec VPN"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:30
+#: ../src/dialogs/ConnectionInformationDialog.ui:33
 msgctxt "ConnectionInformationDialog|"
 msgid "Info"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:36
+#: ../src/dialogs/ConnectionInformationDialog.ui:39
 msgctxt "ConnectionInformationDialog|"
 msgid "Remote Server:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:56
+#: ../src/dialogs/ConnectionInformationDialog.ui:59
 msgctxt "ConnectionInformationDialog|"
 msgid "PtP Interface:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:76
+#: ../src/dialogs/ConnectionInformationDialog.ui:79
 msgctxt "ConnectionInformationDialog|"
 msgid "Destination Address:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:96
+#: ../src/dialogs/ConnectionInformationDialog.ui:99
 msgctxt "ConnectionInformationDialog|"
 msgid "IP Address:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:116
+#: ../src/dialogs/ConnectionInformationDialog.ui:119
 msgctxt "ConnectionInformationDialog|"
 msgid "Subnet Mask:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:130
+#: ../src/dialogs/ConnectionInformationDialog.ui:133
 msgctxt "ConnectionInformationDialog|"
 msgid "Primary DNS:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:150
+#: ../src/dialogs/ConnectionInformationDialog.ui:153
 msgctxt "ConnectionInformationDialog|"
 msgid "Secondary DNS:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:170
+#: ../src/dialogs/ConnectionInformationDialog.ui:173
 msgctxt "ConnectionInformationDialog|"
 msgid "Tenary DNS:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:193
+#: ../src/dialogs/ConnectionInformationDialog.ui:196
 msgctxt "ConnectionInformationDialog|"
 msgid "Statistics ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:203
+#: ../src/dialogs/ConnectionInformationDialog.ui:206
 msgctxt "ConnectionInformationDialog|"
 msgid "Internet Interface:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:217
+#: ../src/dialogs/ConnectionInformationDialog.ui:220
 msgctxt "ConnectionInformationDialog|"
 msgid "Internet Interface Gateway:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionInformationDialog.ui:232
+#: ../src/dialogs/ConnectionInformationDialog.ui:235
 msgctxt "ConnectionInformationDialog|"
 msgid "Logs"
 msgstr ""
@@ -413,27 +413,27 @@ msgctxt "ConnectionSettingsDialog|"
 msgid "Connection Settings"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:29
+#: ../src/dialogs/ConnectionSettingsDialog.ui:32
 msgctxt "ConnectionSettingsDialog|"
 msgid "Connection &name:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:60
+#: ../src/dialogs/ConnectionSettingsDialog.ui:63
 msgctxt "ConnectionSettingsDialog|"
 msgid "Connect &automatically"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:83
+#: ../src/dialogs/ConnectionSettingsDialog.ui:86
 msgctxt "ConnectionSettingsDialog|"
 msgid "IPsec"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:106
+#: ../src/dialogs/ConnectionSettingsDialog.ui:109
 msgctxt "ConnectionSettingsDialog|"
 msgid "&Remote Server:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:128
+#: ../src/dialogs/ConnectionSettingsDialog.ui:131
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "IPv4 address or domain name of the remote access server that you want to "
@@ -444,12 +444,12 @@ msgid ""
 "ipsec.server.edu"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:139
+#: ../src/dialogs/ConnectionSettingsDialog.ui:142
 msgctxt "ConnectionSettingsDialog|"
 msgid "Server &Identity:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:158
+#: ../src/dialogs/ConnectionSettingsDialog.ui:161
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "Leave empty if you don't want to check peers's identity,\n"
@@ -458,177 +458,177 @@ msgid ""
 "This is mostly a distinguished name like 'CN=cisco-fcs-ber'."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:170
+#: ../src/dialogs/ConnectionSettingsDialog.ui:173
 msgctxt "ConnectionSettingsDialog|"
 msgid "Use &pre-shared key for authentication"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:190
+#: ../src/dialogs/ConnectionSettingsDialog.ui:193
 msgctxt "ConnectionSettingsDialog|"
 msgid "Use &Certificate for authentication"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:225
+#: ../src/dialogs/ConnectionSettingsDialog.ui:228
 msgctxt "ConnectionSettingsDialog|"
 msgid "Private &key:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:235
+#: ../src/dialogs/ConnectionSettingsDialog.ui:238
 msgctxt "ConnectionSettingsDialog|"
 msgid "Full path to a X.509 pem encoded private key file"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:245
+#: ../src/dialogs/ConnectionSettingsDialog.ui:248
 msgctxt "ConnectionSettingsDialog|"
 msgid "Passphrase:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:282
+#: ../src/dialogs/ConnectionSettingsDialog.ui:285
 msgctxt "ConnectionSettingsDialog|"
 msgid "Import ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:293
+#: ../src/dialogs/ConnectionSettingsDialog.ui:296
 msgctxt "ConnectionSettingsDialog|"
 msgid "L2TP"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:299
+#: ../src/dialogs/ConnectionSettingsDialog.ui:302
 msgctxt "ConnectionSettingsDialog|"
 msgid "If checked, l2tpd will attempt to redial if the call get disconected."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:302
+#: ../src/dialogs/ConnectionSettingsDialog.ui:305
 msgctxt "ConnectionSettingsDialog|"
 msgid "Redial"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:315
+#: ../src/dialogs/ConnectionSettingsDialog.ui:318
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "If Checked, the length bit present in the l2tp packet payload will be used."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:318
+#: ../src/dialogs/ConnectionSettingsDialog.ui:321
 msgctxt "ConnectionSettingsDialog|"
 msgid "Length bit"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:342
+#: ../src/dialogs/ConnectionSettingsDialog.ui:345
 msgctxt "ConnectionSettingsDialog|"
 msgid "Timeout:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:361
+#: ../src/dialogs/ConnectionSettingsDialog.ui:364
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "Wait N seconds before redial. The redial option must be set to yes to use "
 "this option."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:377
+#: ../src/dialogs/ConnectionSettingsDialog.ui:380
 msgctxt "ConnectionSettingsDialog|"
 msgid "Attempts:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:399
+#: ../src/dialogs/ConnectionSettingsDialog.ui:402
 msgctxt "ConnectionSettingsDialog|"
 msgid "Will give up redial tries after N attempts."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:412
+#: ../src/dialogs/ConnectionSettingsDialog.ui:415
 msgctxt "ConnectionSettingsDialog|"
 msgid "PPP"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:418
+#: ../src/dialogs/ConnectionSettingsDialog.ui:421
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "With this option set, pppd will agree to authenticate itself to the peer "
 "exclusively using EAP."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:421
+#: ../src/dialogs/ConnectionSettingsDialog.ui:424
 msgctxt "ConnectionSettingsDialog|"
 msgid "Use Extensible Authentication Protocol (EAP)"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:431
+#: ../src/dialogs/ConnectionSettingsDialog.ui:434
 msgctxt "ConnectionSettingsDialog|"
 msgid "Properties ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:438
+#: ../src/dialogs/ConnectionSettingsDialog.ui:441
 msgctxt "ConnectionSettingsDialog|"
 msgid "Allow these protocols"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:446
+#: ../src/dialogs/ConnectionSettingsDialog.ui:449
 msgctxt "ConnectionSettingsDialog|"
 msgid "Unencrypted password (PAP)"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:449
+#: ../src/dialogs/ConnectionSettingsDialog.ui:452
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "With this option set, pppd will agree to authenticate itself to the peer "
 "using PAP."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:457
+#: ../src/dialogs/ConnectionSettingsDialog.ui:460
 msgctxt "ConnectionSettingsDialog|"
 msgid "Challenge Authentication Protocol (CHAP)"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:460
+#: ../src/dialogs/ConnectionSettingsDialog.ui:463
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "With this option set, pppd will agree to authenticate itself to the peer "
 "using CHAP."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:468
+#: ../src/dialogs/ConnectionSettingsDialog.ui:471
 msgctxt "ConnectionSettingsDialog|"
 msgid "Microsoft CHAP (MS-Chap)"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:471
+#: ../src/dialogs/ConnectionSettingsDialog.ui:474
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "With this option set, pppd will agree to authenticate itself to the peer "
 "using MS-CHAP."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:479
+#: ../src/dialogs/ConnectionSettingsDialog.ui:482
 msgctxt "ConnectionSettingsDialog|"
 msgid "Microsoft CHAP Version 2 (MS-CHAPv2)"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:482
+#: ../src/dialogs/ConnectionSettingsDialog.ui:485
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "With this option set, pppd will agree to authenticate itself to the peer "
 "using MS-CHAPv2."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:502
+#: ../src/dialogs/ConnectionSettingsDialog.ui:505
 msgctxt "ConnectionSettingsDialog|"
 msgid "User name:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:512
+#: ../src/dialogs/ConnectionSettingsDialog.ui:515
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "Set the name used for authenticating the local system to the remote access "
 "server."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:519
+#: ../src/dialogs/ConnectionSettingsDialog.ui:522
 msgctxt "ConnectionSettingsDialog|"
 msgid "Password:"
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:529
+#: ../src/dialogs/ConnectionSettingsDialog.ui:532
 msgctxt "ConnectionSettingsDialog|"
 msgid ""
 "Enter your password.\n"
@@ -636,22 +636,22 @@ msgid ""
 "If left empty you'll be ask each time you try to establish a connection."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:544
+#: ../src/dialogs/ConnectionSettingsDialog.ui:547
 msgctxt "ConnectionSettingsDialog|"
 msgid "Peer authentication ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:551
+#: ../src/dialogs/ConnectionSettingsDialog.ui:554
 msgctxt "ConnectionSettingsDialog|"
 msgid "IP settings ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:558
+#: ../src/dialogs/ConnectionSettingsDialog.ui:561
 msgctxt "ConnectionSettingsDialog|"
 msgid "Advanced ..."
 msgstr ""
 
-#: ../src/dialogs/ConnectionSettingsDialog.ui:576
+#: ../src/dialogs/ConnectionSettingsDialog.ui:579
 msgctxt "ConnectionSettingsDialog|"
 msgid "&Disable IPSEC Encryption"
 msgstr ""
@@ -676,47 +676,47 @@ msgctxt "EapSettingsDialog|"
 msgid "EAP settings"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:30
+#: ../src/dialogs/EapSettingsDialog.ui:33
 msgctxt "EapSettingsDialog|"
 msgid "When connecting"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:36
+#: ../src/dialogs/EapSettingsDialog.ui:39
 msgctxt "EapSettingsDialog|"
 msgid "Use my smart card"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:43
+#: ../src/dialogs/EapSettingsDialog.ui:46
 msgctxt "EapSettingsDialog|"
 msgid "Use a certificate on this computer"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:68
+#: ../src/dialogs/EapSettingsDialog.ui:71
 msgctxt "EapSettingsDialog|"
 msgid "User certificate:"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:78
+#: ../src/dialogs/EapSettingsDialog.ui:81
 msgctxt "EapSettingsDialog|"
 msgid "Full path to a X.509 encoded personal certificate file"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:99
+#: ../src/dialogs/EapSettingsDialog.ui:102
 msgctxt "EapSettingsDialog|"
 msgid "Private key:"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:109
+#: ../src/dialogs/EapSettingsDialog.ui:112
 msgctxt "EapSettingsDialog|"
 msgid "Full path to a X.509 pem encoded private key file"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:133
+#: ../src/dialogs/EapSettingsDialog.ui:136
 msgctxt "EapSettingsDialog|"
 msgid "Passphrase:"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:143
+#: ../src/dialogs/EapSettingsDialog.ui:146
 msgctxt "EapSettingsDialog|"
 msgid ""
 "Enter the PIN or passphrase for your private key.\n"
@@ -724,12 +724,12 @@ msgid ""
 "If left empty you'll be ask each time you try to establish a connection."
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:176
+#: ../src/dialogs/EapSettingsDialog.ui:179
 msgctxt "EapSettingsDialog|"
 msgid "CA Certificate:"
 msgstr ""
 
-#: ../src/dialogs/EapSettingsDialog.ui:186
+#: ../src/dialogs/EapSettingsDialog.ui:189
 msgctxt "EapSettingsDialog|"
 msgid "Full path to a X.509 pem encoded Certificate Authority certificate file"
 msgstr ""
@@ -772,47 +772,47 @@ msgctxt "InterfaceStatisticsDialog|"
 msgid "Interface Statistics"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:27
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:30
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Transmitted bytes:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:41
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:44
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Transmitted packets:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:55
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:58
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Transmission errors:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:85
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:88
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Received bytes:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:99
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:102
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Received packets:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:113
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:116
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Reception errors:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:143
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:146
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Connected since:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:157
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:160
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Connection time:"
 msgstr ""
 
-#: ../src/dialogs/InterfaceStatisticsDialog.ui:194
+#: ../src/dialogs/InterfaceStatisticsDialog.ui:197
 msgctxt "InterfaceStatisticsDialog|"
 msgid "Collisions:"
 msgstr ""
@@ -827,7 +827,7 @@ msgctxt "IpSettingsDialog|"
 msgid "IpSettingsDialog"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:33
+#: ../src/dialogs/IpSettingsDialog.ui:36
 msgctxt "IpSettingsDialog|"
 msgid ""
 "If checked the peer is asked for up to 2 DNS server addresses, otherwise "
@@ -835,17 +835,17 @@ msgid ""
 "the edit boxes below."
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:36
+#: ../src/dialogs/IpSettingsDialog.ui:39
 msgctxt "IpSettingsDialog|"
 msgid "Obtain DNS server addresses automatically"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:49
+#: ../src/dialogs/IpSettingsDialog.ui:52
 msgctxt "IpSettingsDialog|"
 msgid "Preferred DNS server:"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:65
+#: ../src/dialogs/IpSettingsDialog.ui:68
 msgctxt "IpSettingsDialog|"
 msgid ""
 "Ip addresses of preferred domain name server used to resolve host names. "
@@ -855,7 +855,7 @@ msgid ""
 "1.2.3.4"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:91
+#: ../src/dialogs/IpSettingsDialog.ui:94
 msgctxt "IpSettingsDialog|"
 msgid ""
 "Ip addresses of alternate domain name server used to resolve host names. "
@@ -865,24 +865,24 @@ msgid ""
 "1.2.3.4"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:81
+#: ../src/dialogs/IpSettingsDialog.ui:84
 msgctxt "IpSettingsDialog|"
 msgid "Alternate DNS server:"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:107
+#: ../src/dialogs/IpSettingsDialog.ui:110
 msgctxt "IpSettingsDialog|"
 msgid "Search domains:"
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:117
+#: ../src/dialogs/IpSettingsDialog.ui:120
 msgctxt "IpSettingsDialog|"
 msgid ""
 "Domains used when resolving hostnames.\n"
 "Use spaces to separate multiple domains."
 msgstr ""
 
-#: ../src/dialogs/IpSettingsDialog.ui:140
+#: ../src/dialogs/IpSettingsDialog.ui:143
 msgctxt "IpSettingsDialog|"
 msgid "Routes ..."
 msgstr ""
@@ -897,12 +897,12 @@ msgctxt "PeerAuthenticationDialog|"
 msgid "PeerAuthenticationDialog"
 msgstr ""
 
-#: ../src/dialogs/PeerAuthenticationDialog.ui:29
+#: ../src/dialogs/PeerAuthenticationDialog.ui:32
 msgctxt "PeerAuthenticationDialog|"
 msgid "Remote name:"
 msgstr ""
 
-#: ../src/dialogs/PeerAuthenticationDialog.ui:39
+#: ../src/dialogs/PeerAuthenticationDialog.ui:42
 msgctxt "PeerAuthenticationDialog|"
 msgid ""
 "Set the assumed name of the remote system for authentication purposes.\n"
@@ -987,29 +987,29 @@ msgctxt "PreferencesEditorDialog|"
 msgid "Preferences"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:28
+#: ../src/dialogs/PreferencesEditorDialog.ui:31
 msgctxt "PreferencesEditorDialog|"
 msgid "OpenSSL"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:34
+#: ../src/dialogs/PreferencesEditorDialog.ui:37
 msgctxt "PreferencesEditorDialog|"
 msgid "Engine &ID:"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:44
 #: ../src/dialogs/PreferencesEditorDialog.ui:47
+#: ../src/dialogs/PreferencesEditorDialog.ui:50
 msgctxt "PreferencesEditorDialog|"
 msgid "Unique identifier for OpenSSL engine"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:54
+#: ../src/dialogs/PreferencesEditorDialog.ui:57
 msgctxt "PreferencesEditorDialog|"
 msgid "&Engine Path:"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:64
-#: ../src/dialogs/PreferencesEditorDialog.ui:71
+#: ../src/dialogs/PreferencesEditorDialog.ui:67
+#: ../src/dialogs/PreferencesEditorDialog.ui:74
 msgctxt "PreferencesEditorDialog|"
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" "
@@ -1027,13 +1027,13 @@ msgid ""
 "interface</span></a></p></body></html>"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:96
+#: ../src/dialogs/PreferencesEditorDialog.ui:99
 msgctxt "PreferencesEditorDialog|"
 msgid "&PKCS 11 Path:"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.ui:106
-#: ../src/dialogs/PreferencesEditorDialog.ui:113
+#: ../src/dialogs/PreferencesEditorDialog.ui:109
+#: ../src/dialogs/PreferencesEditorDialog.ui:116
 msgctxt "PreferencesEditorDialog|"
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" "
@@ -1219,29 +1219,29 @@ msgctxt "RouteSettingsDialog|"
 msgid "RouteSettingsDialog"
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:39
+#: ../src/dialogs/RouteSettingsDialog.ui:42
 msgctxt "RouteSettingsDialog|"
 msgid "Add"
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:49
+#: ../src/dialogs/RouteSettingsDialog.ui:52
 msgctxt "RouteSettingsDialog|"
 msgid "Delete ..."
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:62
+#: ../src/dialogs/RouteSettingsDialog.ui:65
 msgctxt "RouteSettingsDialog|"
 msgid ""
 "route packages with the destination addresses listed here through the PPP "
 "tunnel."
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:79
+#: ../src/dialogs/RouteSettingsDialog.ui:82
 msgctxt "RouteSettingsDialog|"
 msgid "Use following explicit routes to intranet locations (split tunneling)"
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:86
+#: ../src/dialogs/RouteSettingsDialog.ui:89
 msgctxt "RouteSettingsDialog|"
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" "
@@ -1273,7 +1273,7 @@ msgid ""
 "</li></ul></body></html>"
 msgstr ""
 
-#: ../src/dialogs/RouteSettingsDialog.ui:95
+#: ../src/dialogs/RouteSettingsDialog.ui:98
 msgctxt "RouteSettingsDialog|"
 msgid "Use default gateway on the remote network"
 msgstr ""

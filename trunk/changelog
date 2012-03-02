@@ -2,7 +2,14 @@
  - pure L2TP VPN without IPSEC encryption is now possible
  - disable connection names in context menu when there is no default gateway
  - enabled i18n and added German translation
+ - enabled size grip for all dialogs
  - fixed bug unable to add static routes (LP: #932591)
+ - fixed bug If no smartcard is inserted the insert smartcard dialog is not
+   shown (LP: ##941740)
+ - fixed bug Smartcard inserted event is not detected (LP: #941741)
+ - fixed bug Invalid private key file is written when importing PKCS#12
+   certificate bundle (LP: #941743)
+ - fixed bug Running Pluto is not detected (LP: #941746)
 
 1.0.3
  - added timestamp to connection information log

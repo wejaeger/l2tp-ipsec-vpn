@@ -23,7 +23,9 @@
 */
 
 #include <QProcess>
+#include <QDir>
 #include <QFile>
+#include <QFileInfoList>
 #include <QTextStream>
 #include <QSocketNotifier>
 #include <QMessageBox>
@@ -39,10 +41,10 @@
 #include "VPNControlTask.h"
 #include "ConnectionManager.h"
 
-static const QFile ipsecInfo("/var/run/pluto/ipsec.info");
 static const QFile xl2tpdPid("/var/run/xl2tpd.pid");
 
 static const char* const strVpnLogPipeName("/var/log/l2tpipsecvpn.pipe");
+static const char* const PROCDIR("/proc/");
 
 static const QRegExp RE_LOG_SPLITLINE("\\s(?=\\w+\\[\\d+\\]\\:\\s)");
 static const QRegExp RE_LOG_CAP_CERTIFICATEID("\\'(\\d\\:\\d{1,3})\\'");
@@ -212,11 +214,11 @@ void VPNControlTask::runConnect()
 
    const CommonSettings commonSettings(ConnectionSettings().commonSettings(m_strConnectionName));
 
-   if (ipsecInfo.exists())
+   if (VPNControlTask::plutoIsRunning())
    {
       runAndWait(VpnClientConnection::CMD_STOP_IPSECD);
 
-      while (ipsecInfo.exists())
+      while (VPNControlTask::plutoIsRunning())
          sleep(1);
    }
 
@@ -513,4 +515,42 @@ void VPNControlTask::clearVpnLogPipe()
       if (iResult != VpnClientConnection::OK)
          QMessageBox::critical(NULL, tr("A critical error occurred"), tr("Create vpn syslog pipe command failed with exit code: %1").arg(iResult));
    }
+}
+
+/**
+ * Lookup /proc to see if pluto is running
+ **/
+bool VPNControlTask::plutoIsRunning()
+{
+   const uint uiUid(0);
+
+   QFileInfoList procList(QDir(PROCDIR).entryInfoList(QDir::AllDirs|QDir::NoDotAndDotDot));
+
+   bool fDone(false);
+   for (QFileInfoList::const_iterator procIt(procList.constBegin()); !fDone && procIt != procList.constEnd(); procIt++)
+   {
+      bool fOk(false);
+      QString strPid((*procIt).fileName());
+      strPid.toUInt(&fOk);
+
+      if (fOk) // pid must be numeric, ignore every thing else
+      {
+         // is this process owned by the user
+         if (uiUid == (*procIt).ownerId())
+         {
+            // we have a valid pid
+            // open the cmdline file to determine what's the name of the process running
+            QFile cmdLineFile(PROCDIR + strPid + "/cmdline");
+            if (cmdLineFile.open(QFile::ReadOnly))
+            {
+               const QString strCli(cmdLineFile.readAll());
+               if (strCli.startsWith("pluto"))
+                  fDone = true;
+            }
+            else
+               qWarning() << "Failed to open proc command line file" << cmdLineFile.fileName();
+         }
+      }
+   }
+   return(fDone);
 }
