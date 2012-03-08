@@ -117,8 +117,8 @@ bool ConnectionEditorDialog::applySettings(ConnectionsModel* pConnectionsModel, 
             fRet = ConfWriter::write(ConfWriter::PPP, strConnectionName);
             if (fRet)
             {
-               const QString strDNSConfInstance( QCoreApplication::instance()->objectName() + "-" +strConnectionName);
-               const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF,strDNSConfInstance));
+               const QString strDNSConfInstance(QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+               const QString strDNSConfFile(ConfWriter::fileName(ConfWriter::PPPDNSCONF, strDNSConfInstance));
                const PppIpSettings ipSettings(pConnectionSettings->pppSettings(strConnectionName).ipSettings());
 
                if (ipSettings.usePeerDns() || (ipSettings.alternateDnsServerAddress().isEmpty() && ipSettings.preferredDnsServerAddress().isEmpty() && ipSettings.searchDomains().isEmpty()))

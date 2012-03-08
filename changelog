@@ -3,6 +3,10 @@
  - disable connection names in context menu when there is no default gateway
  - enabled i18n and added German translation
  - enabled size grip for all dialogs
+ - check which graphical su command (gksudo, beesu or kdesudo) is available
+   when starting connection editor
+ - added postrm maintainer script to delete all configuration and runtime files
+   on purge
  - fixed bug unable to add static routes (LP: #932591)
  - fixed bug If no smartcard is inserted the insert smartcard dialog is not
    shown (LP: ##941740)

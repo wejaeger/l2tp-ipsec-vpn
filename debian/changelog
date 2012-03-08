@@ -3,7 +3,11 @@ l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~precise1) precise; urgency=low
     - pure L2TP VPN without IPSEC encryption is now possible
     - disable connection names in context menu when there is no default gateway
     - enabled i18n and added German translation
+    - check which graphical su command (gksudo, beesu or kdesudo) is available
+      when starting connection editor
     - enabled size grip for all dialogs
+    - added postrm maintainer script to delete all configuration and runtime
+      files on purge
     - fixed bug unable to add static routes (LP: #932591)
     - fixed bug If no smartcard is inserted the insert smartcard dialog is not
       shown (LP: ##941740)
@@ -12,7 +16,7 @@ l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~precise1) precise; urgency=low
       certificate bundle (LP: #941743)
     - fixed bug Running Pluto is not detected (LP: #941746)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Wed, 26 Feb 2012 17:14:11 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Mon, 5 Mar 2012 01:19:41 +0100
 
 l2tp-ipsec-vpn (1.0.3-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
