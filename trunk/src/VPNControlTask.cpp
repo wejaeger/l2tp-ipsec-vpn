@@ -169,7 +169,7 @@ void VPNControlTask::run()
  * \brief Tries to stop this running thread.
  *
  * \param iWaitMiliSeconds wait at most this time.
- * \retun true if the thread was stopped successfully, false otherwise.
+ * \return true if the thread was stopped successfully, false otherwise.
  */
 bool VPNControlTask::stop(unsigned long iWaitMiliSeconds)
 {

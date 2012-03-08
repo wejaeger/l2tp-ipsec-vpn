@@ -42,6 +42,7 @@ public:
       CONNECTION_EDITOR,
       CONNECTION_EDITOR_STARTER,
       APPLYSETTINGS,
+      DELETEALLCONFFILES,
       PASSWORD_CALLBACK
    };
 
@@ -56,6 +57,7 @@ public:
    int startConnectionEditorDialog(bool fDetached = false) const;
 
    static APPLICATIONMODE parseCmdLine(int& iArgc, char** ppArgv);
+   static QString getGrahicalSUCmdLine();
 
 signals:
    void connectionAdded(const QString& strConnectionName);

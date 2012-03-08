@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 7.0.50),
                libqt4-dev (>= 4.6.2),
                libssl-dev (>= 0.9.8),
                qt4-qmake (>= 4.6.2)
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Vcs-bzr: lp:l2tp-ipsec-vpn
 Vcs-Browser: http://bazaar.launchpad.net/~werner-jaeger/l2tp-ipsec-vpn/gui/files
 Homepage: https://launchpad.net/l2tp-ipsec-vpn

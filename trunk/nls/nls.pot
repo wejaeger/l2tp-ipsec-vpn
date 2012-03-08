@@ -892,6 +892,11 @@ msgctxt "IpSettingsDialog|"
 msgid " - Ip Settings"
 msgstr ""
 
+#: ../src/L2tpIPsecVpnApplication.cpp:106
+msgctxt "L2tpIPsecVpnApplication|"
+msgid "I couldn't find any graphical SU command (gksudo, beesu or kdesudo)."
+msgstr ""
+
 #: ../src/dialogs/PeerAuthenticationDialog.ui:14
 msgctxt "PeerAuthenticationDialog|"
 msgid "PeerAuthenticationDialog"
@@ -1169,7 +1174,7 @@ msgctxt "QObject|"
 msgid "Shared library files (*.so)"
 msgstr ""
 
-#: ../src/dialogs/PreferencesEditorDialog.cpp:118 ../src/main.cpp:114
+#: ../src/dialogs/PreferencesEditorDialog.cpp:118 ../src/main.cpp:119
 #, qt-format
 msgctxt "QObject|"
 msgid "I couldn't load PKCS11 library %1."
@@ -1299,12 +1304,12 @@ msgctxt "SmartCardObjectsDialog|"
 msgid "SmartCardObjectsDialog"
 msgstr ""
 
-#: ../src/VPNControlTask.cpp:514
+#: ../src/VPNControlTask.cpp:516
 msgctxt "VPNControlTask|"
 msgid "A critical error occurred"
 msgstr ""
 
-#: ../src/VPNControlTask.cpp:514
+#: ../src/VPNControlTask.cpp:516
 #, qt-format
 msgctxt "VPNControlTask|"
 msgid "Create vpn syslog pipe command failed with exit code: %1"

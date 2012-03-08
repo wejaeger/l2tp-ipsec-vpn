@@ -180,6 +180,36 @@ PppSettings ConnectionSettings::pppSettings(const QString& strName) const
    return(PppSettings(connection(strName)));
 }
 
+int ConnectionSettings::deleteAllConfFiles()
+{
+   int iRet(0);
+
+   if (ConnectionsModel().isWriteable())
+   {
+      for (int i = 0; i < ConfWriter::END; i++)
+      {
+         const QString strConfFile(ConfWriter::fileName(static_cast<ConfWriter::Conf>(i)));
+         if (QFile::exists(strConfFile))
+            QFile::remove(strConfFile);
+      }
+
+      const int iConnections(connections());
+
+      for (int i = 0; i < iConnections; i++)
+      {
+         const QString strConnectionName(connection(i));
+         QFile::remove(ConfWriter::fileName(ConfWriter::PPP, strConnectionName));
+
+         const QString strDNSConfInstance(QCoreApplication::instance()->objectName() + "-" +strConnectionName);
+         QFile::remove(ConfWriter::fileName(ConfWriter::PPPDNSCONF, strDNSConfInstance));
+      }
+   }
+   else
+      iRet = -1;
+
+   return(iRet);
+}
+
 QString ConnectionSettings::connection(int iConnectionNo) const
 {
    QString strRet;

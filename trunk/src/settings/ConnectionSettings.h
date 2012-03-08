@@ -54,6 +54,8 @@ public:
    L2tpSettings l2tpSettings(const QString& strName) const;
    PppSettings pppSettings(const QString& strName) const;
 
+   int deleteAllConfFiles();
+
 protected:
    explicit ConnectionSettings(int iConnectionNo);
    ConnectionSettings(const ConnectionSettings& orig);

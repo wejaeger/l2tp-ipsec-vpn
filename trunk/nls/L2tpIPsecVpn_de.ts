@@ -894,6 +894,14 @@ Trennen Sie mehrere Domänen durch Leerzeichen.</translation>
     </message>
 </context>
 <context>
+    <name>L2tpIPsecVpnApplication</name>
+    <message>
+        <location filename="../src/L2tpIPsecVpnApplication.cpp" line="106"/>
+        <source>I couldn&apos;t find any graphical SU command (gksudo, beesu or kdesudo).</source>
+        <translation>Kein graphisches SU kommando ((gksudo, beesu or kdesudo) gefunden.</translation>
+    </message>
+</context>
+<context>
     <name>PeerAuthenticationDialog</name>
     <message>
         <location filename="../src/dialogs/PeerAuthenticationDialog.ui" line="14"/>
@@ -1173,7 +1181,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/dialogs/PreferencesEditorDialog.cpp" line="118"/>
-        <location filename="../src/main.cpp" line="114"/>
+        <location filename="../src/main.cpp" line="119"/>
         <source>I couldn&apos;t load PKCS11 library %1.</source>
         <translation>Konnte PKCS11 Bibliothek %1 nicht laden.</translation>
     </message>
@@ -1285,12 +1293,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>VPNControlTask</name>
     <message>
-        <location filename="../src/VPNControlTask.cpp" line="514"/>
+        <location filename="../src/VPNControlTask.cpp" line="516"/>
         <source>A critical error occurred</source>
         <translation>Es ist ein kritischer Fehler aufgetreten</translation>
     </message>
     <message>
-        <location filename="../src/VPNControlTask.cpp" line="514"/>
+        <location filename="../src/VPNControlTask.cpp" line="516"/>
         <source>Create vpn syslog pipe command failed with exit code: %1</source>
         <translation>Das Kommando zum Erzeugen eine Syslog-Pipe is fehlgeschlagen. Rückgabewert %1</translation>
     </message>
