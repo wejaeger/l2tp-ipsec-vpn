@@ -9,17 +9,6 @@ set -e
 if [ "$1" = "purge" ]; then
 	# Remove settings file
 	rm -rf /etc/xdg/WernerJaeger
-
-	# Remove run time files
-	rm -rf /var/run/L2tpIPsecVpn
-	rm -rf /var/tmp/L2tpIPsecVpn
-
-   # Remove lock files and sockets
-   rm -f /tmp/L2tpIPsecVpn-*
-
-   # Remove syslog pipe and restart syslog service
-   rm -f /var/log/l2tpipsecvpn.pipe
-   service rsyslog restart || true
 fi
 
 # dh_installdeb will replace this with shell code automatically
