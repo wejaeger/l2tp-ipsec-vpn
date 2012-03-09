@@ -7,15 +7,7 @@
 set -e
 
 if [ "$1" = "purge" ]; then
-   # if applet is running try to terminate it
-   PIDS=$(pidof L2tpIPsecVpn || true)
-   if [ -n "$PIDS" ]; then
-      echo "Trying to terminate L2tpIPsecVpn applet" >&2
-      kill $PIDS || true
-   fi
-
-	# Remove configuration files
-   L2tpIPsecVpn deleteAllConfFiles || true
+	# Remove settings file
 	rm -rf /etc/xdg/WernerJaeger
 
 	# Remove run time files

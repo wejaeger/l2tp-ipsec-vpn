@@ -896,7 +896,7 @@ Trennen Sie mehrere Domänen durch Leerzeichen.</translation>
 <context>
     <name>L2tpIPsecVpnApplication</name>
     <message>
-        <location filename="../src/L2tpIPsecVpnApplication.cpp" line="106"/>
+        <location filename="../src/L2tpIPsecVpnApplication.cpp" line="107"/>
         <source>I couldn&apos;t find any graphical SU command (gksudo, beesu or kdesudo).</source>
         <translation>Kein graphisches SU kommando ((gksudo, beesu or kdesudo) gefunden.</translation>
     </message>
@@ -1293,12 +1293,18 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>VPNControlTask</name>
     <message>
-        <location filename="../src/VPNControlTask.cpp" line="516"/>
+        <location filename="../src/VPNControlTask.cpp" line="518"/>
+        <location filename="../src/VPNControlTask.cpp" line="520"/>
         <source>A critical error occurred</source>
         <translation>Es ist ein kritischer Fehler aufgetreten</translation>
     </message>
     <message>
-        <location filename="../src/VPNControlTask.cpp" line="516"/>
+        <location filename="../src/VPNControlTask.cpp" line="518"/>
+        <source>L2tpIPsecVpnControlDaemon is not started</source>
+        <translation>L2tpIPsecVpnControlDaemon ist nicht gestartet</translation>
+    </message>
+    <message>
+        <location filename="../src/VPNControlTask.cpp" line="520"/>
         <source>Create vpn syslog pipe command failed with exit code: %1</source>
         <translation>Das Kommando zum Erzeugen eine Syslog-Pipe is fehlgeschlagen. Rückgabewert %1</translation>
     </message>
