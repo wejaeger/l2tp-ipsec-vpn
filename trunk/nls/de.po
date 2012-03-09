@@ -962,7 +962,7 @@ msgctxt "IpSettingsDialog|"
 msgid " - Ip Settings"
 msgstr "- Ip Einstellungen"
 
-#: ../src/L2tpIPsecVpnApplication.cpp:106
+#: ../src/L2tpIPsecVpnApplication.cpp:107
 msgctxt "L2tpIPsecVpnApplication|"
 msgid "I couldn't find any graphical SU command (gksudo, beesu or kdesudo)."
 msgstr "Kein graphisches SU kommando ((gksudo, beesu or kdesudo) gefunden."
@@ -1408,12 +1408,17 @@ msgctxt "SmartCardObjectsDialog|"
 msgid "SmartCardObjectsDialog"
 msgstr "Smartcard Objekte"
 
-#: ../src/VPNControlTask.cpp:516
+#: ../src/VPNControlTask.cpp:518 ../src/VPNControlTask.cpp:520
 msgctxt "VPNControlTask|"
 msgid "A critical error occurred"
 msgstr "Es ist ein kritischer Fehler aufgetreten"
 
-#: ../src/VPNControlTask.cpp:516
+#: ../src/VPNControlTask.cpp:518
+msgctxt "VPNControlTask|"
+msgid "L2tpIPsecVpnControlDaemon is not started"
+msgstr "L2tpIPsecVpnControlDaemon ist nicht gestartet"
+
+#: ../src/VPNControlTask.cpp:520
 #, qt-format
 msgctxt "VPNControlTask|"
 msgid "Create vpn syslog pipe command failed with exit code: %1"

@@ -513,7 +513,12 @@ void VPNControlTask::clearVpnLogPipe()
    {
       const int iResult(VpnControlDaemonClient::execute(VpnClientConnection::CMD_CREATE_VPN_LOGPIPE, m_vpnLogPipe.fileName()));
       if (iResult != VpnClientConnection::OK)
-         QMessageBox::critical(NULL, tr("A critical error occurred"), tr("Create vpn syslog pipe command failed with exit code: %1").arg(iResult));
+      {
+         if (iResult == 1)
+            QMessageBox::critical(NULL, tr("A critical error occurred"), tr("L2tpIPsecVpnControlDaemon is not started"));
+         else
+            QMessageBox::critical(NULL, tr("A critical error occurred"), tr("Create vpn syslog pipe command failed with exit code: %1").arg(iResult));
+      }
    }
 }
 
