@@ -14,6 +14,7 @@
  - fixed bug Invalid private key file is written when importing PKCS#12
    certificate bundle (LP: #941743)
  - fixed bug Running Pluto is not detected (LP: #941746)
+ - fixed bug xl2tpd overrides and ipparam settings (LP: #95152)
 
 1.0.3
  - added timestamp to connection information log

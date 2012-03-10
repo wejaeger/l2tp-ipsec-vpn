@@ -12,6 +12,12 @@
 # WARNING! All changes made in this file will be lost!
 #
 #
+if test -f /var/tmp/L2tpIPsecVpn/connectionName.info; then
+   PPP_IPPARAM={{OBJECTNAME}}-$(cat /var/tmp/L2tpIPsecVpn/connectionName.info)
+fi
+
+echo "{{FILENAME}} called with PPP_IPPARAM=$PPP_IPPARAM"
+
 # exit if PPP_IPPARAM is not set or does not start with "{{OBJECTNAME}}"
 if [ ! `echo $PPP_IPPARAM | grep "{{OBJECTNAME}}"` ]; then
   exit 0
