@@ -15,8 +15,9 @@ l2tp-ipsec-vpn (1.0.4-0ubuntu1~ppa1~precise1) precise; urgency=low
     - fixed bug Invalid private key file is written when importing PKCS#12
       certificate bundle (LP: #941743)
     - fixed bug Running Pluto is not detected (LP: #941746)
+    - fixed bug xl2tpd overrides and ipparam settings (LP: #95152)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Mon, 5 Mar 2012 01:19:41 +0100
+ -- Werner Jaeger <werner_jaeger@web.de>  Sat, 10 Mar 2012 14:43:53 +0100
 
 l2tp-ipsec-vpn (1.0.3-0ubuntu1~ppa1~natty1) natty; urgency=low
   * New upstream release
