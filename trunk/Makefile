@@ -55,14 +55,6 @@ install: nbproject/qt-${CONF}.mk
 	   invoke-rc.d rsyslog restart; \
 	fi
 
-	@if [ "$${INSTALL_ROOT}" = "" -a ! -d $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET) ]; then \
-	   mkdir $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET); \
-	fi
-
-	@if [ "$${INSTALL_ROOT}" = "" ]; then \
-	   chmod go+rw $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET); \
-	fi
-
 # uninstall
 uninstall: nbproject/qt-${CONF}.mk
    # if applet is running try to terminate it
@@ -75,9 +67,6 @@ uninstall: nbproject/qt-${CONF}.mk
    # Remove all generated configuration files
 	@echo "Trying to delete all generated config files" >&2
 	$(QMAKE_TARGET) deleteAllConfFiles || true
-
-   # Remove run time files
-	rm -rf $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET)
 
    # Remove lock files and sockets
 	rm -f $(INSTALL_ROOT)/tmp/$(QMAKE_TARGET)-*

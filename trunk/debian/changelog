@@ -1,3 +1,11 @@
+l2tp-ipsec-vpn (1.0.6-1) unstable; urgency=low
+
+  * New upstream release
+    - transfered writing files connectionName.info and defaultgateway.info to
+      L2tpIPsecVpnControlDaemon
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Mon, 12 Mar 2012 14:42:11 +0100
+
 l2tp-ipsec-vpn (1.0.5-0ubuntu1~ppa1~precise1) precise; urgency=low
 
   * New upstream release

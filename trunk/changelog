@@ -1,3 +1,7 @@
+1.0.6
+ - transfered writing files connectionName.info and defaultgateway.info to
+   L2tpIPsecVpnControlDaemon
+
 1.0.5
  - unified runtime path, no longer using /var/tmp/L2tpIPsecVpn
  - enhanced install Makefile to create a world writable runtime directory
