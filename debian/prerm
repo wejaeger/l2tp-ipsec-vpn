@@ -20,14 +20,10 @@ if [ "$1" = "remove" ] ; then
 
 	# Remove run time files
 	rm -rf /var/run/L2tpIPsecVpn
-	rm -rf /var/tmp/L2tpIPsecVpn
-
-   # Remove lock files and sockets
-   rm -f /tmp/L2tpIPsecVpn-*
 
    # Remove syslog pipe and restart syslog service
    rm -f /var/log/l2tpipsecvpn.pipe
-   service rsyslog restart || true
+   invoke-rc.d rsyslog restart || true
 fi
 
 

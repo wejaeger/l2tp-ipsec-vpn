@@ -1,3 +1,10 @@
+1.0.5
+ - unified runtime path, no longer using /var/tmp/L2tpIPsecVpn
+ - enhanced install Makefile to create a world writable runtime directory
+ - enhanced uninstall Makefile to remove runtime files and directories
+ - chanaged debian copyright file to conform to the new official 1.0 Format
+ - debian watch file is now working correct
+
 1.0.4
  - pure L2TP VPN without IPSEC encryption is now possible
  - disable connection names in context menu when there is no default gateway

@@ -36,8 +36,8 @@
 #include "NetworkInterface.h"
 
 const char* const pcProcNetDevPath("/proc/net/dev");
-const char* const pcL2tpRunDir("/var/tmp/L2tpIPsecVpn");
-const char* const pcDefaultGatewayInfoPath("/var/tmp/L2tpIPsecVpn/defaultgateway.info");
+const char* const pcL2tpRunDir("/var/run/L2tpIPsecVpn");
+const char* const pcDefaultGatewayInfoPath("/var/run/L2tpIPsecVpn/defaultgateway.info");
 const NetworkInterface NetworkInterface::null(NetworkInterface("", 0, 0));
 
 NetworkInterface::NetworkInterface(const NetworkInterface& orig) : m_strName(orig.m_strName), m_iIndex(orig.m_iIndex), m_Flags(orig.m_Flags), m_AddressEntries(orig.m_AddressEntries), m_RouteEntries(orig.m_RouteEntries)
