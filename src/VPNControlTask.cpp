@@ -43,7 +43,6 @@
 
 static const QFile xl2tpdPid("/var/run/xl2tpd.pid");
 
-static const char* const strConnectionNameInfo("/var/run/L2tpIPsecVpn/connectionName.info");
 static const char* const strVpnLogPipeName("/var/log/l2tpipsecvpn.pipe");
 static const char* const PROCDIR("/proc/");
 
@@ -62,7 +61,6 @@ static const char* const STR_LOG_MATCH_PEERAUTHFAILED("but I couldn't find any s
 static const int ERR_INTERRUPTED(98);
 static const int ERR_CONNECTING_TO_CONTROL_DAEMON(99);
 static const int ERR_FAILED_TO_SET_DEFAULT_GATEWAY_INFO(230);
-static const int ERR_FAILED_TO_SET_CONNECTIONNAME_INFO(231);
 static const int ERR_IPSEC_SA_NOT_ESTABLISHED(300);
 static const int ERR_LOADING_CERTIFICATE(400);
 static const int ERR_AUTHENTICATION_FAILED(404);
@@ -236,19 +234,7 @@ void VPNControlTask::runConnect()
       runAndWait(VpnClientConnection::CMD_START_IPSECD);
 
    if (m_iReturnCode == 0)
-   {
-      QFile connectionNameInfo(strConnectionNameInfo);
-      if (connectionNameInfo.open(QFile::Truncate | QFile::WriteOnly))
-      {
-         connectionNameInfo.write(m_strConnectionName.toStdString().c_str());
-         connectionNameInfo.close();
-      }
-      else
-      {
-         m_iReturnCode = ERR_FAILED_TO_SET_CONNECTIONNAME_INFO;
-         emitErrorMsg("");
-      }
-   }
+      runAndWait(VpnClientConnection::CMD_WRITE_CONNECTIONNAME_INFO, m_strConnectionName);
 
    if (m_iReturnCode == 0)
    {
@@ -479,10 +465,6 @@ void VPNControlTask::emitErrorMsg(const QString& strErrorContext)
 
       case ERR_FAILED_TO_SET_DEFAULT_GATEWAY_INFO:
          *m_pErrorStream << "No default gateway found or failed to write default gateway information '" << strErrorContext << "'";
-         break;
-
-      case ERR_FAILED_TO_SET_CONNECTIONNAME_INFO:
-         *m_pErrorStream << "Failed to write connection name information '" << strErrorContext << "'";
          break;
 
       case ERR_IPSEC_SA_NOT_ESTABLISHED:

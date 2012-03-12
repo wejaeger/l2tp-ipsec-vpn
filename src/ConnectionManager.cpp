@@ -54,7 +54,7 @@ static const int PTPINTERFACE_CHECK_UP_TIME(30000);
 static const int PTPINTERFACE_CHECK_DOWN_TIME(30000);
 static const int VPN_TASK_TIMOUT(80000);
 
-static const QString strRuntimePath("/var/run/L2tpIPsecVpn/");
+static const QString strRuntimePath("/var/run/L2tpIPsecVpnControlDaemon/");
 static const char* const strAbout(
    "<p><center><small>Copyright &copy; 2010-2012 Werner Jaeger</small></center></p>"
    "<p><center><a href='http://wiki.l2tpipsecvpn.tuxfamily.org/'>Help</a></center></p>"

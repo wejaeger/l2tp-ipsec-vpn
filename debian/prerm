@@ -18,9 +18,6 @@ if [ "$1" = "remove" ] ; then
    echo "Trying to delete all generated config files" >&2
    L2tpIPsecVpn deleteAllConfFiles || true
 
-	# Remove run time files
-	rm -rf /var/run/L2tpIPsecVpn
-
    # Remove syslog pipe and restart syslog service
    rm -f /var/log/l2tpipsecvpn.pipe
    invoke-rc.d rsyslog restart || true

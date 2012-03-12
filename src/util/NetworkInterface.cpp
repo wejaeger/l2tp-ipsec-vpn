@@ -33,11 +33,12 @@
 #include <sstream>
 #include <fstream>
 
+#include "util/VpnControlDaemonClient.h"
+
 #include "NetworkInterface.h"
 
 const char* const pcProcNetDevPath("/proc/net/dev");
-const char* const pcL2tpRunDir("/var/run/L2tpIPsecVpn");
-const char* const pcDefaultGatewayInfoPath("/var/run/L2tpIPsecVpn/defaultgateway.info");
+const char* const pcDefaultGatewayInfoPath("/var/run/L2tpIPsecVpnControlDaemon/defaultgateway.info");
 const NetworkInterface NetworkInterface::null(NetworkInterface("", 0, 0));
 
 NetworkInterface::NetworkInterface(const NetworkInterface& orig) : m_strName(orig.m_strName), m_iIndex(orig.m_iIndex), m_Flags(orig.m_Flags), m_AddressEntries(orig.m_AddressEntries), m_RouteEntries(orig.m_RouteEntries)
@@ -337,25 +338,20 @@ bool NetworkInterface::writeDefaultGatewayInfo()
 
       if (nif.routeEntries().size() > 0)
       {
-         struct stat st;
+         using namespace std;
 
-         if (::stat(pcL2tpRunDir, &st) == 0 || ::mkdir(pcL2tpRunDir, S_IRWXU) == 0)
+         const QNetworkAddressEntry ae(nif.routeEntries()[0]);
+
+         stringstream strDefaultGatewayInfo;
+
+         strDefaultGatewayInfo << "defaultroutephys=" << nif.m_strName << '\3';
+         strDefaultGatewayInfo << "defaultroutevirt=none" << '\3';
+         strDefaultGatewayInfo << "defaultrouteaddr=" << ipAddress(nif.m_strName) << '\3';
+         strDefaultGatewayInfo << "defaultroutenexthop=" << ae.broadcast().toString().toStdString() << '\3';
+         if (!strDefaultGatewayInfo.fail())
          {
-            using namespace std;
-
-            const QNetworkAddressEntry ae(nif.routeEntries()[0]);
-
-            ofstream defaultGatewayInfo(pcDefaultGatewayInfoPath, ios::out | ios::trunc);
-
-            if (defaultGatewayInfo)
-            {
-               defaultGatewayInfo << "defaultroutephys=" << nif.m_strName << endl;
-               defaultGatewayInfo << "defaultroutevirt=none" << endl;
-               defaultGatewayInfo << "defaultrouteaddr=" << ipAddress(nif.m_strName) << endl;
-               defaultGatewayInfo << "defaultroutenexthop=" << ae.broadcast().toString().toStdString() <<endl;
-               defaultGatewayInfo.close();
-               fRet = !defaultGatewayInfo.fail();
-            }
+            int iRet(VpnControlDaemonClient::execute(VpnClientConnection::CMD_WRITE_DEFAULT_GATEWAY_INFO, QString::fromStdString(strDefaultGatewayInfo.str())));
+            fRet = (iRet == 0);
          }
       }
    }
