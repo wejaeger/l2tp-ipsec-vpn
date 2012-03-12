@@ -40,17 +40,53 @@ DOCDIR = docs/api
 DISTDIR = dist/${CONF}
 TESTDIR = build/TestFiles
 
+QMAKE_TARGET = L2tpIPsecVpn
+
 # build
 build: nbproject/qt-${CONF}.mk
-	make -f nbproject/qt-${CONF}.mk ${DISTDIR}/L2tpIPsecVpn
+	make -f nbproject/qt-${CONF}.mk ${DISTDIR}/$(QMAKE_TARGET)
 
 # install
 install: nbproject/qt-${CONF}.mk
-	make -f nbproject/qt-${CONF}.mk install
+	make -f nbproject/qt-${CONF}.mk QMAKE_TARGE=$(QMAKE_TARGET) install
+
+	@if [ "$${INSTALL_ROOT}" = "" ]; then \
+	   $(QMAKE_TARGET) applySettings || true; \
+	   invoke-rc.d rsyslog restart; \
+	fi
+
+	@if [ "$${INSTALL_ROOT}" = "" -a ! -d $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET) ]; then \
+	   mkdir $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET); \
+	fi
+
+	@if [ "$${INSTALL_ROOT}" = "" ]; then \
+	   chmod go+rw $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET); \
+	fi
 
 # uninstall
 uninstall: nbproject/qt-${CONF}.mk
-	make -f nbproject/qt-${CONF}.mk uninstall
+   # if applet is running try to terminate it
+	@PIDS=$$(pidof ${QMAKE_TARGET} || true); \
+	if [ -n "$${PIDS}" ]; then \
+		echo "Trying to terminate ${QMAKE_TARGET} applet" >&2; \
+		kill $${PIDS} || true; \
+	fi
+
+   # Remove all generated configuration files
+	@echo "Trying to delete all generated config files" >&2
+	$(QMAKE_TARGET) deleteAllConfFiles || true
+
+   # Remove run time files
+	rm -rf $(INSTALL_ROOT)/var/run/$(QMAKE_TARGET)
+
+   # Remove lock files and sockets
+	rm -f $(INSTALL_ROOT)/tmp/$(QMAKE_TARGET)-*
+
+	# Remove syslog pipe and restart syslog service
+	rm -f $(INSTALL_ROOT)/var/log/l2tpipsecvpn.pipe
+	invoke-rc.d rsyslog restart
+
+	make -f nbproject/qt-${CONF}.mk QMAKE_TARGE=$(QMAKE_TARGET) uninstall
 
 lupdate:
 	mv nbproject/qt-${DEFAULTCONF}.pro .

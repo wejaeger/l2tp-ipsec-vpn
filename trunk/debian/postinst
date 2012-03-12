@@ -28,6 +28,14 @@ case "$1" in
     # Rsyslogd  configuration file (potentially  written out with the command 
     # 'L2tpIPsecVpn applySettings' above)
     invoke-rc.d rsyslog restart || true
+
+    # create runtime directory if it not exists
+    if [ ! -d /var/run/L2tpIPsecVpn ]; then
+       mkdir /var/run/L2tpIPsecVpn
+    fi
+
+    chmod go+rw /var/run/L2tpIPsecVpn
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

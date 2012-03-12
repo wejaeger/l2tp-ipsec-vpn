@@ -43,7 +43,7 @@
 
 static const QFile xl2tpdPid("/var/run/xl2tpd.pid");
 
-static const char* const strConnectionNameInfo("/var/tmp/L2tpIPsecVpn/connectionName.info");
+static const char* const strConnectionNameInfo("/var/run/L2tpIPsecVpn/connectionName.info");
 static const char* const strVpnLogPipeName("/var/log/l2tpipsecvpn.pipe");
 static const char* const PROCDIR("/proc/");
 

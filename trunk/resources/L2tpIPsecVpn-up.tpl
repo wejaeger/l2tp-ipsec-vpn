@@ -12,8 +12,8 @@
 # WARNING! All changes made in this file will be lost!
 #
 #
-if test -f /var/tmp/L2tpIPsecVpn/connectionName.info; then
-   PPP_IPPARAM={{OBJECTNAME}}-$(cat /var/tmp/L2tpIPsecVpn/connectionName.info)
+if test -f /var/run/L2tpIPsecVpn/connectionName.info; then
+   PPP_IPPARAM={{OBJECTNAME}}-$(cat /var/run/L2tpIPsecVpn/connectionName.info)
 fi
 
 echo "{{FILENAME}} called with PPP_IPPARAM=$PPP_IPPARAM"
@@ -27,6 +27,7 @@ fi
 
 if test ! -d /var/run/L2tpIPsecVpn ; then
 	 mkdir /var/run/L2tpIPsecVpn
+    chmod go+rw /var/run/L2tpIPsecVpn
 fi
 
 # remember remote PPP address for given connection name

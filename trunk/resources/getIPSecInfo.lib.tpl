@@ -1,7 +1,7 @@
 # {{FILENAME}}
 # $Id$
 
-# Read file /var/tmp/L2tpIPsecVpn/defaultgateway.info and assign two shell variables
+# Read file /var/run/L2tpIPsecVpn/defaultgateway.info and assign two shell variables
 #   EXT_INTF   (network interface e.g. eth0 or wlan0)
 #   DFLT_GWY   (default gateway e.g. 192.168.178.1)
 #
@@ -13,7 +13,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 #
-exec 3</var/tmp/L2tpIPsecVpn/defaultgateway.info
+exec 3</var/run/L2tpIPsecVpn/defaultgateway.info
 while read l <&3
 do
 {
