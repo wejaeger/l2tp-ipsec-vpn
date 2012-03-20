@@ -1,4 +1,4 @@
-l2tp-ipsec-vpn (1.0.6-1) unstable; urgency=low
+l2tp-ipsec-vpn (1.0.6-0ubuntu1~ppa1~precise1) precise; urgency=low
 
   * New upstream release
     - transfered writing files connectionName.info and defaultgateway.info to
