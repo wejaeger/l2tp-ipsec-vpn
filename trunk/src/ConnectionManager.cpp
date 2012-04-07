@@ -657,7 +657,7 @@ ConnectionManager::ConnectionInfo ConnectionManager::connectionNameOfUpAndRunnin
    NetworkInterface::InterfaceMap interfaces = NetworkInterface::pointToPointInterfaces();
 
    NetworkInterface::InterfaceMap::const_iterator itInterfaces = interfaces.begin();
-   for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); itInterfaces++)
+   for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); ++itInterfaces)
       strConnectionName = ConnectionManager::connectionName((*itInterfaces).second);
 
   return(ConnectionInfo(strConnectionName, strConnectionName.isNull() ? NetworkInterface::null : (*--itInterfaces).second));

@@ -91,7 +91,7 @@ void SmartCardObjectListModel::readTokens()
       {
          for (int iSlotId = 0; iSlotId < slotList.count(); iSlotId++)
          {
-            p11.startSession(iSlotId);
+            p11.startSession(slotList.at(iSlotId));
 
             switch (m_ObjectType)
             {

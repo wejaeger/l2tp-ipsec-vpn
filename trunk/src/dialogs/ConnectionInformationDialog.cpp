@@ -80,7 +80,7 @@ void ConnectionInformationDialog::onConectionStateChanged(const ConnectionState*
          m_Widget.m_pInternetInterfaceGateway->setText(internetInterfaceInfo.gateway().c_str());
          m_Widget.m_pInterfaceName->setText(interface.name().c_str());
 
-         if (addressEntries.size() > 0)
+         if (!addressEntries.empty())
          {
             m_Widget.m_pRemoteHost->setText(addressEntries[0].broadcast().toString());
             m_Widget.m_pIPAddress->setText(addressEntries[0].ip().toString());

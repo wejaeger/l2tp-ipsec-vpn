@@ -1,3 +1,8 @@
+1.0.7
+ - corrected wrong xfce desktop check
+ - fixed bug connection editor crashes on selecting a certificate or private 
+   key from smart card (LP: #975822)
+
 1.0.6
  - transfered writing files connectionName.info and defaultgateway.info to
    L2tpIPsecVpnControlDaemon

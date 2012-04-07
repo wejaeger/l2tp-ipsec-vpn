@@ -213,7 +213,7 @@ void CertificateImportDialog::showError()
    m_Widget.m_pInfoTextEdit->insertHtml("<div style='color:red'>" + m_pPkcs12->error() + "</div>");
 }
 
-bool CertificateImportDialog::checkIfFileExistAndConfirmOverwrite(const QString& strFilenamePath, const QString strType) const
+bool CertificateImportDialog::checkIfFileExistAndConfirmOverwrite(const QString& strFilenamePath, const QString& strType) const
 {
    bool fRet(true);
 

@@ -191,7 +191,7 @@ static void checkDesktop()
                      fDone = true;
                      ::setenv(DESKTOP_SESSION, "kde", 0);
                   }
-                  else if (strCli.endsWith("xfce-mcs-manage"))
+                  else if (strCli.endsWith("xfce4-session"))
                   {
                      fDone = true;
                      ::setenv(DESKTOP_SESSION, "xfce", 0);

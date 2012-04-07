@@ -69,8 +69,8 @@ protected:
    int getIntValue(const QString& strPath, int iDefault = 0) const;
    bool setValue(bool fValue, const QString& strPath) const;
    bool getBoolValue(const QString& strPath, bool fDefault = false) const;
-   bool setRouteProperty(const QString& strValue, int iRow, const QString strPropertyName) const;
-   QString routeProperty(int iRow, const QString strPropertyName) const;
+   bool setRouteProperty(const QString& strValue, int iRow, const QString& strPropertyName) const;
+   QString routeProperty(int iRow, const QString& strPropertyName) const;
 
 private:
    ConnectionSettings& operator=(const ConnectionSettings& orig);
