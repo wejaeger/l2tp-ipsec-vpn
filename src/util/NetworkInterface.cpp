@@ -371,7 +371,7 @@ NetworkInterface::InterfaceFlags NetworkInterface::convertFlags(uint iRawFlags)
    return(flags);
 }
 
-std::string NetworkInterface::ipAddress(const std::string strInterfaceName)
+std::string NetworkInterface::ipAddress(const std::string& strInterfaceName)
 {
    std::string strIpAddress;
 

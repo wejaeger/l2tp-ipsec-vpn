@@ -382,7 +382,7 @@ bool ConnectionSettings::getBoolValue(const QString& strPath, bool fDefault) con
    return(fRet);
 }
 
-bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, const QString strPropertyName) const
+bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, const QString& strPropertyName) const
 {
    bool fRet(m_iConnectionNo >= 0 && qSettings()->isWritable());
 
@@ -411,7 +411,7 @@ bool ConnectionSettings::setRouteProperty(const QString& strValue, int iRow, con
    return(fRet);
 }
 
-QString ConnectionSettings::routeProperty(int iRow, const QString strPropertyName) const
+QString ConnectionSettings::routeProperty(int iRow, const QString& strPropertyName) const
 {
    QString strRet;
 

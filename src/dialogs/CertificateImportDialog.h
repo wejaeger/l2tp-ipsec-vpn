@@ -61,7 +61,7 @@ private:
    bool writePems() const;
    void showError();
 
-   bool checkIfFileExistAndConfirmOverwrite(const QString& strFilenamePath, const QString strType) const;
+   bool checkIfFileExistAndConfirmOverwrite(const QString& strFilenamePath, const QString& strType) const;
 
    Ui::CertificateImportDialog m_Widget;
 

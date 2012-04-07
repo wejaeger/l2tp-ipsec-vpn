@@ -108,7 +108,7 @@ void PreferencesEditorDialog::accept()
                   writeSettings();
                   QDialog::accept();
                }
-               catch (ErrorEx error)
+               catch (const ErrorEx& error)
                {
                   QMessageBox::critical(NULL, QCoreApplication::applicationName(), error.getString());
 

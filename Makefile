@@ -126,7 +126,7 @@ test: build build-tests
 	fi
 
 check:
-	cppcheck -I src -I ${GENDIR} --enable=all src
+	cppcheck -q -I src -I ${GENDIR} --enable=all src
 
 # help
 help:

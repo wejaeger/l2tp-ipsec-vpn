@@ -174,7 +174,7 @@ private:
    void setFlags(uint iRawFlags) { m_Flags = convertFlags(iRawFlags); }
 
    static InterfaceFlags convertFlags(uint iRawFlags);
-   static std::string ipAddress(const std::string strInterfaceName);
+   static std::string ipAddress(const std::string& strInterfaceName);
 
    const std::string m_strName;
    const unsigned int m_iIndex;
