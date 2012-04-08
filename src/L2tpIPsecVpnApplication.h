@@ -49,6 +49,9 @@ public:
    L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode);
    virtual ~L2tpIPsecVpnApplication();
 
+   // reimplemented from QApplication so we can throw exceptions in slots
+   virtual bool notify(QObject* pReceiver, QEvent* pEvent);
+
    bool isRunning();
    APPLICATIONMODE mode() const;
    bool sendConnectionAddedMessage(const QString& strConnectionName);
