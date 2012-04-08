@@ -29,6 +29,8 @@
 #include <QMessageBox>
 
 #include "localpeer/LocalPeer.h"
+#include "util/ErrorEx.h"
+
 #include "ConnectionManager.h"
 #include "L2tpIPsecVpnApplication.h"
 #include "ConnectionEditor.h"
@@ -64,6 +66,23 @@ L2tpIPsecVpnApplication::~L2tpIPsecVpnApplication()
 {
    delete m_pLocalPeer;
    delete m_pProcess;
+}
+
+bool L2tpIPsecVpnApplication::notify(QObject* pReceiver, QEvent* pEvent)
+{
+   bool fRet(false);
+
+   try
+   {
+      fRet = QApplication::notify(pReceiver, pEvent);
+   }
+   catch(const ErrorEx& e)
+   {
+      qCritical() << "Exception thrown:" << e.getString();
+      QMessageBox::critical(NULL, applicationName(), e.getString());
+   }
+
+   return(fRet);
 }
 
 bool L2tpIPsecVpnApplication::isRunning()

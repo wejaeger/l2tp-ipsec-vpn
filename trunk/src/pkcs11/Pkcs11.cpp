@@ -106,7 +106,7 @@ QList<unsigned long> Pkcs11::slotList() const
          if ((slotInfo.flags & CKF_TOKEN_PRESENT) == CKF_TOKEN_PRESENT)
             slotList << p11Slots[ul];
       }
-    }
+   }
 
    if (p11Slots)
       ::free(p11Slots);
