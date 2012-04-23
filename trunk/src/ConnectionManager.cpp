@@ -309,7 +309,7 @@ void ConnectionManager::showConnectionInformation() const
 void ConnectionManager::about() const
 {
    QIcon logo;
-   logo.addFile(QString::fromUtf8(":/images/logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+   logo.addFile(QString::fromUtf8(":/images/logo"), QSize(), QIcon::Normal, QIcon::Off);
 
    QMessageBox about;
    about.setWindowIcon(logo);
