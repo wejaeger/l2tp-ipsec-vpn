@@ -2,8 +2,9 @@ l2tp-ipsec-vpn (1.0.7-0ubuntu1~ppa1~precise1) precise; urgency=low
 
   * New upstream release
     - corrected wrong xfce desktop check
-    - fixed bug connection editor crashes on selecting a certificate or private 
+    - fixed bug connection editor crashes on selecting a certificate or private
       key from smart card (LP: #975822)
+    - fixed bug trayicon doesn't scale properly (LP: #98616)
 
  -- Werner Jaeger <werner_jaeger@web.de>  Sat, 28 Apr 2012 07:19:33 +0200
 
