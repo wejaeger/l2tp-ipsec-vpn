@@ -125,7 +125,7 @@ Connected::~Connected()
 {
 }
 
-Error::Error(QSystemTrayIcon* pTrayIcon, const QString& strHostName, int iReturnCode, bool fDisconnecting) : ConnectionState(pTrayIcon, strHostName, (fDisconnecting ? QObject::tr("Error %1 occurred when disconnecting from ").arg(iReturnCode) : QObject::tr("Error %1 occurred when connecting to ").arg(iReturnCode)) + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectNo"), QSystemTrayIcon::Critical)
+Error::Error(QSystemTrayIcon* pTrayIcon, const QString& strHostName, int iReturnCode, bool fDisconnecting) : ConnectionState(pTrayIcon, strHostName, (fDisconnecting ? QObject::tr("Error %1 occurred when disconnecting from ").arg(iReturnCode) : QObject::tr("Error %1 occurred when connecting to ").arg(iReturnCode)) + strHostName, QObject::tr("Click to show details"), QIcon(":/images/connectError"), QSystemTrayIcon::Critical)
 {
 }
 

@@ -3,6 +3,8 @@
  - fixed bug connection editor crashes on selecting a certificate or private
    key from smart card (LP: #975822)
  - fixed bug trayicon doesn't scale properly (LP: #98616)
+ - provided a separate error status icon
+
 
 1.0.6
  - transfered writing files connectionName.info and defaultgateway.info to
