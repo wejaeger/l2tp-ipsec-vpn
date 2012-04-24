@@ -4,6 +4,7 @@
       <file alias="configure">configure.png</file>
       <file alias="busy">busy.gif</file>
       <file alias="connectEstablished">connectEstablished.png</file>
+      <file alias="connectError">connectError.png</file>
       <file alias="connectNo">connectNo.png</file>
       <file alias="search">search.png</file>
       <file alias="logo">logo.png</file>
