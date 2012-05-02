@@ -22,7 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QMAKE = qmake
+QMAKE := $(shell if [ -f /usr/bin/qmake ]; then echo "qmake"; else echo "qmake-qt4"; fi)
 
 # default configuration is release
 DEFAULTCONF=Release
