@@ -24,8 +24,8 @@
 
 #include <QTimer>
 #include <QLocale>
-#include <qt4/QtCore/qfileinfo.h>
-#include <qt4/QtCore/qdatetime.h>
+#include <QFileInfo>
+#include <QDateTime>
 
 #include "util/NetworkInterface.h"
 #include "InterfaceStatisticsDialog.h"

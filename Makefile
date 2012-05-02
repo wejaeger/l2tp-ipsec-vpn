@@ -22,7 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QMAKE = qmake-qt4
+QMAKE = qmake
 
 # default configuration is release
 DEFAULTCONF=Release
