@@ -23,9 +23,9 @@
  */
 
 #include <QCoreApplication>
-#include <qt4/QtCore/qglobal.h>
-#include <qt4/QtGui/qmessagebox.h>
-#include <qt4/QtGui/qpushbutton.h>
+#include <qglobal.h>
+#include <QMessageBox>
+#include <QPushButton>
 
 #include "pkcs11/Pkcs11.h"
 #include "SmartCardState.h"

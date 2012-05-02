@@ -1,5 +1,7 @@
 1.0.7
  - corrected wrong xfce desktop check
+ - corrected platform specific qt includes
+ - in Makefile us qmake instead of qmake-qt4
  - fixed bug connection editor crashes on selecting a certificate or private
    key from smart card (LP: #975822)
  - fixed bug trayicon doesn't scale properly (LP: #98616)
