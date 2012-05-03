@@ -1,4 +1,6 @@
 1.0.7
+ - to be comapible with more linux distributions use service command 
+   instead of invoke-rc.d command to start and stop runlevel services
  - corrected wrong xfce desktop check
  - corrected platform specific qt includes
  - in Makefile us qmake instead of qmake-qt4

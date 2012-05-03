@@ -52,7 +52,7 @@ install: nbproject/qt-${CONF}.mk
 
 	@if [ "$${INSTALL_ROOT}" = "" ]; then \
 	   $(QMAKE_TARGET) applySettings || true; \
-	   invoke-rc.d rsyslog restart; \
+	   service rsyslog restart; \
 	fi
 
 # uninstall
@@ -73,7 +73,7 @@ uninstall: nbproject/qt-${CONF}.mk
 
 	# Remove syslog pipe and restart syslog service
 	rm -f $(INSTALL_ROOT)/var/log/l2tpipsecvpn.pipe
-	invoke-rc.d rsyslog restart
+	service rsyslog restart
 
 	make -f nbproject/qt-${CONF}.mk QMAKE_TARGE=$(QMAKE_TARGET) uninstall
 
