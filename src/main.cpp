@@ -177,21 +177,21 @@ static void checkDesktop()
             {
                // we have a valid pid
                // open the cmdline file to determine what's the name of the process running
-               QFile cmdLineFile(PROCDIR + strPid + "/cmdline");
+               QFile cmdLineFile(PROCDIR + strPid + "/comm");
                if (cmdLineFile.open(QFile::ReadOnly))
                {
                   const QString strCli(cmdLineFile.readAll());
-                  if (strCli.endsWith("gnome-session"))
+                  if (strCli.startsWith("gnome-session"))
                   {
                     fDone = true;
                     ::setenv(DESKTOP_SESSION, "gnome", 0);
                   }
-                  else if (strCli.endsWith("kcmserver"))
+                  else if (strCli.startsWith("kcmserver"))
                   {
                      fDone = true;
                      ::setenv(DESKTOP_SESSION, "kde", 0);
                   }
-                  else if (strCli.endsWith("xfce4-session"))
+                  else if (strCli.startsWith("xfce4-session"))
                   {
                      fDone = true;
                      ::setenv(DESKTOP_SESSION, "xfce", 0);
