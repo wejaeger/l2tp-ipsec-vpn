@@ -1,7 +1,7 @@
 1.0.7
- - to be comapible with more linux distributions use service command 
+ - to be compatible with more linux distributions use service command
    instead of invoke-rc.d command to start and stop runlevel services
- - corrected wrong xfce desktop check
+ - corrected wrong desktop check
  - corrected platform specific qt includes
  - in Makefile us qmake instead of qmake-qt4
  - fixed bug connection editor crashes on selecting a certificate or private
