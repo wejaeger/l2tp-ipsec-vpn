@@ -4,6 +4,7 @@
  - corrected wrong desktop check
  - corrected platform specific qt includes
  - in Makefile configure the appropriate qmake command (qmake or qmake-qt4)
+ - make sure L2TPD is really listening before submitting connection command
  - fixed bug connection editor crashes on selecting a certificate or private
    key from smart card (LP: #975822)
  - fixed bug trayicon doesn't scale properly (LP: #98616)
