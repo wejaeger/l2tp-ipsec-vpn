@@ -86,6 +86,7 @@ private:
    volatile int m_iReturnCode;
    volatile bool m_fIPSecConnectionAdded;
    volatile bool m_fIPSecConnectionIsUp;
+   volatile bool m_fL2tpdIsListening;
    QByteArray* const m_pByteArray;
    QTextStream* const m_pErrorStream;
    QSocketNotifier* m_pVpnLogPipeNotifier;
