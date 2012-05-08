@@ -50,7 +50,6 @@ static const QRegExp RE_LOG_SPLITLINE("\\s(?=\\w+\\[\\d+\\]\\:\\s)");
 static const QRegExp RE_LOG_CAP_CERTIFICATEID("\\'(\\d\\:\\d{1,3})\\'");
 
 static const QString STR_LOG_MATCH_IPSEC_CONNECTIONADDED("added connection description ");
-static const QString STR_LOG_MATCH_L2TPDISLISTENING("Listening on IP address");
 static const char* const STR_LOG_MATCH_IPSECSAESTABLISHED("IPsec SA established");
 
 static const char* const STR_LOG_MATCH_CERTIFICATELOADERROR("Error loading certificate");
@@ -73,7 +72,7 @@ static const int ERR_CONNECT_TIMEOUT(410);
 QFile VPNControlTask::m_vpnLogPipe(strVpnLogPipeName);
 
 VPNControlTask::VPNControlTask(QObject* pParent) : QThread(pParent), m_pControlClient(new VpnControlDaemonClient), m_Action(Connect), m_iReturnCode(0),
-   m_fIPSecConnectionAdded(false), m_fIPSecConnectionIsUp(false), m_fL2tpdIsListening(false), m_pByteArray(new QByteArray()), m_pErrorStream(new QTextStream(m_pByteArray))
+   m_fIPSecConnectionAdded(false), m_fIPSecConnectionIsUp(false), m_pByteArray(new QByteArray()), m_pErrorStream(new QTextStream(m_pByteArray))
 {
    clearVpnLogPipe();
 
@@ -150,7 +149,6 @@ void VPNControlTask::run()
       m_iReturnCode = 0;
       m_fIPSecConnectionAdded = false;
       m_fIPSecConnectionIsUp = false;
-      m_fL2tpdIsListening = false;
 
       switch (m_Action)
       {
@@ -246,9 +244,6 @@ void VPNControlTask::runConnect()
 
       if (m_iReturnCode == 0)
       {
-         if (!m_fL2tpdIsListening)
-            exec();
-
          if (!commonSettings.disableIPSecEncryption())
          {
             if (!m_fIPSecConnectionAdded)
@@ -353,11 +348,6 @@ qint64 VPNControlTask::readLogLine(char* data, qint64 iMaxSize)
       {
          m_fIPSecConnectionAdded = strLine.contains(STR_LOG_MATCH_IPSEC_CONNECTIONADDED + "\"" + connectionName() + "\"");
          if (m_fIPSecConnectionAdded) onResult(0, "");
-      }
-      else if (!m_fL2tpdIsListening)
-      {
-         m_fL2tpdIsListening = strLine.contains(STR_LOG_MATCH_L2TPDISLISTENING);
-         if (m_fL2tpdIsListening) onResult(0, "");
       }
    }
 
