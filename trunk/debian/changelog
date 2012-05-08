@@ -6,13 +6,12 @@ l2tp-ipsec-vpn (1.0.7-0ubuntu1~ppa1~precise1) precise; urgency=low
     - corrected wrong desktop check
     - corrected platform specific qt includes
     - in Makefile configure the appropriate qmake command (qmake or qmake-qt4)
-    - make sure L2TPD is really listening before submitting connection command
     - fixed bug connection editor crashes on selecting a certificate or private
       key from smart card (LP: #975822)
     - fixed bug trayicon doesn't scale properly (LP: #98616)
     - provided a separate error status icon
 
- -- Werner Jaeger <werner_jaeger@web.de>  Tue, 8 May 2012 13:06:43 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Wed, 2 May 2012 11:11:34 +0200
 
 l2tp-ipsec-vpn (1.0.6-0ubuntu1~ppa1~precise1) precise; urgency=low
 

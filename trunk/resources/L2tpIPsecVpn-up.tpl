@@ -12,6 +12,14 @@
 # WARNING! All changes made in this file will be lost!
 #
 #
+
+PPP_IFACE="$1"
+PPP_TTY="$2"
+PPP_SPEED="$3"
+PPP_LOCAL="$4"
+PPP_REMOTE="$5"
+PPP_IPPARAM="$6"
+
 if test -f /var/run/L2tpIPsecVpnControlDaemon/connectionName.info; then
    PPP_IPPARAM={{OBJECTNAME}}-$(cat /var/run/L2tpIPsecVpnControlDaemon/connectionName.info)
 fi
