@@ -45,7 +45,7 @@ static QString const APPLICATIONNAME("L2TP IPsec VPN Manager");
 static QString const CONNECTION_ADDED_MSG_PREFIX("connectionAdded:");
 static QString const CONNECTION_REMOVED_MSG_PREFIX("connectionRemoved:");
 
-L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode) : QApplication(iArgc, ppArgv, appMode != PASSWORD_CALLBACK && appMode != APPLYSETTINGS), m_Mode(appMode), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
+L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPLICATIONMODE appMode) : QApplication(iArgc, ppArgv, appMode != PASSWORD_CALLBACK && appMode != APPLYSETTINGS && appMode != DELETEALLCONFFILES), m_Mode(appMode), m_pProcess(new QProcess), m_pLocalPeer(new LocalPeer())
 {
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
