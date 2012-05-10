@@ -123,7 +123,7 @@ int L2tpIPsecVpnApplication::startConnectionEditorDialog(bool fDetached) const
    }
    else
    {
-      QMessageBox::critical(NULL, applicationName(), tr("I couldn't find any graphical SU command (gksudo, beesu or kdesudo)."));
+      QMessageBox::critical(NULL, applicationName(), tr("I couldn't find any graphical SU command (gksudo, beesu kdesudo or kdesu)."));
       iRet = -1;
    }
 
@@ -193,6 +193,8 @@ QString L2tpIPsecVpnApplication::getGrahicalSUCmdLine()
       strRet = "beesu ";
    else if (QFile::exists("/usr/bin/kdesudo"))
       strRet = "kdesudo ";
+   else if (QFile::exists("/usr/bin/kdesu"))
+      strRet = "kdesu ";
 
    return(strRet);
 }
