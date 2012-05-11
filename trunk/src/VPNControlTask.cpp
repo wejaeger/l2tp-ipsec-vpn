@@ -244,8 +244,6 @@ void VPNControlTask::runConnect()
 
       if (m_iReturnCode == 0)
       {
-         sleep(1);
-
          if (!commonSettings.disableIPSecEncryption())
          {
             if (!m_fIPSecConnectionAdded)
@@ -265,11 +263,17 @@ void VPNControlTask::runConnect()
                }
 
                if (m_iReturnCode == 0)
+               {
+                  sleep(1);
                   runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+               }
             }
          }
          else
+         {
+            sleep(1);
             runAndWait(VpnClientConnection::CMD_L2TP_CONNECT, m_strConnectionName);
+         }
       }
    }
 //   qDebug() << "VPNControlTask::runConnect() -> finished";
