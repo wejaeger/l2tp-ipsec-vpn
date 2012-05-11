@@ -244,6 +244,8 @@ void VPNControlTask::runConnect()
 
       if (m_iReturnCode == 0)
       {
+         sleep(1);
+
          if (!commonSettings.disableIPSecEncryption())
          {
             if (!m_fIPSecConnectionAdded)
