@@ -22,13 +22,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <syslog.h>
+#include <unistd.h>
+
 #include <QMessageBox>
 #include <QDir>
 #include <QFileInfoList>
 #include <QFile>
 #include <QTranslator>
-
-#include <syslog.h>
 
 #include "pkcs11/Pkcs11.h"
 #include "settings/ConnectionSettings.h"

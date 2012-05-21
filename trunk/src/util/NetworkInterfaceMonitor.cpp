@@ -24,11 +24,12 @@
 
 //#include <QDebug>
 
-#include <netpacket/packet.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <linux/rtnetlink.h>
 #include <net/if.h>
-#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netpacket/packet.h>
+#include <unistd.h>
 
 #include "NetworkInterfaceMonitor.h"
 #include "NetworkInterface.h"
