@@ -13,11 +13,11 @@
 #
 #
 
-PPP_IFACE="$1"
-PPP_TTY="$2"
-PPP_SPEED="$3"
-PPP_LOCAL="$4"
-PPP_REMOTE="$5"
+PPP_IFACE="$IFNAME"
+PPP_TTY="$DEVICE"
+PPP_SPEED="$SPEED"
+PPP_LOCAL="$IPLOCAL"
+PPP_REMOTE="$IPREMOTE"
 PPP_IPPARAM="$6"
 
 if test -f /var/run/L2tpIPsecVpnControlDaemon/connectionName.info; then
@@ -35,6 +35,7 @@ fi
 
 # remember remote PPP address for given connection name
 echo "${PPP_IPPARAM}" | cut -d'-' -f2 > /var/run/L2tpIPsecVpnControlDaemon/${PPP_REMOTE}
+chmod go+r /var/run/L2tpIPsecVpnControlDaemon/${PPP_REMOTE}
 
 case $PPP_IPPARAM in
 {{#CONN_SECTION}}  "{{IPPARAM}}" )
