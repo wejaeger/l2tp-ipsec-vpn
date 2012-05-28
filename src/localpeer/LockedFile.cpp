@@ -22,10 +22,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <pwd.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "LockedFile.h"
 
@@ -64,6 +65,22 @@ bool LockedFile::open(OpenMode mode)
             {
                fRet = false;
                qWarning("LockedFile::open(): Failed to chown() lock file with uid %d and gid %d.", uiUid, uiGid);
+            }
+         }
+      }
+      else if (fRet)
+      {
+         const char* const pcUser(::getenv("USER"));
+         if (pcUser)
+         {
+            const struct passwd* pPasswd(::getpwnam(pcUser));
+            if (pPasswd)
+            {
+               if (::chown(fileName().toUtf8().constData(), pPasswd->pw_uid, pPasswd->pw_gid) != 0)
+               {
+                  fRet = false;
+                  qWarning("LockedFile::open(): Failed to chown() lock file with uid %d and gid %d.", pPasswd->pw_uid, pPasswd->pw_gid);
+               }
             }
          }
       }
