@@ -190,7 +190,7 @@ QString L2tpIPsecVpnApplication::getGrahicalSUCmdLine()
    if (QFile::exists("/usr/bin/gksudo"))
       strRet = "gksudo -D \"" + APPLICATIONNAME + "\" ";
    else if (QFile::exists("/usr/bin/beesu"))
-      strRet = "beesu ";
+      strRet = "beesu -m ";
    else if (QFile::exists("/usr/bin/kdesudo"))
       strRet = "kdesudo ";
    else if (QFile::exists("/usr/bin/kdesu"))
