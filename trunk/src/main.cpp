@@ -188,7 +188,7 @@ static void checkDesktop()
                     fDone = true;
                     ::setenv(DESKTOP_SESSION, "gnome", 0);
                   }
-                  else if (strCli.startsWith("kcmserver"))
+                  else if (strCli.startsWith("ksmserver"))
                   {
                      fDone = true;
                      ::setenv(DESKTOP_SESSION, "kde", 0);
