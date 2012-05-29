@@ -22,6 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <pwd.h>
 #include <syslog.h>
 #include <unistd.h>
 
@@ -216,6 +217,16 @@ static uint effectiveUid()
       const uid_t uiSudoUid(::strtol(pcSudoUid, NULL, 0));
       if (uiSudoUid)
          uiUid = uiSudoUid;
+   }
+   else
+   {
+      const char* const pcUser(::getenv("USER"));
+      if (pcUser)
+      {
+         const struct passwd* pPasswd(::getpwnam(pcUser));
+         if (pPasswd)
+            uiUid = pPasswd->pw_uid;
+      }
    }
 
    return(uiUid);

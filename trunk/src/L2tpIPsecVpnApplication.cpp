@@ -153,6 +153,9 @@ L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(i
    {
       if (::strcmp(pcArgv[i], CONNECTIONEDITOR_CMD_SWITCH) == 0)
       {
+         if (i + 2 < iArgc && DESKTOP_SESSION_CMD_SWITCH == pcArgv[i + 1])
+            ::setenv(DESKTOP_SESSION, pcArgv[i + 2], 0);
+
          retMode = CONNECTION_EDITOR;
          fDone = true;
       }
@@ -171,8 +174,6 @@ L2tpIPsecVpnApplication::APPLICATIONMODE L2tpIPsecVpnApplication::parseCmdLine(i
          retMode = DELETEALLCONFFILES;
          fDone = true;
       }
-      else if (i + 1 < iArgc && DESKTOP_SESSION_CMD_SWITCH == pcArgv[i])
-         ::setenv(DESKTOP_SESSION, pcArgv[i + 1], 0);
       else if (pcArgv[i][0] == '-')
          iQtArgs++;
    }
@@ -187,10 +188,16 @@ QString L2tpIPsecVpnApplication::getGrahicalSUCmdLine()
 {
    QString strRet("");
 
-   if (QFile::exists("/usr/bin/gksudo"))
+   if (QFile::exists("/usr/bin/beesu"))
+   {
+      const char* const pcUser(::getenv("USER"));
+      if (pcUser)
+         strRet = "beesu -m export USER=" + QString(pcUser) + "; ";
+      else
+         strRet = "beesu -m ";
+   }
+   else if (QFile::exists("/usr/bin/gksudo"))
       strRet = "gksudo -D \"" + APPLICATIONNAME + "\" ";
-   else if (QFile::exists("/usr/bin/beesu"))
-      strRet = "beesu -m ";
    else if (QFile::exists("/usr/bin/kdesudo"))
       strRet = "kdesudo ";
    else if (QFile::exists("/usr/bin/kdesu"))
