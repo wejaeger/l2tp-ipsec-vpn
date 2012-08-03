@@ -39,6 +39,9 @@ public:
    const QString selectedItem() const;
    const QString selectedUserName() const;
 
+private slots:
+   void accept();
+
 private:
    SmartCardObjectsDialog(const SmartCardObjectsDialog& orig);
    SmartCardObjectsDialog& operator=(const SmartCardObjectsDialog& orig);

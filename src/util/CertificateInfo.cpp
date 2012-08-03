@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QMultiMap>
 #include <QSslCertificate>
+#include <openssl/x509.h>
 
 #include "CertificateInfo.h"
 
@@ -96,10 +97,35 @@ QString CertificateInfo::issuer() const
 
 QString CertificateInfo::email() const
 {
-   return(alternateSubjectName(QSsl::EmailEntry));
+   QString strRet;
+
+   if (isReadable())
+   {
+      const QByteArray tag("emailAddress");
+      strRet = m_pQSslCertificate->subjectInfo(tag);
+      if (strRet.isNull())
+         strRet = alternateSubjectName(QSsl::EmailEntry);
+   }
+
+   return(strRet);
 }
 
- QString CertificateInfo::alternateSubjectName(const QSsl::AlternateNameEntryType type) const
+bool CertificateInfo::toPem(const QString& strPemFilePath) const
+{
+   QFile pemFile(strPemFilePath);
+   bool fRet(pemFile.open(QFile::WriteOnly));
+
+
+   if (fRet)
+   {
+      fRet = (pemFile.write(m_pQSslCertificate->toPem()) != -1);
+      pemFile.close();
+   }
+
+   return(fRet);
+}
+
+QString CertificateInfo::alternateSubjectName(const QSsl::AlternateNameEntryType type) const
 {
    QString strRet;
 
