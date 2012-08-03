@@ -44,6 +44,7 @@ public:
    QString cn() const;
    QString issuer() const;
    QString email() const;
+   bool toPem(const QString& strPemFilePath) const;
 
 private:
    CertificateInfo(const CertificateInfo& orig);

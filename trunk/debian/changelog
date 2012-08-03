@@ -1,3 +1,13 @@
+l2tp-ipsec-vpn (1.0.8-0ubuntu1~ppa1~precise1) precise; urgency=low
+
+  * New upstream release
+    - fixed bug wrong email address choosen as username in EAP TLS
+      authentication
+    - now caching EAP-TLS autentication certificate in /etc/ipsec.d/certs
+      directory
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 3 Aug 2012 17:38:43 +0200
+
 l2tp-ipsec-vpn (1.0.7-0ubuntu1~ppa1~precise1) precise; urgency=low
 
   * New upstream release

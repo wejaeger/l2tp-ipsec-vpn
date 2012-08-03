@@ -42,6 +42,8 @@ public:
 
    int rowCount(const QModelIndex& parent = QModelIndex()) const;
    QVariant data(const QModelIndex& index, int iRole = Qt::DisplayRole) const;
+   bool storeCert(const QModelIndex& index) const;
+   const ObjectType& objectType() const { return(m_ObjectType); }
 
 private:
    SmartCardObjectListModel(const SmartCardObjectListModel& orig);
