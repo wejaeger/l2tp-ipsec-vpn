@@ -188,9 +188,14 @@ int ConnectionSettings::deleteAllConfFiles()
    {
       for (int i = 0; i < ConfWriter::END; i++)
       {
-         const QString strConfFile(ConfWriter::fileName(static_cast<ConfWriter::Conf>(i)));
-         if (QFile::exists(strConfFile))
-            QFile::remove(strConfFile);
+         const ConfWriter::Conf conf(static_cast<ConfWriter::Conf>(i));
+
+         if (conf != ConfWriter::IPsec && conf != ConfWriter::L2TP && conf != ConfWriter::IPsecSECRET)
+         {
+            const QString strConfFile(ConfWriter::fileName(conf));
+            if (QFile::exists(strConfFile))
+               QFile::remove(strConfFile);
+         }
       }
 
       const int iConnections(connections());
