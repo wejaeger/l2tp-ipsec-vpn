@@ -4,7 +4,7 @@ l2tp-ipsec-vpn (1.0.9-0ubuntu1~ppa1~precise1) precise; urgency=low
     - fixed bug removes files that were installed by another package 
       (Closes: #684962)
 
- -- Werner Jaeger <werner_jaeger@web.de>  Fri,1 Oct 2012 06:00:13 +0200
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 12 Oct 2012 06:00:13 +0200
 
 l2tp-ipsec-vpn (1.0.8-0ubuntu1~ppa1~precise1) precise; urgency=low
 
