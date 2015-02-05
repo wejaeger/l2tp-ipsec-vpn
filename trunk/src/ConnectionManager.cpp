@@ -193,7 +193,7 @@ void ConnectionManager::updateContextMenu(bool fStatusChanged)
    }
    else if (m_pState->isState(ConnectionState::Error))
    {
-      enableAllConnections(true);
+      enableAllConnections(NetworkInterface::defaultGateway().size() == 1);
       action(DISC)->setEnabled(NetworkInterface::defaultGateway().size() == 1);
    }
    else
