@@ -537,7 +537,7 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
    {
       if (!m_fRoutePriorityIsChanging)
       {
-         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway() && !interface.hasDefaultGateway())
+         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway() && interface.hasDefaultGateway())
             vpnDisconnect();
       }
       else
@@ -553,7 +553,7 @@ void ConnectionManager::onPtpInterfaceIsUpAnRunning(NetworkInterface interface)
 {
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ")";
 
-   if (m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected))
+   if (m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error))
    {
       const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())

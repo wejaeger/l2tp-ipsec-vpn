@@ -1,10 +1,14 @@
+1.0.10
+ - fixed bug disconnects even when a non default route entry is deleted
+ - fixed bug successful redial after error does not change status to connected
+
 1.0.9
- - fixed bug removes files that were installed by another package 
+ - fixed bug removes files that were installed by another package
    (Closes: #684962)
 
 1.0.8
- - fixed bug wrong email address choosen as username in EAP TLS authentication
- - now caching EAP-TLS autentication certificate in /etc/ipsec.d/certs
+ - fixed bug wrong email address chosen as username in EAP TLS authentication
+ - now caching EAP-TLS authentication certificate in /etc/ipsec.d/certs
    directory
 
 1.0.7
