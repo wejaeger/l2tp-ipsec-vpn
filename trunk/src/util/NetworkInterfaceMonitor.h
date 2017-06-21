@@ -50,8 +50,8 @@ protected:
 signals:
    void routeAdded(NetworkInterface interface, unsigned int iPriority) const;
    void routeDeleted(NetworkInterface interface, unsigned int iPriority) const;
-   void ptpInterfaceIsUpAnRunning(NetworkInterface interface) const;
-   void ptpInterfaceIsGoingDown(NetworkInterface interface) const;
+   void ptpAddressAdded(NetworkInterface interface) const;
+   void ptpInterfaceIsDeleted(NetworkInterface interface) const;
 
 private:
    NetworkInterfaceMonitor(const NetworkInterfaceMonitor& orig);

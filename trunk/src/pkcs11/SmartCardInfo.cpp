@@ -84,15 +84,23 @@ void SmartCardInfo::loadToken(const Pkcs11& p11, CK_OBJECT_HANDLE ulObjectHandle
    m_strSlotId.setNum(p11.slotId());
 
    Pkcs11AttrData x509ValueAttribute(CKA_VALUE);
-   p11.loadAttribute(x509ValueAttribute, ulObjectHandle);
-   const unsigned char* pcValue;
 
-   const unsigned long ulLen(x509ValueAttribute.getValue(&pcValue));
+   try
+   {
+       p11.loadAttribute(x509ValueAttribute, ulObjectHandle);
+       const unsigned char* pcValue;
 
-   if (m_pCertificateInfo)
-      delete m_pCertificateInfo;
+       const unsigned long ulLen(x509ValueAttribute.getValue(&pcValue));
 
-   m_pCertificateInfo = new CertificateInfo(QByteArray::fromRawData(reinterpret_cast<const char*>(pcValue), ulLen));
+       if (m_pCertificateInfo)
+          delete m_pCertificateInfo;
+
+       m_pCertificateInfo = new CertificateInfo(QByteArray::fromRawData(reinterpret_cast<const char*>(pcValue), ulLen));
+   }
+   catch (ErrorEx &e)
+   {
+       // ignore
+   }
 }
 
 QString SmartCardInfo::BNOneLine(const BIGNUM* pBigNumber)

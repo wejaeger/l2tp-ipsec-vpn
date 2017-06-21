@@ -73,7 +73,8 @@ QVariant SmartCardObjectListModel::data(const QModelIndex& index, int iRole) con
             break;
 
          case Qt::UserRole + 1:
-            ret = m_pSmartCardObjects->at(index.row())->certificateInfo().email();
+            if (m_ObjectType == Certificate)
+               ret = m_pSmartCardObjects->at(index.row())->certificateInfo().email();
             break;
       }
     }
