@@ -54,7 +54,7 @@
 
 static const int PTPINTERFACE_CHECK_UP_TIME(30000);
 static const int PTPINTERFACE_CHECK_DOWN_TIME(30000);
-static const int VPN_TASK_TIMOUT(80000);
+static const int VPN_TASK_TIMOUT(300000);
 
 static const QString strRuntimePath("/var/run/L2tpIPsecVpnControlDaemon/");
 static const char* const strAbout(
@@ -549,7 +549,7 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ") -> finished";
 }
 
-void ConnectionManager::onPtpInterfaceIsUpAnRunning(NetworkInterface interface)
+void ConnectionManager::onAddressAdded(NetworkInterface interface)
 {
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ")";
 
@@ -563,9 +563,9 @@ void ConnectionManager::onPtpInterfaceIsUpAnRunning(NetworkInterface interface)
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ", " << iPriority << ") -> finished";
 }
 
-void ConnectionManager::onPtpInterfaceIsGoingDown(NetworkInterface interface)
+void ConnectionManager::onPtpInterfaceIsDeleted(NetworkInterface interface)
 {
-//   qDebug() << "ConnectionManager::onPtpInterfaceIsGoingDown(" << interface.name().c_str() << ")";
+//   qDebug() << "ConnectionManager::onPtpInterfaceIsDeleted(" << interface.name().c_str() << ")";
 
    if ((m_pState->isState(ConnectionState::Connected) || m_pState->isState(ConnectionState::Disconnecting)))
    {
@@ -576,7 +576,7 @@ void ConnectionManager::onPtpInterfaceIsGoingDown(NetworkInterface interface)
    if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway())
       vpnDisconnect();
 
-//   qDebug() << "ConnectionManager::onPtpInterfaceIsGoingDown(" << interface.name().c_str() << ") -> finished";
+//   qDebug() << "ConnectionManager::onPtpInterfaceIsDeleted(" << interface.name().c_str() << ") -> finished";
 }
 
 void ConnectionManager::onCheckPtpInterfaceIsUp()

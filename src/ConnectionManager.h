@@ -68,8 +68,8 @@ private slots:
    void onConnectionRemoved(const QString& strName);
    void onRouteAdded(NetworkInterface interface, unsigned int iPriority);
    void onRouteDeleted(NetworkInterface interface, unsigned int iPriority);
-   void onPtpInterfaceIsUpAnRunning(NetworkInterface interface);
-   void onPtpInterfaceIsGoingDown(NetworkInterface interface);
+   void onAddressAdded(NetworkInterface interface);
+   void onPtpInterfaceIsDeleted(NetworkInterface interface);
    void onCheckPtpInterfaceIsUp();
    void onCheckPtpInterfaceIsDown();
 
