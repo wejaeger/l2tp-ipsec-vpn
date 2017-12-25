@@ -27,6 +27,7 @@
 
 #include <QString>
 #include <QFile>
+#include <QMutex>
 
 class PppSettings;
 class PppEapSettings;
@@ -52,6 +53,8 @@ private:
    static QString getSecretsFilePath(const PppSettings& pppSettings);
 
    const QString& m_strConnectionName;
+
+   static QMutex MUTEX;
 };
 
 #endif	/* SECRETSCHECKER_H */

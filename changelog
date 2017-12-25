@@ -1,3 +1,8 @@
+1.0.12
+ - fixed bug no auto connect when internet connection becomes available
+ - fixed bug tray icon context menu not updated when internet connection 
+   becomes available
+ 
 1.0.11
  - status connected now on NetworkInterfaceMonitor event onAddressAdded
  - status disconnected now on NetworkInterfaceMonitor event 
@@ -5,7 +10,7 @@
  - fixed bug selecting private key in Connection Settings dialog -> PPP tab
    -> Properties failed with error:
    C_GetAttributeValue(data) failed: CKR_ATTRIBUTE_TYPE_INVALID
- 
+
 1.0.10
  - fixed bug disconnects even when a non default route entry is deleted
  - fixed bug successful redial after error does not change status to connected

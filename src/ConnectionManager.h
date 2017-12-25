@@ -51,6 +51,7 @@ public:
 
 private slots:
    void vpnConnect(QAction* pAction);
+   void vpnConnect(const QString& strConnectionName);
    void vpnDisconnect(bool fDontChangeStatus = false);
    void editConnections() const;
    void showConnectionInformation() const;
@@ -73,6 +74,9 @@ private slots:
    void onCheckPtpInterfaceIsUp();
    void onCheckPtpInterfaceIsDown();
 
+signals:
+   void autoConnect(const QString& strConnectionName);
+
 private:
    typedef QList<QAction*> ActionList;
    typedef QPair<const QString, const NetworkInterface> ConnectionInfo;
@@ -84,7 +88,6 @@ private:
    void createActions();
    void createTrayIcon();
    void updateContextMenu(bool fStatusChanged);
-   void vpnConnect(const QString& strConnectionName);
    void enableAllConnections(bool fEnable) const;
    void connected(const QString& strConnectionName, const NetworkInterface& ptpInterface);
    void disConnected();
@@ -105,7 +108,6 @@ private:
    QMenu* m_pTrayIconMenu;
    VPNControlTask* m_pVPNControlTask;
    volatile bool m_fIsExecuting;
-   volatile bool m_fRoutePriorityIsChanging;
 };
 
 #endif	/* _CONNECTIONMANAGER_H */

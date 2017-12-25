@@ -50,7 +50,7 @@ L2tpIPsecVpnApplication::L2tpIPsecVpnApplication(int& iArgc, char** ppArgv, APPL
    setOrganizationName("WernerJaeger");
    setOrganizationDomain("wejaeger.com");
    setApplicationName(APPLICATIONNAME);
-   setApplicationVersion("1.0.11");
+   setApplicationVersion("1.0.12");
    setObjectName("L2tpIPsecVpn");
    qRegisterMetaType<NetworkInterface>("NetworkInterface");
    qRegisterMetaType<QAbstractSocket::SocketState>("QAbstractSocket::SocketState");
