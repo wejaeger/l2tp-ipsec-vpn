@@ -55,6 +55,7 @@
 static const int PTPINTERFACE_CHECK_UP_TIME(30000);
 static const int PTPINTERFACE_CHECK_DOWN_TIME(30000);
 static const int VPN_TASK_TIMOUT(300000);
+static const int AUTO_CONNECT_DELAY_TIME(2000);
 
 static const QString strRuntimePath("/var/run/L2tpIPsecVpnControlDaemon/");
 static const char* const strAbout(
@@ -64,7 +65,7 @@ static const char* const strAbout(
 );
 
 ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObject* pParent) : QObject(pParent), m_pConnectionInformation(new ConnectionInformationDialog()),
-  m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected(NULL)), m_fIsExecuting(false), m_fRoutePriorityIsChanging(false)
+  m_pTimeout(new QTimer), m_pActions(new ActionList()), m_Application(application), m_pState(new NotConnected(NULL)), m_fIsExecuting(false)
 {
    connect(&m_Application, SIGNAL(connectionAdded(const QString&)), SLOT(onConnectionAdded(const QString&)));
    connect(&m_Application, SIGNAL(connectionRemoved(const QString&)), SLOT(onConnectionRemoved(const QString&)));
@@ -73,6 +74,7 @@ ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObje
    m_pTimeout->setSingleShot(true);
    connect(m_pTimeout, SIGNAL(timeout()), SLOT(onVpnTaskTimeout()));
 
+
    createActions();
 
    m_pVPNControlTask = new VPNControlTask(this);
@@ -80,6 +82,7 @@ ConnectionManager::ConnectionManager(L2tpIPsecVpnApplication& application, QObje
    connect(m_pVPNControlTask, SIGNAL(readyReadLog()), SLOT(onVpnTaskReadyReadLog()));
    connect(m_pVPNControlTask, SIGNAL(errorMessageEmited(int)), SLOT(onVpnTaskErrorMsg(int)));
    connect(m_pVPNControlTask, SIGNAL(finished()), SLOT(onVpnTaskFinished()));
+   connect(this, SIGNAL(autoConnect(const QString&)), SLOT(vpnConnect(const QString&)), Qt::QueuedConnection);
 }
 
 /*!
@@ -118,13 +121,13 @@ int ConnectionManager::exec()
    if (iRet == 0)
    {
       createTrayIcon();
-      updateContextMenu(true);
 
       const ConnectionSettings settings;
       const int iSize = settings.connections();
       for (int i = 0; i < iSize; i++)
          onConnectionAdded(settings.connection(i));
 
+      updateContextMenu(true);
       m_pTrayIcon->show();
 
       QTimer::singleShot(100, this, SLOT(detectConnectionState()));
@@ -493,38 +496,33 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
 
    if (iPriority != 100)
    {
-      if (!m_fRoutePriorityIsChanging)
-      {
-         bool fHasDefaultGateway = false;
-         if (!interface.isNull())
-            fHasDefaultGateway = interface.hasDefaultGateway();
-         else
-            fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
+      bool fHasDefaultGateway = false;
+      if (!interface.isNull())
+        fHasDefaultGateway = interface.hasDefaultGateway();
+      else
+        fHasDefaultGateway = NetworkInterface::defaultGateway().size() == 1;
 
-         if (m_pState && (m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error)) && fHasDefaultGateway)
-         {
+      if (m_pState && (m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error)) && fHasDefaultGateway)
+      {
 //               qDebug() << "ConnectionManager::onRouteAdded: found default gateway";
 
-            ConnectionSettings settings;
-            const int iConnections = settings.connections();
+         enableAllConnections(true);
 
-            bool fDone = false;
-            for (int i = 0; !fDone && i < iConnections; i++)
+         ConnectionSettings settings;
+         const int iConnections = settings.connections();
+
+         bool fDone = false;
+         for (int i = 0; !fDone && i < iConnections; i++)
+         {
+            const QString strName = settings.connection(i);
+            if (settings.commonSettings(strName).autoConnect())
             {
-               const QString strName = settings.connection(i);
-               if (settings.commonSettings(strName).autoConnect())
-               {
-                  fDone = true;
-                  vpnConnect(strName);
-               }
+               fDone = true;
+               emit autoConnect(strName);
             }
          }
       }
-      else
-         m_fRoutePriorityIsChanging = false;
    }
-   else
-      m_fRoutePriorityIsChanging = true;
 
 //   qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << ", " << iPriority << ") -> finished";
 }
@@ -535,16 +533,13 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
 
    if (iPriority != 100)
    {
-      if (!m_fRoutePriorityIsChanging)
+      if (interface.isDefaultGateway() && interface.hasDefaultGateway())
       {
-         if (m_pState && m_pState->isState(ConnectionState::Connected) && interface.isDefaultGateway() && interface.hasDefaultGateway())
-            vpnDisconnect();
+          enableAllConnections(false);
+          if (m_pState && m_pState->isState(ConnectionState::Connected))
+             vpnDisconnect();
       }
-      else
-         m_fRoutePriorityIsChanging = false;
    }
-   else
-      m_fRoutePriorityIsChanging = true;
 
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ") -> finished";
 }
@@ -553,7 +548,7 @@ void ConnectionManager::onAddressAdded(NetworkInterface interface)
 {
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ")";
 
-   if (m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error))
+   if (m_pState->isState(ConnectionState::Connecting))
    {
       const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())

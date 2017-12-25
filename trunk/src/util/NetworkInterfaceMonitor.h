@@ -50,7 +50,7 @@ protected:
 signals:
    void routeAdded(NetworkInterface interface, unsigned int iPriority) const;
    void routeDeleted(NetworkInterface interface, unsigned int iPriority) const;
-   void ptpAddressAdded(NetworkInterface interface) const;
+   void addressAdded(NetworkInterface interface) const;
    void ptpInterfaceIsDeleted(NetworkInterface interface) const;
 
 private:
