@@ -57,7 +57,7 @@ bool NetworkInterface::hasDefaultGateway() const
    AddressEntries::const_iterator it(m_RouteEntries.begin());
 
    for (; !fRet && it != m_RouteEntries.end(); it++)
-      fRet = (*it).ip().toIPv4Address() == 0;// && !(*it).broadcast().isNull();
+      fRet = (*it).ip().toIPv4Address() == 0 && !(*it).broadcast().isNull();
 
    return(fRet);
 }

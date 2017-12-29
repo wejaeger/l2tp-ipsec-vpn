@@ -1,7 +1,48 @@
+l2tp-ipsec-vpn (1.0.13-1) unstable; urgency=low
+
+  * New upstream release
+    - fixed bug 2 VPN auto connects after internet is up
+    - fixed bug disconnect system tray menu entry enabled after connection
+      error
+    - fixed bug more than 1 ipsec PSK secrets entries causes the first PSK to be
+      used
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 29 Dec 2017 11:30:19 +0100
+
+l2tp-ipsec-vpn (1.0.12-1) unstable; urgency=low
+
+  * New upstream release
+    - fixed bug no auto connect when internet connection becomes available
+    - fixed bug tray icon context menu not updated when internet connection
+      becomes available
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Mon, 25 Dec 2017 11:26:31 +0100
+
+l2tp-ipsec-vpn (1.0.11-1) unstable; urgency=low
+
+  * New upstream release
+    - status connected now on NetworkInterfaceMonitor event onAddressAdded
+    - status disconnected now on NetworkInterfaceMonitor event
+      onPtpInterfaceIsDeleted
+    - fixed bug selecting private key in Connection Settings dialog -> PPP tab
+      -> Properties failed with error:
+      C_GetAttributeValue(data) failed: CKR_ATTRIBUTE_TYPE_INVALID
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Tue, 21 Jun 2017 10:00:13 +0200
+
+l2tp-ipsec-vpn (1.0.10-1) unstable; urgency=low
+
+  * New upstream release
+   - fixed bug disconnects even when a non default route entry is deleted
+   - fixed bug successful redial after error does not change status to connected
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Fri, 12 Sep 2016 07:00:32 +0200
+
+
 l2tp-ipsec-vpn (1.0.9-0ubuntu1~ppa1~precise1) precise; urgency=low
 
   * New upstream release
-    - fixed bug removes files that were installed by another package 
+    - fixed bug removes files that were installed by another package
       (Closes: #684962)
 
  -- Werner Jaeger <werner_jaeger@web.de>  Fri, 12 Oct 2012 06:00:13 +0200

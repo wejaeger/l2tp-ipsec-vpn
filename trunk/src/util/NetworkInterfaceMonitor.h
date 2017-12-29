@@ -60,6 +60,8 @@ private:
    void handleRoutingMessage(struct nlmsghdr* pNetLinkMessageHeader);
    void handleInterfaceInfoMessage(struct nlmsghdr* pNetLinkMessageHeader);
    void handleAddressMessage(struct nlmsghdr* pNetLinkMessageHeader);
+   static int getInterfaceFlagByIndex(const int iIndex);
+
 
 #ifndef QT_NO_DEBUG
    static void debugFlags(unsigned iFlags);

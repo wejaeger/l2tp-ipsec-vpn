@@ -1,11 +1,17 @@
+1.0.13
+ - fixed bug 2 VPN auto connects after internet is up
+ - fixed bug disconnect system tray menu entry enabled after connection error
+ - fixed bug more than 1 ipsec PSK secrets entries causes the first PSK to be
+   used
+
 1.0.12
  - fixed bug no auto connect when internet connection becomes available
- - fixed bug tray icon context menu not updated when internet connection 
+ - fixed bug tray icon context menu not updated when internet connection
    becomes available
- 
+
 1.0.11
  - status connected now on NetworkInterfaceMonitor event onAddressAdded
- - status disconnected now on NetworkInterfaceMonitor event 
+ - status disconnected now on NetworkInterfaceMonitor event
    onPtpInterfaceIsDeleted
  - fixed bug selecting private key in Connection Settings dialog -> PPP tab
    -> Properties failed with error:
