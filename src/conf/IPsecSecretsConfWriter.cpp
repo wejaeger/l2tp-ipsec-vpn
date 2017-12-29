@@ -81,7 +81,7 @@ void IPsecSecretsConfWriter::fill()
                   if (ipsecSetting.authBy() == AUTHBYRSASIG)
                      pConnection->SetValue(INDICES, QString("@" + strGateway).toAscii().constData());
                   else
-                     pConnection->SetValue(INDICES, QString(ANY + " @" + strGateway).toAscii().constData());
+                     pConnection->SetValue(INDICES, QString(ANY + " " + strGateway).toAscii().constData());
                }
             }
 

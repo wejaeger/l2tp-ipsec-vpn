@@ -187,7 +187,7 @@ void ConnectionManager::updateContextMenu(bool fStatusChanged)
    else if (m_pState->isState(ConnectionState::Connecting))
    {
       enableAllConnections(false);
-      action(DISC)->setEnabled(true);
+      action(DISC)->setEnabled(false);
    }
    else if (m_pState->isState(ConnectionState::Disconnecting))
    {
@@ -197,7 +197,7 @@ void ConnectionManager::updateContextMenu(bool fStatusChanged)
    else if (m_pState->isState(ConnectionState::Error))
    {
       enableAllConnections(NetworkInterface::defaultGateway().size() == 1);
-      action(DISC)->setEnabled(NetworkInterface::defaultGateway().size() == 1);
+      action(DISC)->setEnabled(false);
    }
    else
    {
@@ -253,7 +253,7 @@ void ConnectionManager::vpnConnect(const QString& strConnectionName)
          else
             QMessageBox::critical(NULL, qApp->applicationName(), QObject::tr("No smart card reader found."));
       }
-   }
+  }
 
 //   qDebug() << "ConnectionManager::vpnConnect(const QString&" << strConnectionName << ") -> finished";
 }
@@ -494,7 +494,7 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
 {
 //   qDebug() << "ConnectionManager::onRouteAdded(" << interface.name().c_str() << ", " << iPriority << ")";
 
-   if (iPriority != 100)
+   if (interface.isNull() || (!interface.isPtP() && iPriority != 100))
    {
       bool fHasDefaultGateway = false;
       if (!interface.isNull())
@@ -531,9 +531,9 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
 {
 //   qDebug() << "ConnectionManager::onRouteDeleted(" << interface.name().c_str() << ", " << iPriority << ")";
 
-   if (iPriority != 100)
+   if (!interface.isPtP() && iPriority != 100)
    {
-      if (interface.isDefaultGateway() && interface.hasDefaultGateway())
+      if (interface.isDefaultGateway() && (*interface.routeEntries().begin()).ip().toIPv4Address() == 0)
       {
           enableAllConnections(false);
           if (m_pState && m_pState->isState(ConnectionState::Connected))
@@ -548,7 +548,7 @@ void ConnectionManager::onAddressAdded(NetworkInterface interface)
 {
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ")";
 
-   if (m_pState->isState(ConnectionState::Connecting))
+   if (interface.isPtP() && m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error))
    {
       const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())
