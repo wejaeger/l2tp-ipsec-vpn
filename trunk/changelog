@@ -1,3 +1,7 @@
+1.1.0
+ - new feature you can now add ip addresses that should not be routed through
+   VPN tunnel
+
 1.0.13
  - fixed bug 2 VPN auto connects after internet is up
  - fixed bug disconnect system tray menu entry enabled after connection error

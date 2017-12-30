@@ -408,7 +408,7 @@ void ConnectionManager::onVpnTaskErrorMsg(int iErrorCode)
 
    char acBuf[1024];
 
-   const qint64 iLineLength = m_pVPNControlTask->readErrorLine(acBuf, sizeof(acBuf));
+   const qint64 iLineLength(m_pVPNControlTask->readErrorLine(acBuf, sizeof(acBuf)));
    if (iLineLength > 0)
    {
       m_pConnectionInformation->appendLogColorText(QColor(255, 0, 0), acBuf);
@@ -472,7 +472,7 @@ void ConnectionManager::onConnectionRemoved(const QString& strName)
 
    if (m_pTrayIconMenu && m_pActions)
    {
-      QAction* pAction = NULL;
+      QAction* pAction(NULL);
       for (int i = QUIT + 1; !pAction && i < m_pActions->size(); i++)
       {
          if (m_pActions->at(i)->text() == strName)
@@ -496,7 +496,7 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
 
    if (interface.isNull() || (!interface.isPtP() && iPriority != 100))
    {
-      bool fHasDefaultGateway = false;
+      bool fHasDefaultGateway(false);
       if (!interface.isNull())
         fHasDefaultGateway = interface.hasDefaultGateway();
       else
@@ -509,12 +509,12 @@ void ConnectionManager::onRouteAdded(NetworkInterface interface, unsigned int iP
          enableAllConnections(true);
 
          ConnectionSettings settings;
-         const int iConnections = settings.connections();
+         const int iConnections(settings.connections());
 
-         bool fDone = false;
+         bool fDone(false);
          for (int i = 0; !fDone && i < iConnections; i++)
          {
-            const QString strName = settings.connection(i);
+            const QString strName(settings.connection(i));
             if (settings.commonSettings(strName).autoConnect())
             {
                fDone = true;
@@ -535,9 +535,13 @@ void ConnectionManager::onRouteDeleted(NetworkInterface interface, unsigned int 
    {
       if (interface.isDefaultGateway() && (*interface.routeEntries().begin()).ip().toIPv4Address() == 0)
       {
-          enableAllConnections(false);
-          if (m_pState && m_pState->isState(ConnectionState::Connected))
-             vpnDisconnect();
+          const bool fHasDefGateway(NetworkInterface::defaultGateway().size() == 1);
+          if (!fHasDefGateway)
+          {
+             enableAllConnections(false);
+             if (m_pState && m_pState->isState(ConnectionState::Connected))
+                vpnDisconnect();
+          }
       }
    }
 
@@ -548,7 +552,7 @@ void ConnectionManager::onAddressAdded(NetworkInterface interface)
 {
 //   qDebug() << "ConnectionManager::onPtpInterfaceIsUpAnRunning(" << interface.name().c_str() << ")";
 
-   if (interface.isPtP() && m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error))
+   if (interface.isPtP() && (m_pState->isState(ConnectionState::Connecting) || m_pState->isState(ConnectionState::NotConnected) || m_pState->isState(ConnectionState::Error)))
    {
       const QString strConnectionName(ConnectionManager::connectionName(interface, 5));
       if (!strConnectionName.isNull())
@@ -651,7 +655,7 @@ ConnectionManager::ConnectionInfo ConnectionManager::connectionNameOfUpAndRunnin
 {
    QString strConnectionName;
 
-   NetworkInterface::InterfaceMap interfaces = NetworkInterface::pointToPointInterfaces();
+   NetworkInterface::InterfaceMap interfaces(NetworkInterface::pointToPointInterfaces());
 
    NetworkInterface::InterfaceMap::const_iterator itInterfaces = interfaces.begin();
    for (; strConnectionName.isNull() && itInterfaces != interfaces.end(); ++itInterfaces)

@@ -40,6 +40,8 @@ public:
 private slots:
    void addRoute() const;
    void removeRoute() const;
+   void addNoRoute() const;
+   void removeNoRoute() const;
    void onHelpRequested() const;
    void accept();
 
@@ -53,7 +55,9 @@ private:
    Ui::RouteSettingsDialog m_Widget;
 
    const QString m_strConnectionName;
-   PppRoutesModel* m_pRoutesModel;
+   PppRoutesModel* m_pPPPRoutesModel;
+   PppRoutesModel* m_pNoRoutesModel;
+
 };
 
 #endif	/* _ROUTESETTINGSDIALOG_H */

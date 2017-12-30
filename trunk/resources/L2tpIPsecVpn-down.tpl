@@ -39,9 +39,10 @@ fi
 
 case $PPP_IPPARAM in
 {{#CONN_SECTION}}  "{{IPPARAM}}" )
-    /sbin/route del -host {{GATEWAY}} gw ${DFLT_GWY} ${EXT_INTF}{{#DEFAULT_GATEWAY_SECTION}}
-    /sbin/route del -net 0.0.0.0 gw ${DFLT_GWY} metric 100 dev ${EXT_INTF}
-    /sbin/route add -net 0.0.0.0 gw ${DFLT_GWY} metric 0 dev ${EXT_INTF}{{/DEFAULT_GATEWAY_SECTION}}
+    /sbin/route del -host {{GATEWAY}} gw ${DFLT_GWY} ${EXT_INTF} || true{{#DEFAULT_GATEWAY_SECTION}}
+    /sbin/route del -net 0.0.0.0 gw ${DFLT_GWY} metric 100 dev ${EXT_INTF} || true
+    /sbin/route add -net 0.0.0.0 gw ${DFLT_GWY} metric 0 dev ${EXT_INTF}{{/DEFAULT_GATEWAY_SECTION}}{{#NOROUTE_SECTION}}
+    /sbin/route del -net {{IPADDRESS}} netmask {{IPNETMASK}} gw ${DFLT_GWY} dev ${EXT_INTF} || true {{/NOROUTE_SECTION}}
 	 ;;
 
 {{/CONN_SECTION}}

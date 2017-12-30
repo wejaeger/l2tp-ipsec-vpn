@@ -174,7 +174,7 @@
       <qt>
         <destdir>${CND_DISTDIR}/${CND_CONF}</destdir>
         <target>L2tpIPsecVpn</target>
-        <version>1.0.9</version>
+        <version>1.1.0</version>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
         <rccDir>src/generated</rccDir>
@@ -211,6 +211,24 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/l2tp-ipsec-vpn-1.0.9.tar</output>
         <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"
@@ -754,7 +772,7 @@
       <qt>
         <destdir>${CND_DISTDIR}/${CND_CONF}</destdir>
         <target>L2tpIPsecVpn</target>
-        <version>1.0.9</version>
+        <version>1.1.0</version>
         <buildMode>1</buildMode>
         <modules>core gui network</modules>
         <mocDir>src/generated</mocDir>
@@ -792,6 +810,24 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/l2tp-ipsec-vpn-1.0.9.tar</output>
         <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"
