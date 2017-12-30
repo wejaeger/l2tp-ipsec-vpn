@@ -1,3 +1,11 @@
+l2tp-ipsec-vpn (1.1.ß-1) unstable; urgency=low
+
+  * New upstream release
+    - new feature you can now add ip addresses that should not be routed through
+      VPN tunnel
+
+ -- Werner Jaeger <werner_jaeger@web.de>  Sat, 30 Dec 2017 15:02:32 +0100
+
 l2tp-ipsec-vpn (1.0.13-1) unstable; urgency=low
 
   * New upstream release

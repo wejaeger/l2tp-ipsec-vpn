@@ -33,7 +33,7 @@ class PppRoutesModel : public QAbstractTableModel
    Q_OBJECT
 
 public:
-   explicit PppRoutesModel(const QString& strConnectionName, QObject* pParent = 0);
+   explicit PppRoutesModel(const QString& strConnectionName, const bool fIsPPPRoute, QObject* pParent = 0);
    virtual ~PppRoutesModel();
 
    int rowCount(const QModelIndex& parent = QModelIndex()) const;
@@ -49,6 +49,7 @@ private:
    PppRoutesModel(const PppRoutesModel& orig);
    PppRoutesModel& operator=(const PppRoutesModel& orig);
 
+   const bool m_fIsPPPRoute;
    const PppIpSettings m_PppIpSettings;
 };
 
